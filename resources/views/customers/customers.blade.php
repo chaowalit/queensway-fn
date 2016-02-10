@@ -47,12 +47,12 @@
                 </small>
             </h1>
         </div><!-- /.page-header -->
-
+        <?php echo csrf_field(); ?>
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-xs-12" id="show_list_customers">
                         <table id="simple-table" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -253,4 +253,5 @@
         </div><!-- /.row -->
     </div><!-- /.page-content -->
 </div>
+
 @endsection

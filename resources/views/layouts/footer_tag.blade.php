@@ -37,6 +37,9 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 <script src="{{ asset('assets/js/ace-elements.min.js') }}"></script>
 <script src="{{ asset('assets/js/ace.min.js') }}"></script>
 
+<!-- qwc for css/js -->
+<script src="{{ asset('qwc/js/customers_l1.js') }}"></script>
+
 @elseif($menu_nav == 'customers' && $menu_level == 2)
 
 <!-- basic scripts -->

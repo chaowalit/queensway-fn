@@ -32,4 +32,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/customers', 'CustomersController@index');
     Route::get('/create_customer', 'CustomersController@create_customer');
     Route::post('/save_customer', 'CustomersController@save_customer');
+    Route::post('/customers/get_customers', 'CustomersController@get_customers');
 });

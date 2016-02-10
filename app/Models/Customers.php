@@ -27,4 +27,13 @@ class Customers extends Model
     protected $casts = [
         'id' => 'string',
     ];
+
+    public function count_customers(){
+
+        return \DB::table($this->table)->count();
+    }
+
+    public function get_list_customers($offset, $limit){
+        return \DB::table($this->table)->orderBy('updated_at', 'desc')->skip($offset)->take($limit)->get();
+    }
 }

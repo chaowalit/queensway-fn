@@ -9,14 +9,17 @@ use App\Models\Customers;
 
 class CustomersController extends QwcController
 {
+    public $customers;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Customers $customers)
     {
         $this->middleware('auth');
+
+        $this->customers = $customers;
     }
 
     /**
@@ -25,17 +28,23 @@ class CustomersController extends QwcController
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $total_page = Customers::where('deleted_at', '<>', NULL)->count();
-        dd($total_page);
+        $total_page = $this->customers->count_customers();
+        $total_page = ceil($total_page);
         $data = array(
-            //'total_page' => count($total_page),
+            'total_page' => $total_page,
         );
         $this->render_view('customers/customers', $data, 'customers', 1);
     }
 
     public function get_customers(Request $request){
         $limit = $request->input('limit', 15);
+        $current_page = $request->input('current_page', 1);
 
+        $customers = $this->customers->get_list_customers(_pagination_($current_page, $limit)['offset'], _pagination_($current_page, $limit)['limit']);
+        $data = array(
+            'customers' => $customers,
+        );
+        echo view('customers/list_customers', $data);
     }
 
     public function create_customer(){

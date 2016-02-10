@@ -120,4 +120,12 @@ if (!function_exists('uploads_image')) {
 	}
 }
 
+if (!function_exists('_pagination_')) {
+	function _pagination_($page_current = 1, $limit = 2, $total_page = 1) {
+		$offset = ($page_current * $limit) - $limit;
+
+		return array("offset" => $offset, "limit" => $limit);
+	}
+}
+
 ?>

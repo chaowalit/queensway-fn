@@ -53,60 +53,9 @@
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row">
                     <div class="col-xs-12" id="show_list_customers">
-                        <table id="simple-table" class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="">
-                                        รหัสลูกค้า
-                                    </th>
-                                    <th>ชื่อ-นามสกุล</th>
-                                    <th>เลขบัตร ปปช.</th>
-                                    <th class="hidden-480">โทรศัพท์</th>
 
-                                    <th>
-                                        <!--<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>-->
-                                        Email
-                                    </th>
+                        <!-- load data ajax -->
 
-                                    <th></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td class="">
-                                        
-                                    </td>
-
-                                    <td>
-                                        <a href="#">ace.com</a>
-                                    </td>
-                                    <td>$45</td>
-                                    <td class="hidden-480">3,330</td>
-                                    <td>Feb 12</td>
-                                    <!--
-                                    <td class="hidden-480">
-                                        <span class="label label-sm label-warning">Expiring</span>
-                                    </td>
-                                    -->
-                                    <td>
-                                        <div class="hidden-sm hidden-xs btn-group">
-                                            <button class="btn btn-xs btn-success">
-                                                <i class="ace-icon fa fa-search bigger-120"></i>
-                                            </button>
-
-                                            <button class="btn btn-xs btn-info">
-                                                <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                            </button>
-
-                                            <button class="btn btn-xs btn-danger">
-                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div><!-- /.span -->
                     <div class="col-xs-12">
                         <nav class="pull-right">

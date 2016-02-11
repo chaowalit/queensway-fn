@@ -55,149 +55,46 @@
                     <div class="col-xs-12" id="show_list_customers">
 
                         <!-- load data ajax -->
+                        <div class="col-xs-12" style="text-align: center;">
+                            <h3 class="smaller lighter grey">
+                                <i class="ace-icon fa fa-spinner fa-spin orange bigger-125"></i>
+                                  Loading...
+                            </h3>
+                        </div>
 
                     </div><!-- /.span -->
                     <div class="col-xs-12">
                         <nav class="pull-right">
                           <ul class="pagination" style="margin: 0px 0;">
                             <li>
-                              <a href="#" aria-label="Previous">
+                              <a href="#" aria-label="Previous" onclick="prev_pagination()">
                                 <span aria-hidden="true"> << ก่อนหน้า</span>
                               </a>
                             </li>
-                            <li><a href="#"> <b>1</b> </a></li>
+                            <li><a href="#"> <b id="current_page">1</b> </a></li>
                             <li><a href="#" style="padding: 6px 6px;">จาก</a></li>
-                            <li><a href="#"> <b>3</b> </a></li>
+                            <li><a href="#"> <b id="total_page">{{ $view_data['total_page'] }}</b> </a></li>
                             <li>
-                              <a href="#" aria-label="Next">
+                              <a href="#" aria-label="Next" onclick="next_pagination()">
                                 <span aria-hidden="true">ถัดไป >> </span>
                               </a>
                             </li>
                           </ul>
                         </nav>
+                        <input type="hidden" id="limit" value="{{ $view_data['limit'] }}">
                     </div><!-- /.span -->
                 </div><!-- /.row -->
-
+                                            
                 <div class="hr hr-18 dotted hr-double"></div>
-
+                <!--
                 <h4 class="pink">
                     <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
                     <a href="#modal-table" role="button" class="green" data-toggle="modal"> Table Inside a Modal Box </a>
                 </h4>
 
                 <div class="hr hr-18 dotted hr-double"></div>
-
-                <div id="modal-table" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header no-padding">
-                                <div class="table-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        <span class="white">×</span>
-                                    </button>
-                                    Results for "Latest Registered Domains
-                                </div>
-                            </div>
-
-                            <div class="modal-body no-padding">
-                                <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-                                    <thead>
-                                        <tr>
-                                            <th>Domain</th>
-                                            <th>Price</th>
-                                            <th>Clicks</th>
-
-                                            <th>
-                                                <i class="ace-icon fa fa-clock-o bigger-110"></i>
-                                                Update
-                                            </th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="#">ace.com</a>
-                                            </td>
-                                            <td>$45</td>
-                                            <td>3,330</td>
-                                            <td>Feb 12</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <a href="#">base.com</a>
-                                            </td>
-                                            <td>$35</td>
-                                            <td>2,595</td>
-                                            <td>Feb 18</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <a href="#">max.com</a>
-                                            </td>
-                                            <td>$60</td>
-                                            <td>4,400</td>
-                                            <td>Mar 11</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <a href="#">best.com</a>
-                                            </td>
-                                            <td>$75</td>
-                                            <td>6,500</td>
-                                            <td>Apr 03</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <a href="#">pro.com</a>
-                                            </td>
-                                            <td>$55</td>
-                                            <td>4,250</td>
-                                            <td>Jan 21</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="modal-footer no-margin-top">
-                                <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
-                                    <i class="ace-icon fa fa-times"></i>
-                                    Close
-                                </button>
-
-                                <ul class="pagination pull-right no-margin">
-                                    <li class="prev disabled">
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-angle-double-left"></i>
-                                        </a>
-                                    </li>
-
-                                    <li class="active">
-                                        <a href="#">1</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">2</a>
-                                    </li>
-
-                                    <li>
-                                        <a href="#">3</a>
-                                    </li>
-
-                                    <li class="next">
-                                        <a href="#">
-                                            <i class="ace-icon fa fa-angle-double-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- PAGE CONTENT ENDS -->
+                -->
+                
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.page-content -->

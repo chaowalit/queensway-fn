@@ -28,10 +28,12 @@ class CustomersController extends QwcController
      * @return \Illuminate\Http\Response
      */
     public function index(){
+        $limit = 15;
         $total_page = $this->customers->count_customers();
-        $total_page = ceil($total_page);
+        $total_page = ceil($total_page / $limit);
         $data = array(
             'total_page' => $total_page,
+            'limit' => $limit,
         );
         $this->render_view('customers/customers', $data, 'customers', 1);
     }

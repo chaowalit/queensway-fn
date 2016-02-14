@@ -2,7 +2,7 @@
 $(document).ready(function(){
     load_customers_list_table('1');
     
-
+    
 });
 
 function next_pagination(){
@@ -53,3 +53,4 @@ function load_customers_list_table(current_page){
     });
 
 }
+

@@ -56,6 +56,18 @@ class CustomersController extends QwcController
         $this->render_view('customers/form_customers', $data, 'customers', 2);
     }
 
+    public function edit_customers($id){
+        //echo $id;
+        $customer = $this->customers->data_edit_customer($id);
+        //dd((array)$customer);
+        $customers = (array)$customer;
+        $data = array(
+            'customers' => $customers,
+            'customers_id' => $customers['id'],
+        );
+        $this->render_view('customers/form_edit_customers', $data, 'customers', 'form-chanel');
+    }
+
     public function save_customer(Request $request){
         
         $validator = \Validator::make($request->all(), [
@@ -70,12 +82,47 @@ class CustomersController extends QwcController
             'birthday' => '',
             'intolerance_history' => '',
         ]);
+        if($request->input('customers_id', NULL)){
+            $validator = \Validator::make($request->all(), [
+                'customer_number' => 'required',
+                'prefix' => '',
+                'full_name' => 'required',
+                'thai_id' => 'required|numeric',
+                'address' => '',
+                'nickname' => '',
+                'tel' => 'required',
+                'email' => 'email',
+                'birthday' => '',
+                'intolerance_history' => '',
+            ]);
 
-        if ($validator->fails()) {
-            return redirect('create_customer')
+            $customers_id = $request->input('customers_id', NULL);
+            if($validator->fails()){
+                return redirect('customers/edit_customers/'.$customers_id)
                         ->withErrors($validator)
                         ->withInput();
+            }
+        }else{
+            $validator = \Validator::make($request->all(), [
+                'customer_number' => 'required|unique:customers',
+                'prefix' => '',
+                'full_name' => 'required',
+                'thai_id' => 'required|numeric|unique:customers',
+                'address' => '',
+                'nickname' => '',
+                'tel' => 'required',
+                'email' => 'email',
+                'birthday' => '',
+                'intolerance_history' => '',
+            ]);
+
+            if($validator->fails()){
+                return redirect('create_customer')
+                        ->withErrors($validator)
+                        ->withInput();
+            }
         }
+
         $data = array(
             'customer_number' => $request->input('customer_number', ''),
             'prefix' => $request->input('prefix', ''),
@@ -88,9 +135,31 @@ class CustomersController extends QwcController
             'birthday' => $request->input('birthday', ''),
             'intolerance_history' => $request->input('intolerance_history', ''),
         );
-        $customer = Customers::create($data);
-        //dd($customer);
-        $request->session()->flash('status', 'success');
-        return redirect('create_customer');
+
+        if($request->input('customers_id', NULL)){
+            $customers_id = $request->input('customers_id', NULL);
+            $this->customers->save_edit_customer($customers_id, $data);
+            $request->session()->flash('status', 'success');
+            
+            return redirect('customers/edit_customers/'.$customers_id);
+        }else{
+            $customer = Customers::create($data);
+        
+            $request->session()->flash('status', 'success');
+            return redirect('create_customer');
+        }
+        
+    }
+
+    public function del_customers(Request $request){
+        try {
+            $id = $request->input('id', '');
+            Customers::where('id', $id)->delete();
+
+            return "200";
+        } catch (Exception $e) {
+            return "error";
+        }
+        
     }
 }

@@ -41,13 +41,26 @@
                         <i class="ace-icon fa fa-search bigger-120"></i>
                     </a>
 
-                    <button class="btn btn-xs btn-info">
+                    <a href="{{ url('/customers/edit_customers') }}/<?php echo $val->id; ?>" class="btn btn-xs btn-info">
                         <i class="ace-icon fa fa-pencil bigger-120"></i>
-                    </button>
+                    </a>
 
-                    <button class="btn btn-xs btn-danger">
+                    <a href="#" class="btn btn-xs btn-danger" onclick="btn_del_customer({{ $val->id }})">
                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                    </button>
+                    </a>
+                    <div id="dialog-confirm-{{ $val->id }}" class="hide">
+                        <div class="alert alert-info bigger-110">
+                            กรุณาตรวจสอบความถูกต้อง ก่อนลบข้อมูลลูกค้านี้
+                        </div>
+
+                        <div class="space-6"></div>
+
+                        <p class="bigger-110 bolder center grey">
+                            <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+                            คุณแน่ใจหรือไม่ ที่จะลบข้อมูล {{ $val->full_name }} ?
+                        </p>
+                    </div><!-- #dialog-confirm -->
+
                 </div>
             </td>
         </tr>
@@ -64,13 +77,14 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span class="white">×</span>
                     </button>
-                    Results for "Latest Registered Domains
+                    รายละเอียดข้อมูล "ลูกค้า" ที่เลือก
                 </div>
             </div>
 
             <div class="modal-body no-padding">
                 <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
                     <thead>
+                        <!--
                         <tr>
                             <th>Domain</th>
                             <th>Price</th>
@@ -81,52 +95,90 @@
                                 Update
                             </th>
                         </tr>
+                        -->
                     </thead>
 
                     <tbody>
                         <tr>
-                            <td>
-                                <a href="#">ace.com</a>
+                            <td style="width:18%;">
+                                <a href="#">รหัสลูกค้า</a>
                             </td>
-                            <td>$45</td>
-                            <td>3,330</td>
-                            <td>Feb 12</td>
+                            <td>{{ $val->customer_number }}</td>
+                            
                         </tr>
 
                         <tr>
                             <td>
-                                <a href="#">base.com</a>
+                                <a href="#">ชื่อ-นามสกุล</a>
                             </td>
-                            <td>$35</td>
-                            <td>2,595</td>
-                            <td>Feb 18</td>
+                            <td>{{ $val->prefix }} {{ $val->full_name }}</td>
+                            
                         </tr>
 
                         <tr>
                             <td>
-                                <a href="#">max.com</a>
+                                <a href="#">รหัสบัตร ปปช.</a>
                             </td>
-                            <td>$60</td>
-                            <td>4,400</td>
-                            <td>Mar 11</td>
+                            <td>{{ $val->thai_id }}</td>
+                            
                         </tr>
 
                         <tr>
                             <td>
-                                <a href="#">best.com</a>
+                                <a href="#">ที่อยู่</a>
                             </td>
-                            <td>$75</td>
-                            <td>6,500</td>
-                            <td>Apr 03</td>
+                            <td>{{ $val->address }}</td>
+                            
                         </tr>
 
                         <tr>
                             <td>
-                                <a href="#">pro.com</a>
+                                <a href="#">ช่ือเล่น</a>
                             </td>
-                            <td>$55</td>
-                            <td>4,250</td>
-                            <td>Jan 21</td>
+                            <td>{{ $val->nickname }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#">โทรศัพท์</a>
+                            </td>
+                            <td>{{ $val->tel }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#">Email</a>
+                            </td>
+                            <td>{{ $val->email }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#">วันเกิด</a>
+                            </td>
+                            <td>{{ $val->birthday }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#">ประวัติการแพ้ยา</a>
+                            </td>
+                            <td>{{ $val->intolerance_history }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#">วันที่สมัครสมาชิก</a>
+                            </td>
+                            <td>{{ date("d-m-Y H:i:s", strtotime($val->created_at)) }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#">วันที่มีการอัพเดตล่าสุด</a>
+                            </td>
+                            <td>{{ date("d-m-Y H:i:s", strtotime($val->updated_at)) }}</td>
+                            
                         </tr>
                     </tbody>
                 </table>
@@ -135,9 +187,9 @@
             <div class="modal-footer no-margin-top">
                 <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
                     <i class="ace-icon fa fa-times"></i>
-                    Close
+                    ปิด
                 </button>
-
+                <!--
                 <ul class="pagination pull-right no-margin">
                     <li class="prev disabled">
                         <a href="#">
@@ -163,8 +215,83 @@
                         </a>
                     </li>
                 </ul>
+                -->
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- PAGE CONTENT ENDS -->
 @endforeach
+
+
+<style type="text/css">
+    @media (min-width: 768px){
+        .modal-dialog {
+            width: 1000px;
+            margin: 30px auto;
+        }
+    }
+</style>
+<script type="text/javascript">
+    function btn_del_customer(id){
+
+        $( "#dialog-confirm-"+id ).removeClass('hide').dialog({
+            resizable: false,
+            width: '350',
+            modal: true,
+            title: "",
+            title_html: true,
+            buttons: [
+                {
+                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; ลบลูกค้า",
+                    "class" : "btn btn-danger btn-minier",
+                    click: function() {
+                        require_del_customer(id);
+                        
+                        $( this ).dialog( "close" );
+                    }
+                }
+                ,
+                {
+                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; ยกเลิก",
+                    "class" : "btn btn-minier",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ]
+        });
+
+        $(".ui-dialog-title").each(function(){
+            $(this).html("<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> แจ้งเตือน</h4></div>");
+        });
+    }
+
+    function require_del_customer(id){
+        var current_page = parseInt($("#current_page").text());
+        $.ajax({
+            url:'customers/del_customers',
+            data: {'id': id, '_token': $( "input[name='_token']" ).val()},
+            dataType: 'html',
+            
+            type: 'POST',
+            
+            success: function(response){
+                if($.trim(response) == 'error'){
+                    alert('An error occurred... Refresh System in 3 seconds');
+                    window.setTimeout('location.reload()', 3000); //Reloads after three seconds
+                }else{
+                    load_customers_list_table(current_page);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+                
+                window.setTimeout('location.reload()', 2000); //Reloads after three seconds
+            }
+        });
+    }
+
+    jQuery(function($) {
+        
+    });
+</script>

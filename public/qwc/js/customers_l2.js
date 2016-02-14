@@ -271,10 +271,17 @@ jQuery(function($) {
 
 	//datepicker plugin
 	//link
+	var d = new Date();
+    var toDay = (d.getFullYear()) + '-'
+            + (d.getMonth() + 1) + '-'
+            + d.getDate();
 	$('.date-picker').datepicker({
 		autoclose: true,
-		todayHighlight: true
+		todayHighlight: true,
+		
 	})
+
+	
 	//show datepicker when clicking on the icon
 	.next().on(ace.click_event, function(){
 		$(this).prev().focus();

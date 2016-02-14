@@ -30,7 +30,7 @@
                 </button>
 
                 <div class="navbar-header pull-left">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="{{ url('/customers') }}" class="navbar-brand">
                         <small>
                             <i class="fa fa-leaf"></i>
                             EP - Queensway
@@ -43,7 +43,7 @@
 
                         <li class="light-blue">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                <img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+                                <img class="nav-user-photo" src="{{ asset('assets/avatars/user.jpg') }}" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>ยินดีต้อนรับ,</small>
                                     คุณ <?php echo Auth::user()->first_name; ?>
@@ -134,7 +134,7 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <li class="<?php echo ($menu_level == '1')? "active":" "; ?>">
+                            <li class="<?php echo ($menu_nav == 'customers' && $menu_level == '1')? "active":" "; ?>">
                                 <a href="{{ url('customers') }}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     แสดงข้อมูลลูกค้าทั้งหมด
@@ -143,10 +143,40 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="<?php echo ($menu_level == '2')? "active":" "; ?>">
+                            <li class="<?php echo ($menu_nav == 'customers' && $menu_level == '2')? "active":" "; ?>">
                                 <a href="{{ url('create_customer') }}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     เพิ่มข้อมูลลูกค้า
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="<?php echo ($menu_nav == 'mng-course')? "active open":" "; ?>">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-tachometer"></i>
+                            <span class="menu-text"> จัดการข้อมูลคอร์ส </span>
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+
+                        <b class="arrow"></b>
+
+                        <ul class="submenu">
+                            <li class="<?php echo ($menu_nav == 'mng-course' && $menu_level == '1')? "active":" "; ?>">
+                                <a href="{{ url('mng_course/show') }}">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    เพิ่ม/ลบ/แก้ไข รายการคอร์ส(item)
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+
+                            <li class="<?php echo ($menu_nav == 'mng-course' && $menu_level == '2')? "active":" "; ?>">
+                                <a href="#">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    ดูคอร์สที่เปิดขาย
                                 </a>
 
                                 <b class="arrow"></b>

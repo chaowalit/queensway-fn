@@ -70,18 +70,18 @@ class CustomersController extends QwcController
 
     public function save_customer(Request $request){
         
-        $validator = \Validator::make($request->all(), [
-            'customer_number' => 'required|unique:customers',
-            'prefix' => '',
-            'full_name' => 'required',
-            'thai_id' => 'required|numeric|unique:customers',
-            'address' => '',
-            'nickname' => '',
-            'tel' => 'required',
-            'email' => 'email',
-            'birthday' => '',
-            'intolerance_history' => '',
-        ]);
+        // $validator = \Validator::make($request->all(), [
+        //     'customer_number' => 'required|unique:customers',
+        //     'prefix' => '',
+        //     'full_name' => 'required',
+        //     'thai_id' => 'required|numeric|unique:customers',
+        //     'address' => '',
+        //     'nickname' => '',
+        //     'tel' => 'required',
+        //     'email' => 'email',
+        //     'birthday' => '',
+        //     'intolerance_history' => '',
+        // ]);
         if($request->input('customers_id', NULL)){
             $validator = \Validator::make($request->all(), [
                 'customer_number' => 'required',

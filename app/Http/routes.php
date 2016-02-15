@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 /*
@@ -39,4 +39,6 @@ Route::group(['middleware' => 'web'], function () {
 
     //---------- Mng Course Controller --------- //
     Route::get('/mng_course/show', 'MngCourseController@index');
+    Route::get('/mng_course/create_item', 'MngCourseController@create_item');
+    Route::post('/mng_course/save_mng_course', 'MngCourseController@save_mng_course');
 });

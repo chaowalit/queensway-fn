@@ -8,8 +8,8 @@ jQuery(function($) {
 	.dataTable( {
 		bAutoWidth: false,
 		"aoColumns": [
-		  { "bSortable": false },
-		  null, null,null, null, null,
+		  { "bSortable": true },
+		  null, null,null, null,
 		  { "bSortable": false }
 		],
 		"aaSorting": [],
@@ -56,32 +56,32 @@ jQuery(function($) {
 
 		"sSelectedClass": "success",
         "aButtons": [
-			{
-				"sExtends": "copy",
-				"sToolTip": "Copy to clipboard",
-				"sButtonClass": "btn btn-white btn-primary btn-bold",
-				"sButtonText": "<i class='fa fa-copy bigger-110 pink'></i>",
-				"fnComplete": function() {
-					this.fnInfo( '<h3 class="no-margin-top smaller">Table copied</h3>\
-						<p>Copied '+(oTable1.fnSettings().fnRecordsTotal())+' row(s) to the clipboard.</p>',
-						1500
-					);
-				}
-			},
+			// {
+			// 	"sExtends": "copy",
+			// 	"sToolTip": "Copy to clipboard",
+			// 	"sButtonClass": "btn btn-white btn-primary btn-bold",
+			// 	"sButtonText": "<i class='fa fa-copy bigger-110 pink'></i>",
+			// 	"fnComplete": function() {
+			// 		this.fnInfo( '<h3 class="no-margin-top smaller">Table copied</h3>\
+			// 			<p>Copied '+(oTable1.fnSettings().fnRecordsTotal())+' row(s) to the clipboard.</p>',
+			// 			1500
+			// 		);
+			// 	}
+			// },
 			
-			{
-				"sExtends": "csv",
-				"sToolTip": "Export to CSV",
-				"sButtonClass": "btn btn-white btn-primary  btn-bold",
-				"sButtonText": "<i class='fa fa-file-excel-o bigger-110 green'></i>"
-			},
+			// {
+			// 	"sExtends": "csv",
+			// 	"sToolTip": "Export to CSV",
+			// 	"sButtonClass": "btn btn-white btn-primary  btn-bold",
+			// 	"sButtonText": "<i class='fa fa-file-excel-o bigger-110 green'></i>"
+			// },
 			
-			{
-				"sExtends": "pdf",
-				"sToolTip": "Export to PDF",
-				"sButtonClass": "btn btn-white btn-primary  btn-bold",
-				"sButtonText": "<i class='fa fa-file-pdf-o bigger-110 red'></i>"
-			},
+			// {
+			// 	"sExtends": "pdf",
+			// 	"sToolTip": "Export to PDF",
+			// 	"sButtonClass": "btn btn-white btn-primary  btn-bold",
+			// 	"sButtonText": "<i class='fa fa-file-pdf-o bigger-110 red'></i>"
+			// },
 			
 			{
 				"sExtends": "print",
@@ -118,7 +118,7 @@ jQuery(function($) {
 	//ColVis extension
 	var colvis = new $.fn.dataTable.ColVis( oTable1, {
 		"buttonText": "<i class='fa fa-search'></i>",
-		"aiExclude": [0, 6],
+		"aiExclude": [0, 5],
 		"bShowAll": true,
 		//"bRestore": true,
 		"sAlign": "right",

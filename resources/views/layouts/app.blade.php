@@ -154,7 +154,7 @@
                         </ul>
                     </li>
 
-                    <li class="<?php echo ($menu_nav == 'mng-course')? "active open":" "; ?>">
+                    <li class="<?php echo ($menu_nav == 'mng_course')? "active open":" "; ?>">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-tachometer"></i>
                             <span class="menu-text"> จัดการข้อมูลคอร์ส </span>
@@ -164,7 +164,7 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <li class="<?php echo ($menu_nav == 'mng-course' && $menu_level == '1')? "active":" "; ?>">
+                            <li class="<?php echo ($menu_nav == 'mng_course' && $menu_level == '1')? "active":" "; ?>">
                                 <a href="{{ url('mng_course/show') }}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     เพิ่ม/ลบ/แก้ไข รายการคอร์ส(item)
@@ -173,7 +173,7 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="<?php echo ($menu_nav == 'mng-course' && $menu_level == '2')? "active":" "; ?>">
+                            <li class="<?php echo ($menu_nav == 'mng_course' && $menu_level == '2')? "active":" "; ?>">
                                 <a href="#">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     ดูคอร์สที่เปิดขาย

@@ -156,4 +156,48 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 
 <!-- qwc for css/js -->
 <script src="{{ asset('qwc/js/customers_l2.js') }}"></script>
+
+@elseif($menu_nav == 'mng_course' && $menu_level == 1)
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+<script src="{{ asset('assets/js/jquery.2.1.1.min.js') }}"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="assets/js/jquery.1.11.1.min.js"></script>
+<![endif]-->
+
+<!--[if !IE]> -->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='{{ asset('assets/js/jquery.min.js') }}'>"+"<"+"/script>");
+</script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('assets/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
+</script>
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+
+<!-- page specific plugin scripts -->
+<script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/dataTables.tableTools.min.js') }}"></script>
+<script src="{{ asset('assets/js/dataTables.colVis.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+<!--<script src="{{ asset('assets/js/jquery.ui.touch-punch.min.js') }}"></script>-->
+
+<!-- ace scripts -->
+<script src="{{ asset('assets/js/ace-elements.min.js') }}"></script>
+<script src="{{ asset('assets/js/ace.min.js') }}"></script>
+
+<!-- qwc for css/js -->
+<script src="{{ asset('qwc/js/mng_course_l1.js') }}"></script>
 @endif

@@ -22,7 +22,10 @@ class MngCourseController extends QwcController
     }
 
     public function index(){
-    	
+    	$data = array(
+
+		);
+    	$this->render_view('mng_course/mng_item_course', $data, 'mng_course', 1);
     }
 }
 

@@ -49,19 +49,16 @@
 							<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										
+
 										<th class="">
 											สถานะ
 										</th>
-										
+										<th>ประเภทคอร์สหรือไอเทม</th>
 										<th>ชื่อคอร์สหรือไอเทม</th>
 										<th>ราคา/ครั้ง(บาท)</th>
-										
+
 										<th class="hidden-480">หมายเหตุ</th>
-										<th>
-											<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-											Update
-										</th>
+
 
 										<th></th>
 									</tr>
@@ -69,38 +66,48 @@
 
 								<tbody>
 									@foreach($view_data['item_of_course'] as $val)
-									<tr>
-										
+									<tr class="mng-row-{{ $val->item_of_course_id }}">
+
 										<td class="">
 											<span class="label label-sm label-{{ ($val->active == 1)? 'success':'danger' }} arrowed arrowed-righ">{{ ($val->active == 1)? 'Active':'Inactive' }}</span>
 										</td>
-										
+										<td>
+											<span class="label label-sm label-{{ (($val->item_of_course_id % 2) == 0)? 'pink':'info' }} arrowed-in arrowed-in-right">
+												<big>{{ $val->category_item_name }}</big>
+											</span>
+										</td>
 										<td>
 											<a href="#">{{ $val->item_name }}</a>
 										</td>
 										<td>{{ $val->price }}</td>
 										<td class="hidden-480">{{ $val->comment }}</td>
-										
-
-										<td class="hidden-480">
-											<span class="label label-sm label- arrowed arrowed-righ">
-											{{ date('d-m-Y H:i:s', strtotime($val->updated_at)) }}
-											</span>
-										</td>
 
 										<td>
 											<div class="hidden-sm hidden-xs action-buttons">
+												<!--
 												<a class="blue" href="#modal-table" role="button" data-toggle="modal">
 													<i class="ace-icon fa fa-search-plus bigger-130"></i>
 												</a>
-
+												-->
 												<a class="green" href="#">
 													<i class="ace-icon fa fa-pencil bigger-130"></i>
 												</a>
 
-												<a class="red" href="#">
+												<a class="red" href="#" onclick="del_item_of_course({{ $val->item_of_course_id }})">
 													<i class="ace-icon fa fa-trash-o bigger-130"></i>
 												</a>
+												<div id="dialog-confirm-{{ $val->item_of_course_id }}" class="hide">
+							                        <div class="alert alert-info bigger-110">
+							                            กรุณาตรวจสอบความถูกต้อง ก่อนลบข้อมูลนี้
+							                        </div>
+
+							                        <div class="space-6"></div>
+
+							                        <p class="bigger-110 bolder center grey">
+							                            <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+							                            คุณแน่ใจหรือไม่ ที่จะลบข้อมูล {{ $val->item_name }} ?
+							                        </p>
+							                    </div><!-- #dialog-confirm -->
 											</div>
 
 										</td>
@@ -227,5 +234,7 @@
 		</div><!-- /.row -->
 	</div><!-- /.page-content -->
 </div>
+<script type="text/javascript">
 
+</script>
 @endsection

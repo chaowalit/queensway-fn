@@ -10,21 +10,22 @@ use App\Models\ItemOfCourse;
 
 class MngCourseController extends QwcController
 {
-	public $customers;
+	public $item_of_course;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(Customers $customers)
+    public function __construct(ItemOfCourse $item_of_course)
     {
         $this->middleware('auth');
 
-        $this->customers = $customers;
+        $this->item_of_course = $item_of_course;
     }
 
     public function index(){
-        $item_of_course = ItemOfCourse::all();
+        $item_of_course = $this->item_of_course->getItemOfCourse();
+		//dd($item_of_course);
     	$data = array(
             'item_of_course' => $item_of_course,
 		);
@@ -62,7 +63,7 @@ class MngCourseController extends QwcController
         );
 
         $customer = ItemOfCourse::create($data);
-        
+
         $request->session()->flash('status', 'success');
         return redirect('mng_course/create_item');
     }

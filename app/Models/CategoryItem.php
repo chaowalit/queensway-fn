@@ -13,7 +13,7 @@ class CategoryItem extends Model
 
     protected $fillable = [
     	'category_item_name',
-        
+
     ];
 
     protected $casts = [
@@ -21,6 +21,15 @@ class CategoryItem extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+	public function getTableName(){
+		return $this->table;
+	}
+
+	public function ItemOfCourse()
+    {
+        return $this->hasMany('App\Models\ItemOfCourse', 'id', 'category_item_id');
+    }
 }
 
 ?>

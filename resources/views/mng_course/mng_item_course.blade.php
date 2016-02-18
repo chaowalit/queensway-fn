@@ -28,7 +28,7 @@
 			</form>
 		</div><!-- /.nav-search -->
 	</div>
-
+	<?php echo csrf_field(); ?>
 	<div class="page-content">
 
 				<div class="row">

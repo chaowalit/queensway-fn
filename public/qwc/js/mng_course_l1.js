@@ -230,8 +230,7 @@ jQuery(function($) {
 		var off2 = $source.offset();
 		//var w2 = $source.width();
 
-		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
-			'right';
+		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
 		return 'left';
 	}
 	//----------------------------------------------------------------------------------
@@ -253,9 +252,10 @@ function del_item_of_course(id) {
 			html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; ลบ",
 			"class": "btn btn-danger btn-minier",
 			click: function() {
-				//require_del_customer(id);
+				require_del_item_of_course(id);
 
 				$(this).dialog("close");
+				location.reload();
 			}
 		}, {
 			html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; ยกเลิก",
@@ -270,5 +270,34 @@ function del_item_of_course(id) {
 		$(this).html(
 			"<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> แจ้งเตือน</h4></div>"
 		);
+	});
+}
+
+function require_del_item_of_course(id) {
+	$.ajax({
+		url: 'mng_course/del_item_of_course',
+		data: {
+			'id': id,
+			'_token': $("input[name='_token']").val()
+		},
+		dataType: 'html',
+
+		type: 'POST',
+
+		success: function(response) {
+			if ($.trim(response) == 'error') {
+				alert('An error occurred... Refresh System in 3 seconds');
+				window.setTimeout('location.reload()', 3000); //Reloads after three seconds
+			} else {
+
+			}
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert(
+				'An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!'
+			);
+
+			window.setTimeout('location.reload()', 2000); //Reloads after three seconds
+		}
 	});
 }

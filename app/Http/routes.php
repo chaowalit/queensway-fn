@@ -41,4 +41,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/mng_course/show', 'MngCourseController@index');
     Route::get('/mng_course/create_item', 'MngCourseController@create_item');
     Route::post('/mng_course/save_mng_course', 'MngCourseController@save_mng_course');
+    Route::post('/mng_course/mng_course/del_item_of_course', 'MngCourseController@del_item_of_course');
 });

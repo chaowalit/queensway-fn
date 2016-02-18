@@ -67,6 +67,18 @@ class MngCourseController extends QwcController
         $request->session()->flash('status', 'success');
         return redirect('mng_course/create_item');
     }
+
+	public function del_item_of_course(Request $request){
+		$item_of_course_id = $request->input('id', NULL);
+		try {
+
+            ItemOfCourse::where('id', $item_of_course_id)->delete();
+
+            return "200";
+        } catch (Exception $e) {
+            return "error";
+        }
+	}
 }
 
 ?>

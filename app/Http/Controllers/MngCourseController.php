@@ -40,6 +40,17 @@ class MngCourseController extends QwcController
         $this->render_view('mng_course/form_create_item', $data, 'mng_course', 1);
     }
 
+	public function edit_item($id){
+		$category_item = CategoryItem::all();
+		$ItemOfCourse = ItemOfCourse::where('id', $id)->get()->toArray();
+		//dd($ItemOfCourse);
+		$data = array(
+			'category_item' => $category_item,
+			'item_of_course' => $ItemOfCourse,
+		);
+		$this->render_view('mng_course/form_edit_item', $data, 'mng_course', 1);
+	}
+
     public function save_mng_course(Request $request){
         $validator = \Validator::make($request->all(), [
             'category_item_id' => 'required',

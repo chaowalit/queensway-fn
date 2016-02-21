@@ -65,7 +65,7 @@
 								</thead>
 
 								<tbody>
-									@foreach($view_data['item_of_course'] as $val)
+									@foreach($view_data['item_of_course'] as $key => $val)
 									<tr class="mng-row-{{ $val->item_of_course_id }}">
 
 										<td class="">
@@ -89,7 +89,7 @@
 													<i class="ace-icon fa fa-search-plus bigger-130"></i>
 												</a>
 												-->
-												<a class="green" href="#">
+												<a class="green" href="{{ url('mng_course/edit_item') }}/<?php echo $val->item_of_course_id; ?>">
 													<i class="ace-icon fa fa-pencil bigger-130"></i>
 												</a>
 

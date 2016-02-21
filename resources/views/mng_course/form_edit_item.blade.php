@@ -96,7 +96,7 @@
 						<label class="col-sm-3 control-label no-padding-right" for="price">ราคาต่อครั้ง</label>
 
 						<div class="col-sm-9">
-							<input class="input-sm" type="text" name="price" id="price" placeholder="ราคาต่อครั้ง" value="{{ old('price', '') }}">
+							<input class="input-sm" type="text" name="price" id="price" placeholder="ราคาต่อครั้ง" value="{{ old('price', '')? old('price', '') : $view_data['item_of_course'][0]['price'] }}">
 
 						</div>
 					</div>
@@ -107,7 +107,7 @@
 						<label class="col-sm-3 control-label no-padding-right" for="comment"> หมายเหตุ </label>
 
 						<div class="col-sm-9">
-							<textarea class="col-xs-10 col-sm-8" name="comment" id="comment" placeholder="หมายเหตุ" rows="3">{{ old('comment', '') }}</textarea>
+							<textarea class="col-xs-10 col-sm-8" name="comment" id="comment" placeholder="หมายเหตุ" rows="3">{{ old('comment', '')? old('comment', '') : $view_data['item_of_course'][0]['comment'] }}</textarea>
 							<span class="help-inline col-xs-12 col-sm-7">
 
 							</span>
@@ -123,14 +123,14 @@
 							<!--<input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-5">-->
 							<div class="col-xs-6 col-sm-2" style="padding-left: 0px;">
 								<select class="form-control" id="active" name="active">
-									<option value="1" {{ (old('active', '') == '1')? 'selected':'' }}>Active</option>
-									<option value="0" {{ (old('active', '') == '0')? 'selected':'' }}>Inactive</option>
+									<option value="1" {{ ((old('active', '')? old('active', '') : $view_data['item_of_course'][0]['active'] ) == '1')? 'selected':'' }}>Active</option>
+									<option value="0" {{ ((old('active', '')? old('active', '') : $view_data['item_of_course'][0]['active']) == '0')? 'selected':'' }}>Inactive</option>
 
 								</select>
 							</div>
 						</div>
 					</div>
-
+					<input type="hidden" name="item_of_course_id" value="{{ $view_data['item_of_course'][0]['id'] }}">
 					{{ csrf_field() }}
 					<div class="clearfix form-actions">
 						<div class="col-md-offset-3 col-md-9">

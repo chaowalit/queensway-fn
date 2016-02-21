@@ -72,14 +72,14 @@
 											<span class="label label-sm label-{{ ($val->active == 1)? 'success':'danger' }} arrowed arrowed-righ">{{ ($val->active == 1)? 'Active':'Inactive' }}</span>
 										</td>
 										<td>
-											<span class="label label-sm label-{{ (($val->item_of_course_id % 2) == 0)? 'pink':'info' }} arrowed-in arrowed-in-right">
+											<span class="label label-sm label-{{ (($val->category_item_id % 2) == 0)? 'pink':'info' }} arrowed-in arrowed-in-right">
 												<big>{{ $val->category_item_name }}</big>
 											</span>
 										</td>
 										<td>
 											<a href="#">{{ $val->item_name }}</a>
 										</td>
-										<td>{{ $val->price }}</td>
+										<td>{{ number_format($val->price, 2) }}</td>
 										<td class="hidden-480">{{ $val->comment }}</td>
 
 										<td>

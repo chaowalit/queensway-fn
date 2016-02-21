@@ -58,14 +58,7 @@ class MngCourseController extends QwcController
             'price' => 'required',
         ]);
 
-        $item_of_course_id = $request->input('item_of_course_id', NULL);
-        if($validator->fails()){
-            return redirect('mng_course/create_item')
-                    ->withErrors($validator)
-                    ->withInput();
-        }
-
-        $data = array(
+		$data = array(
             'category_item_id' => $request->input('category_item_id', ''),
             'item_name' => $request->input('item_name', ''),
             'comment' => $request->input('comment', ''),
@@ -73,10 +66,29 @@ class MngCourseController extends QwcController
             'active' => $request->input('active', ''),
         );
 
-        $customer = ItemOfCourse::create($data);
+        $item_of_course_id = $request->input('item_of_course_id', NULL);
+		if($item_of_course_id){  // Edit data
+			if($validator->fails()){
+	            return redirect('mng_course/edit_item/'.$item_of_course_id)
+	                    ->withErrors($validator)
+	                    ->withInput();
+	        }
 
-        $request->session()->flash('status', 'success');
-        return redirect('mng_course/create_item');
+			ItemOfCourse::where('id', $item_of_course_id)->update($data);
+			$request->session()->flash('status', 'success');
+			return redirect('mng_course/edit_item/'.$item_of_course_id);
+		}else{
+			if($validator->fails()){
+	            return redirect('mng_course/create_item')
+	                    ->withErrors($validator)
+	                    ->withInput();
+	        }
+
+			$customer = ItemOfCourse::create($data);
+
+	        $request->session()->flash('status', 'success');
+	        return redirect('mng_course/create_item');
+		}
     }
 
 	public function del_item_of_course(Request $request){

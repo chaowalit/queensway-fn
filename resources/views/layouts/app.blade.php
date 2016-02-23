@@ -8,7 +8,7 @@
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-        
+
         @include('layouts/header_tag')
     </head>
 
@@ -174,7 +174,16 @@
                             </li>
 
                             <li class="<?php echo ($menu_nav == 'mng_course' && $menu_level == '2')? "active":" "; ?>">
-                                <a href="#">
+                                <a href="{{ url('sale_course/search_customer') }}">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    ซื้อคอร์สที่เปิดขาย
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+
+                            <li class="<?php echo ($menu_nav == 'mng_course' && $menu_level == '3')? "active":" "; ?>">
+                                <a href="{{ url('mng_course/doo_course') }}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     ดูคอร์สที่เปิดขาย
                                 </a>
@@ -687,7 +696,7 @@
                             <a href="#">
                                 {{ Auth::user()->branch_name }}
                             </a>
-                            
+
                             <a href="#">
                                 <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
                             </a>

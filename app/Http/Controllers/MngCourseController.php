@@ -102,6 +102,11 @@ class MngCourseController extends QwcController
             return "error";
         }
 	}
+
+	public function doo_course(){
+		$data = array();
+		$this->render_view('mng_course/doo_course_detail', $data, 'mng_course', 3);
+	}
 }
 
 ?>

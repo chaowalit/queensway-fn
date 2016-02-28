@@ -37,6 +37,28 @@ class SaleCourseController extends QwcController{
         );
         echo view('sale_course/list_search_customers', $data);
     }
+
+    public function form_sale_credit($id){
+        try {
+            $customers_id = (int)base64_decode($id);
+
+            if($customers_id == 0){
+                return redirect('sale_course/search_customer');
+            }
+            $data_customer = Customers::find($customers_id)->toArray();
+            //dd($data_customer);
+        } catch (Exception $e) {
+            return redirect('sale_course/search_customer');
+            exit;
+        }
+
+        $data = array(
+            'customers_id' => $customers_id,
+            'data_customer' => $data_customer,
+        );
+
+		$this->render_view('sale_course/form_sale_credit', $data, 'mng_course', 2);
+    }
 }
 
 ?>

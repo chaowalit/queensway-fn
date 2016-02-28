@@ -48,4 +48,5 @@ Route::group(['middleware' => 'web'], function () {
     //---------- Sale Course Controller --------- //
     Route::get('/sale_course/search_customer', 'SaleCourseController@index');
     Route::post('/sale_course/sale_course/search_customers', 'SaleCourseController@search_customers');
+    Route::get('/sale_course/form_sale_credit/{id}', 'SaleCourseController@form_sale_credit');
 });

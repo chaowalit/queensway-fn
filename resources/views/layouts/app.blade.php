@@ -56,17 +56,17 @@
                                 <li>
                                     <a href="#">
                                         <i class="ace-icon fa fa-cog"></i>
-                                        Settings
+                                        การตั้งค่าระบบ
                                     </a>
                                 </li>
-
+                                <!--
                                 <li>
                                     <a href="#">
                                         <i class="ace-icon fa fa-user"></i>
                                         Profile
                                     </a>
                                 </li>
-
+                                -->
                                 <li class="divider"></li>
 
                                 <li>
@@ -95,19 +95,19 @@
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                         <button class="btn btn-success">
-                            <i class="ace-icon fa fa-signal"></i>
+                            <!--<i class="ace-icon fa fa-signal"></i>-->&nbsp;
                         </button>
 
                         <button class="btn btn-info">
-                            <i class="ace-icon fa fa-pencil"></i>
+                            <!--<i class="ace-icon fa fa-pencil"></i>-->&nbsp;
                         </button>
 
                         <button class="btn btn-warning">
-                            <i class="ace-icon fa fa-users"></i>
+                            <!--<i class="ace-icon fa fa-users"></i>-->&nbsp;
                         </button>
 
                         <button class="btn btn-danger">
-                            <i class="ace-icon fa fa-cogs"></i>
+                            <!--<i class="ace-icon fa fa-cogs"></i>-->&nbsp;
                         </button>
                     </div>
 
@@ -156,7 +156,7 @@
 
                     <li class="<?php echo ($menu_nav == 'mng_course')? "active open":" "; ?>">
                         <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-tachometer"></i>
+                            <i class="menu-icon fa fa-info-circle"></i>
                             <span class="menu-text"> จัดการข้อมูลคอร์ส </span>
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
@@ -193,6 +193,46 @@
                         </ul>
                     </li>
 
+                    <li class="">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-eye"></i>
+                            <span class="menu-text"> จัดการคอร์สที่ซื้อ </span>
+
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+
+                        <b class="arrow"></b>
+
+                        <ul class="submenu">
+                            <li class="">
+                                <a href="tables.html">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    ตัดคอร์สที่ซื้อ
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+
+                            <li class="">
+                                <a href="jqgrid.html">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    ประวัติการตัดคอร์ส
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="">
+                        <a href="index.html">
+                            <i class="menu-icon fa fa-book"></i>
+                            <span class="menu-text"> รายงาน </span>
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <!--
                     <li class="">
                         <a href="index.html">
                             <i class="menu-icon fa fa-tachometer"></i>
@@ -661,6 +701,7 @@
                             </li>
                         </ul>
                     </li>
+                    -->
                 </ul><!-- /.nav-list -->
 
                 <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

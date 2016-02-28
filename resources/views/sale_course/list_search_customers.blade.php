@@ -37,7 +37,7 @@
             -->
             <td>
                 <div class="hidden-sm hidden-xs btn-group">
-                    <a href="#" class="btn btn-xs btn-success">
+                    <a href="{{ url('sale_course/form_sale_credit') }}/<?php echo base64_encode($val->id); ?>" class="btn btn-xs btn-success">
                         <i class="ace-icon fa fa-credit-card bigger-120"></i> แบบวงเงิน
                     </a>
 					&nbsp;

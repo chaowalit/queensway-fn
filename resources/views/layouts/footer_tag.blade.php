@@ -235,7 +235,22 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 <script src="{{ asset('assets/js/jquery.dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/dataTables.tableTools.min.js') }}"></script>
 <script src="{{ asset('assets/js/dataTables.colVis.min.js') }}"></script>
-<script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/jquery-ui.custom.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.ui.touch-punch.min.js') }}"></script>
+<script src="{{ asset('assets/js/chosen.jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/fuelux.spinner.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-timepicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/moment.min.js') }}"></script>
+<script src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-colorpicker.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.knob.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.autosize.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.inputlimiter.1.3.1.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-tag.min.js') }}"></script>
 <!--<script src="{{ asset('assets/js/jquery.ui.touch-punch.min.js') }}"></script>-->
 
 <!-- ace scripts -->

@@ -57,8 +57,8 @@
 										</th>
 										<th>ประเภทคอร์สหรือไอเทม</th>
 										<th>ชื่อคอร์สหรือไอเทม</th>
-										<th>ราคา/ครั้ง(บาท)</th>
-
+										<th>ราคา NPL ขั้นต่ำ(บาท)</th>
+										<th>ราคาวงเงิน</th>
 										<th class="hidden-480">หมายเหตุ</th>
 
 
@@ -82,6 +82,7 @@
 											<a href="#">{{ $val->item_name }}</a>
 										</td>
 										<td>{{ number_format($val->price, 2) }}</td>
+										<td>xxx</td>
 										<td class="hidden-480">{{ $val->comment }}</td>
 
 										<td>

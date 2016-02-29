@@ -135,7 +135,7 @@
 
 						<div class="col-sm-9">
 							<input class="input-sm" type="text" name="nickname" id="nickname" placeholder="ชื่อเล่น" value="{{ old('nickname') }}">
-							
+
 						</div>
 					</div>
 
@@ -186,7 +186,17 @@
 						<div class="col-sm-9">
 							<textarea class="col-xs-10 col-sm-8" name="intolerance_history" id="intolerance_history" placeholder="ประวัติการแพ้ยา" rows="3">{{ old('intolerance_history') }}</textarea>
 							<span class="help-inline col-xs-12 col-sm-7">
-								
+
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for=""> หมายเหตุ </label>
+
+						<div class="col-sm-9">
+							<textarea class="col-xs-10 col-sm-8" name="comment" id="comment" placeholder="หมายเหตุ" rows="3">{{ old('comment') }}</textarea>
+							<span class="help-inline col-xs-12 col-sm-7">
+
 							</span>
 						</div>
 					</div>
@@ -225,7 +235,7 @@
 
 						<div class="col-sm-9">
 							<div class="inline"><div class="tags"><span class="tag">Tag Input Control<button type="button" class="close">×</button></span><span class="tag">Programmatically Added<button type="button" class="close">×</button></span><input type="text" name="tags" id="form-field-tags" value="Tag Input Control" placeholder="Enter tags ..." style="display: none;"><input type="text" placeholder="Enter tags ..."></div>
-								
+
 							</div>
 						</div>
 					</div>
@@ -248,8 +258,8 @@
 
 				</form>
 
-				
-				
+
+
 			</div><!-- /.col -->
 		</div><!-- /.row -->
 	</div><!-- /.page-content -->

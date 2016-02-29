@@ -104,7 +104,7 @@
                                 <a href="#">รหัสลูกค้า</a>
                             </td>
                             <td>{{ $val->customer_number }}</td>
-                            
+
                         </tr>
 
                         <tr>
@@ -112,7 +112,7 @@
                                 <a href="#">ชื่อ-นามสกุล</a>
                             </td>
                             <td>{{ $val->prefix }} {{ $val->full_name }}</td>
-                            
+
                         </tr>
 
                         <tr>
@@ -120,7 +120,7 @@
                                 <a href="#">รหัสบัตร ปปช.</a>
                             </td>
                             <td>{{ $val->thai_id }}</td>
-                            
+
                         </tr>
 
                         <tr>
@@ -128,7 +128,7 @@
                                 <a href="#">ที่อยู่</a>
                             </td>
                             <td>{{ $val->address }}</td>
-                            
+
                         </tr>
 
                         <tr>
@@ -136,49 +136,56 @@
                                 <a href="#">ช่ือเล่น</a>
                             </td>
                             <td>{{ $val->nickname }}</td>
-                            
+
                         </tr>
                         <tr>
                             <td>
                                 <a href="#">โทรศัพท์</a>
                             </td>
                             <td>{{ $val->tel }}</td>
-                            
+
                         </tr>
                         <tr>
                             <td>
                                 <a href="#">Email</a>
                             </td>
                             <td>{{ $val->email }}</td>
-                            
+
                         </tr>
                         <tr>
                             <td>
                                 <a href="#">วันเกิด</a>
                             </td>
                             <td>{{ $val->birthday }}</td>
-                            
+
                         </tr>
                         <tr>
                             <td>
                                 <a href="#">ประวัติการแพ้ยา</a>
                             </td>
                             <td>{{ $val->intolerance_history }}</td>
-                            
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#">หมายเหตุ</a>
+                            </td>
+                            <td>{{ $val->comment }}</td>
+
                         </tr>
                         <tr>
                             <td>
                                 <a href="#">วันที่สมัครสมาชิก</a>
                             </td>
                             <td>{{ date("d-m-Y H:i:s", strtotime($val->created_at)) }}</td>
-                            
+
                         </tr>
                         <tr>
                             <td>
                                 <a href="#">วันที่มีการอัพเดตล่าสุด</a>
                             </td>
                             <td>{{ date("d-m-Y H:i:s", strtotime($val->updated_at)) }}</td>
-                            
+
                         </tr>
                     </tbody>
                 </table>
@@ -246,7 +253,7 @@
                     "class" : "btn btn-danger btn-minier",
                     click: function() {
                         require_del_customer(id);
-                        
+
                         $( this ).dialog( "close" );
                     }
                 }
@@ -272,9 +279,9 @@
             url:'customers/del_customers',
             data: {'id': id, '_token': $( "input[name='_token']" ).val()},
             dataType: 'html',
-            
+
             type: 'POST',
-            
+
             success: function(response){
                 if($.trim(response) == 'error'){
                     alert('An error occurred... Refresh System in 3 seconds');
@@ -285,13 +292,13 @@
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
-                
+
                 window.setTimeout('location.reload()', 2000); //Reloads after three seconds
             }
         });
     }
 
     jQuery(function($) {
-        
+
     });
 </script>

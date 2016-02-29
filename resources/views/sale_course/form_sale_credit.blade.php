@@ -194,6 +194,14 @@
 												</div>
 											</div>
 
+											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right" for="comment">หมายเหตุ</label>
+
+												<div class="col-sm-9">
+													<textarea name="comment" id="comment" class="col-xs-12 col-sm-10" rows="3" style="background: #f5f5f5!important;" readonly="true">{{ $view_data['data_customer']['comment'] }}</textarea>
+												</div>
+											</div>
+
 											<div class="space"></div>
 											<h4 class="header blue bolder smaller">ข้อมูลคอร์สที่ซื้อ (แบบวงเงิน)</h4>
 

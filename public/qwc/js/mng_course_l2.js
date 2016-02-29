@@ -7,7 +7,9 @@ $(document).ready(function() {
 
 	$("#column_name").change(function() {
 		$("#nav-search-input").val('');
+		result_search_customer($("#nav-search-input").val(), $("#column_name").val());
 	});
+	result_search_customer($("#nav-search-input").val(), $("#column_name").val());
 });
 
 function result_search_customer(keyword, column_name) {

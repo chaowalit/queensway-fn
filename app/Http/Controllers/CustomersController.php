@@ -69,7 +69,7 @@ class CustomersController extends QwcController
     }
 
     public function save_customer(Request $request){
-        
+
         // $validator = \Validator::make($request->all(), [
         //     'customer_number' => 'required|unique:customers',
         //     'prefix' => '',
@@ -134,21 +134,22 @@ class CustomersController extends QwcController
             'email' => $request->input('email', ''),
             'birthday' => $request->input('birthday', ''),
             'intolerance_history' => $request->input('intolerance_history', ''),
+            'comment' => $request->input('comment', ''),
         );
 
         if($request->input('customers_id', NULL)){
             $customers_id = $request->input('customers_id', NULL);
             $this->customers->save_edit_customer($customers_id, $data);
             $request->session()->flash('status', 'success');
-            
+
             return redirect('customers/edit_customers/'.$customers_id);
         }else{
             $customer = Customers::create($data);
-        
+
             $request->session()->flash('status', 'success');
             return redirect('create_customer');
         }
-        
+
     }
 
     public function del_customers(Request $request){
@@ -160,6 +161,6 @@ class CustomersController extends QwcController
         } catch (Exception $e) {
             return "error";
         }
-        
+
     }
 }

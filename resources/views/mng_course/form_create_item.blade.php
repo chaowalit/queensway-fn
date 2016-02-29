@@ -97,7 +97,16 @@
 
 						<div class="col-sm-9">
 							<input class="input-sm" type="text" name="price" id="price" placeholder="ราคาต่อครั้ง" value="{{ old('price', '') }}">
-							
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="price_credit">ราคาแบบวงเงิน ต่อ ครั้ง</label>
+
+						<div class="col-sm-9">
+							<input class="input-sm" type="text" name="price_credit" id="price_credit" placeholder="ราคาแบบวงเงิน ต่อ ครั้ง" value="{{ old('price_credit', '') }}">
+
 						</div>
 					</div>
 
@@ -109,7 +118,7 @@
 						<div class="col-sm-9">
 							<textarea class="col-xs-10 col-sm-8" name="comment" id="comment" placeholder="หมายเหตุ" rows="3">{{ old('comment', '') }}</textarea>
 							<span class="help-inline col-xs-12 col-sm-7">
-								
+
 							</span>
 						</div>
 					</div>
@@ -125,7 +134,7 @@
 								<select class="form-control" id="active" name="active">
 									<option value="1" {{ (old('active', '') == '1')? 'selected':'' }}>Active</option>
 									<option value="0" {{ (old('active', '') == '0')? 'selected':'' }}>Inactive</option>
-									
+
 								</select>
 							</div>
 						</div>
@@ -149,8 +158,8 @@
 
 				</form>
 
-				
-				
+
+
 			</div><!-- /.col -->
 		</div><!-- /.row -->
 	</div><!-- /.page-content -->

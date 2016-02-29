@@ -214,6 +214,15 @@
                             </li>
 
                             <li class="">
+                                <a href="tables.html">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    ประวัติการชำระเงิน
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+
+                            <li class="">
                                 <a href="jqgrid.html">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     ประวัติการตัดคอร์ส

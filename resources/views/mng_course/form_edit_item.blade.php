@@ -101,6 +101,15 @@
 						</div>
 					</div>
 
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="price_credit">ราคาแบบวงเงิน ต่อ ครั้ง</label>
+
+						<div class="col-sm-9">
+							<input class="input-sm" type="text" name="price_credit" id="price_credit" placeholder="ราคาแบบวงเงิน ต่อ ครั้ง" value="{{ old('price_credit', '')? old('price_credit', '') : $view_data['item_of_course'][0]['price_credit'] }}">
+
+						</div>
+					</div>
+
 					<div class="space-4"></div>
 
 					<div class="form-group">

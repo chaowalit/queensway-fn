@@ -56,6 +56,7 @@ class MngCourseController extends QwcController
             'category_item_id' => 'required',
             'item_name' => 'required',
             'price' => 'required',
+			'price_credit' => 'required',
         ]);
 
 		$data = array(
@@ -63,6 +64,7 @@ class MngCourseController extends QwcController
             'item_name' => $request->input('item_name', ''),
             'comment' => $request->input('comment', ''),
             'price' => $request->input('price', ''),
+			'price_credit' => $request->input('price_credit', ''),
             'active' => $request->input('active', ''),
         );
 

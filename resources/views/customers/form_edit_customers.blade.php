@@ -16,7 +16,7 @@
 			<li>
 				<a href="#">จัดการข้อมูลลูกค้า</a>
 			</li>
-			
+
 			<li class="active">แก้ไขข้อมูลลูกค้า</li>
 		</ul><!-- /.breadcrumb -->
 
@@ -136,7 +136,7 @@
 
 						<div class="col-sm-9">
 							<input class="input-sm" type="text" name="nickname" id="nickname" placeholder="ชื่อเล่น" value="{{ old('nickname')? old('nickname') : $view_data['customers']['nickname'] }}">
-							
+
 						</div>
 					</div>
 
@@ -187,10 +187,21 @@
 						<div class="col-sm-9">
 							<textarea class="col-xs-10 col-sm-8" name="intolerance_history" id="intolerance_history" placeholder="ประวัติการแพ้ยา" rows="3">{{ old('intolerance_history')? old('intolerance_history') : $view_data['customers']['intolerance_history'] }}</textarea>
 							<span class="help-inline col-xs-12 col-sm-7">
-								
+
 							</span>
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right" for="comment"> หมายเหตุ </label>
+
+						<div class="col-sm-9">
+							<textarea class="col-xs-10 col-sm-8" name="comment" id="comment" placeholder="หมายเหตุ" rows="3">{{ old('comment')? old('comment') : $view_data['customers']['comment'] }}</textarea>
+							<span class="help-inline col-xs-12 col-sm-7">
+
+							</span>
+						</div>
+					</div>
+
 					<input type="hidden" name="customers_id" value="{{ old('customers_id')? old('customers_id') : $view_data['customers_id'] }}">
 					{{ csrf_field() }}
 					<div class="clearfix form-actions">
@@ -210,13 +221,13 @@
 
 				</form>
 
-				
-				
+
+
 			</div><!-- /.col -->
 		</div><!-- /.row -->
 	</div><!-- /.page-content -->
 </div>
 <script type="text/javascript">
-	
+
 </script>
 @endsection

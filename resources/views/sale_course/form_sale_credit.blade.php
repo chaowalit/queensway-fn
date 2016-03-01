@@ -218,17 +218,17 @@
 											<div class="space-4"></div>
 
 											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="">ราคาที่ซื้อจริง</label>
+												<label class="col-sm-3 control-label no-padding-right" for="">ยอดที่ซื้อจริง</label>
 
 												<div class="col-sm-9">
 													<input type="number" name="" id="" value=""> ,
 													&nbsp; จำนวนเท่า &nbsp;
 													<select name="" id="" style="width: 120px;">
-														<option value="1">1 เท่า</option>
-														<option value="1.5">1.5 เท่า</option>
 														<option value="2">2 เท่า</option>
 														<option value="2.5">2.5 เท่า</option>
 														<option value="3">3 เท่า</option>
+														<option value="3.5">3.5 เท่า</option>
+														<option value="4">4 เท่า</option>
 													</select> ,
 													&nbsp; ได้วงเงินทั้งหมด &nbsp;
 													<input type="number" name="" id="" value="" readonly="true">
@@ -259,11 +259,13 @@
 											<h4 class="header blue bolder smaller">ข้อมูลทางการเงิน</h4>
 
 											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="">ยอดจ่ายมา</label>
+												<label class="col-sm-3 control-label no-padding-right" for="">ยอดชำระ</label>
 
 												<div class="col-sm-9">
 													<input type="number" name="" id="" value=""> ,
 													&nbsp; วงเงินขณะนี้ &nbsp;
+													<input type="number" name="" id="" value="" readonly="true"> ,
+													&nbsp; ยอดค้างจ่าย &nbsp;
 													<input type="number" name="" id="" value="" readonly="true">
 												</div>
 											</div>
@@ -276,12 +278,23 @@
 												<div class="col-sm-9">
 													<select name="" id="" style="width: 130px;">
 														<option value="เงินสด">เงินสด</option>
-														<option value="เครดิต">เครดิต</option>
-														<option value="เงินสดและเครดิต">เงินสดและเครดิต</option>
+														<option value="บัตรเครดิต">บัตรเครดิต</option>
+														<option value="เงินสดและบัตรเครดิต">เงินสดและบัตรเครดิต</option>
 
 													</select> ,
 													&nbsp; ผ่อนชำระ &nbsp;
-													<input type="text" name="" id="" value="" style="width: 300px;">
+													<input type="text" name="" id="" value="" style="width: 250px;"> ,
+													&nbsp; ธนาคาร &nbsp;
+													<select name="" id="" style="width: 140px;">
+														<option value="">กรุณาเลือกธนาคาร</option>
+														<option value="กสิกรไทย">กสิกรไทย</option>
+														<option value="ไทยพาณิชณ์">ไทยพาณิชณ์</option>
+														<option value="กรุงเทพ">กรุงเทพ</option>
+														<option value="กรุงศรีอยุธยา">กรุงศรีอยุธยา</option>
+														<option value="กรุงไทย">กรุงไทย</option>
+														<option value="ทหารไทย">ทหารไทย</option>
+														<option value="อิออน">อิออน</option>
+													</select>
 												</div>
 											</div>
 

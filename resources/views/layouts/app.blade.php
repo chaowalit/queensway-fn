@@ -43,7 +43,7 @@
 
                         <li class="light-blue">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                <img class="nav-user-photo" src="{{ asset('assets/avatars/user.jpg') }}" alt="Jason's Photo" />
+                                <img class="nav-user-photo" src="{{ asset('assets/avatars/user_1.png') }}" alt="Jason's Photo" />
                                 <span class="user-info">
                                     <small>ยินดีต้อนรับ,</small>
                                     คุณ <?php echo Auth::user()->first_name; ?>

@@ -283,9 +283,16 @@
 
 													</select> ,
 													&nbsp; ผ่อนชำระ &nbsp;
-													<input type="text" name="" id="" value="" style="width: 250px;"> ,
-													&nbsp; ธนาคาร &nbsp;
-													<select name="" id="" style="width: 140px;">
+													<input type="text" name="" id="" value="" style="width: 250px;">
+												</div>
+											</div>
+
+											<div class="space-4"></div>
+
+											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right" for="">ธนาคาร</label>
+												<div class="col-sm-9">
+													<select name="" id="" style="width: 150px;">
 														<option value="">กรุณาเลือกธนาคาร</option>
 														<option value="กสิกรไทย">กสิกรไทย</option>
 														<option value="ไทยพาณิชณ์">ไทยพาณิชณ์</option>
@@ -294,7 +301,10 @@
 														<option value="กรุงไทย">กรุงไทย</option>
 														<option value="ทหารไทย">ทหารไทย</option>
 														<option value="อิออน">อิออน</option>
-													</select>
+														<option value="other">อื่นๆ</option>
+													</select> ,
+													&nbsp; อื่นๆ กรุณากรอก &nbsp;
+													<input type="text" name="" id="" value="" placeholder="ชื่อธนาคาร" style="width: 250px;">
 												</div>
 											</div>
 

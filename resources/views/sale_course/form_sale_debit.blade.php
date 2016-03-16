@@ -34,7 +34,7 @@
 
 		<div class="page-header">
 			<h1>
-				ซื้อคอร์สแบบวงเงิน
+				ซื้อคอร์สแบบรายคอร์ส
 				<small>
 					<i class="ace-icon fa fa-angle-double-right"></i>
 
@@ -203,7 +203,7 @@
 											</div>
 
 											<div class="space"></div>
-											<h4 class="header blue bolder smaller">ข้อมูลคอร์สที่ซื้อ (แบบวงเงิน)</h4>
+											<h4 class="header blue bolder smaller">ข้อมูลคอร์สที่ซื้อ (แบบรายคอร์ส)</h4>
 
 											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right" for="">เล่มที่ใบเสร็จ</label>
@@ -218,20 +218,70 @@
 											<div class="space-4"></div>
 
 											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="">ยอดที่ซื้อจริง</label>
+												<label class="col-sm-3 control-label no-padding-right" for="">เลือกรายการคอร์ส</label>
 
 												<div class="col-sm-9">
-													<input type="number" name="" id="" value=""> ,
-													&nbsp; จำนวนเท่า &nbsp;
-													<select name="" id="" style="width: 120px;">
-														<option value="2">2 เท่า</option>
-														<option value="2.5">2.5 เท่า</option>
-														<option value="3">3 เท่า</option>
-														<option value="3.5">3.5 เท่า</option>
-														<option value="4">4 เท่า</option>
-													</select> ,
-													&nbsp; ได้วงเงินทั้งหมด &nbsp;
-													<input type="number" name="" id="" value="" readonly="true">
+													<table id="dynamic-table" class="table table-striped table-bordered table-hover">
+														<thead>
+															<tr>
+																<th class="center">
+
+																</th>
+
+																<th>รายการคอร์ส(Item)</th>
+																<th class="hidden-480">ราคา MPL<br>ขั้นต่ำ(บาท)</th>
+																<th style="width: 50px;">จำนวนครั้ง</th>
+																<th style="width: 80px;">ราคาต่อครั้ง</th>
+																<th style="width: 80px;">รวมราคา</th>
+															</tr>
+														</thead>
+
+														<tbody>
+															@foreach($view_data['item_of_course'] as $key => $val)
+															<tr>
+																<td class="center">
+																	<label class="pos-rel">
+																		<input type="checkbox" class="ace" />
+																		<span class="lbl"></span>
+																	</label>
+																</td>
+
+																<td>{{ $val->item_name }}</td>
+																<td class="hidden-480">{{ $val->price }}</td>
+																<td>
+																	<div class="hidden-sm hidden-xs action-buttons">
+																		<input type="number" name="" id="" value="" style="width: 50px;" min="0" max="99">
+																	</div>
+
+																</td>
+																<td>
+																	<div class="hidden-sm hidden-xs action-buttons">
+																		<input type="number" name="" id="" value="" style="width: 80px;" min="0" max="999999">
+																	</div>
+
+																</td>
+																<td>
+																	<div class="hidden-sm hidden-xs action-buttons">
+																		<input type="number" name="" id="" value="" style="width: 80px;" min="0" max="999999" readonly="true">
+																	</div>
+
+																</td>
+															</tr>
+															@endforeach
+														<tbody>
+													</table>
+
+												</div>
+											</div>
+
+											<div class="space-4"></div>
+
+											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right" for="">รวมราคาทั้งหมด</label>
+
+												<div class="col-sm-9">
+													<input type="number" name="" id="" placeholder="" value="" readonly="true"> &nbsp;
+													<button type="button" class="btn btn-sm btn-primary">สรุปราคา</button>
 												</div>
 											</div>
 

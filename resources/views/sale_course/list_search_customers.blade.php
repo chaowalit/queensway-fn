@@ -41,7 +41,7 @@
                         <i class="ace-icon fa fa-credit-card bigger-120"></i> แบบวงเงิน
                     </a>
 					&nbsp;
-                    <a href="#" class="btn btn-xs btn-info">
+                    <a href="{{ url('sale_course/form_sale_debit') }}/<?php echo base64_encode($val->id); ?>" class="btn btn-xs btn-info">
                         <i class="ace-icon fa fa-filter bigger-120"></i> แบบรายคอร์ส
                     </a>
 

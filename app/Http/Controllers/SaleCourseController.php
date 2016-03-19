@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\QwcController;
 use App\Models\Customers;
 use App\Models\ItemOfCourse;
+use App\Models\BuyCourse;
 
 class SaleCourseController extends QwcController{
 
@@ -60,6 +61,13 @@ class SaleCourseController extends QwcController{
         );
 
 		$this->render_view('sale_course/form_sale_credit', $data, 'mng_course', 2);
+    }
+
+    public function save_form_sale_credit(Request $request){
+        $buy_course = new BuyCourse;
+        $buy_course->save_form_sale_credit($request->all());
+
+        return redirect('sale_course/search_customer');
     }
 
     public function form_sale_debit($id){

@@ -60,7 +60,7 @@
 
 							<div class="space"></div>
 
-							<form class="form-horizontal">
+							<form action="{{ url('sale_course/save_form_sale_credit') }}" class="form-horizontal" id="form_sale_credit" method="POST">
 								<div class="tabbable">
 									<ul class="nav nav-tabs padding-16">
 										<li class="active">
@@ -209,9 +209,9 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">เล่มที่ใบเสร็จ</label>
 
 												<div class="col-sm-9">
-													<input type="text" name="" id="" value=""> ,
+													<input type="text" name="book_no" id="book_no" value=""> ,
 													&nbsp; เลขที่ใบเสร็จ &nbsp;
-													<input type="text" name="" id="" value="">
+													<input type="text" name="number_no" id="number_no" value="">
 												</div>
 											</div>
 
@@ -221,9 +221,9 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">ยอดที่ซื้อจริง</label>
 
 												<div class="col-sm-9">
-													<input type="number" name="" id="" value=""> ,
+													<input type="number" name="total_price" id="total_price" value=""> ,
 													&nbsp; จำนวนเท่า &nbsp;
-													<select name="" id="" style="width: 120px;">
+													<select name="multiplier_price" id="multiplier_price" style="width: 120px;">
 														<option value="2">2 เท่า</option>
 														<option value="2.5">2.5 เท่า</option>
 														<option value="3">3 เท่า</option>
@@ -231,17 +231,17 @@
 														<option value="4">4 เท่า</option>
 													</select> ,
 													&nbsp; ได้วงเงินทั้งหมด &nbsp;
-													<input type="number" name="" id="" value="" readonly="true">
+													<input type="number" name="total_credit" id="total_credit" value="" readonly="true">
 												</div>
 											</div>
 
 											<div class="space-4"></div>
 
 											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="full_name">Consultant</label>
+												<label class="col-sm-3 control-label no-padding-right" for="">Consultant</label>
 
 												<div class="col-sm-9">
-													<input class="col-xs-12 col-sm-10" type="text" name="" id="" placeholder="" value="">
+													<input class="col-xs-12 col-sm-10" type="text" name="consultant" id="consultant" placeholder="" value="">
 												</div>
 											</div>
 
@@ -251,7 +251,7 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">หมายเหตุ</label>
 
 												<div class="col-sm-9">
-													<textarea name="" id="" class="col-xs-12 col-sm-10" rows="3" style=""></textarea>
+													<textarea name="comment_sale_credit" id="comment_sale_credit" class="col-xs-12 col-sm-10" rows="3" style=""></textarea>
 												</div>
 											</div>
 
@@ -262,11 +262,11 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">ยอดชำระ</label>
 
 												<div class="col-sm-9">
-													<input type="number" name="" id="" value="" readonly="true"> ,
+													<input type="number" name="payment_amount" id="payment_amount" value="" readonly="true"> ,
 													&nbsp; วงเงินขณะนี้ &nbsp;
-													<input type="number" name="" id="" value="" readonly="true"> ,
+													<input type="number" name="limit_credit" id="limit_credit" value="" readonly="true"> ,
 													&nbsp; ยอดค้างจ่าย &nbsp;
-													<input type="number" name="" id="" value="" readonly="true">
+													<input type="number" name="accrued_expenses" id="accrued_expenses" value="" readonly="true">
 												</div>
 											</div>
 
@@ -276,16 +276,16 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">ช่องทางการชำระ</label>
 
 												<div class="col-sm-9">
-													<select name="" id="" style="width: 190px;">
+													<select name="payment_type" id="payment_type" style="width: 190px;">
 														<option value="cash">เงินสด</option>
 														<option value="credit-debit">บัตรเครดิต/เดบิต</option>
 														<option value="cash-credit-debit">เงินสดและบัตรเครดิต/เดบิต</option>
 
 													</select> ,
 													&nbsp; เงินสด &nbsp;
-													<input type="number" name="" id="" value=""> ,
+													<input type="number" name="cash" id="cash" value=""> ,
 													&nbsp; บัตรเครดิต/เดบิต &nbsp;
-													<input type="number" name="" id="" value="">
+													<input type="number" name="credit_debit_card" id="credit_debit_card" value="">
 													<!--
 													&nbsp; ผ่อนชำระ &nbsp;
 													<input type="text" name="" id="" value="" style="width: 250px;">
@@ -299,7 +299,7 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">ธนาคาร</label>
 												<div class="col-sm-9">
 
-													<input type="text" name="" id="" value="" placeholder="ชื่อธนาคาร" style="width: 100%;">
+													<input type="text" name="bank_name" id="bank_name" value="" placeholder="ชื่อธนาคาร" style="width: 100%;">
 												</div>
 											</div>
 
@@ -309,9 +309,9 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">TID</label>
 
 												<div class="col-sm-9">
-													<input type="number" name="" id="" value="" style="width: 45%;"> ,
+													<input type="text" name="TID" id="TID" value="" style="width: 45%;"> ,
 													&nbsp; MID &nbsp;
-													<input type="number" name="" id="" value="" style="width: 45%;">
+													<input type="text" name="MID" id="MID" value="" style="width: 45%;">
 												</div>
 											</div>
 
@@ -321,79 +321,31 @@
 												<label class="col-sm-3 control-label no-padding-right" for="">หมายเหตุ</label>
 
 												<div class="col-sm-9">
-													<textarea name="" id="" class="col-xs-12 col-sm-12" rows="3" style=""></textarea>
+													<textarea name="comment_history_payment" id="comment_history_payment" class="col-xs-12 col-sm-12" rows="3" style=""></textarea>
 												</div>
 											</div>
 										</div>
 
 										<div id="edit-settings" class="tab-pane">
-											<div class="space-10"></div>
 
-											<div>
-												<label class="inline">
-													<input type="checkbox" name="form-field-checkbox" class="ace">
-													<span class="lbl"> Make my profile public</span>
-												</label>
-											</div>
 
-											<div class="space-8"></div>
-
-											<div>
-												<label class="inline">
-													<input type="checkbox" name="form-field-checkbox" class="ace">
-													<span class="lbl"> Email me new updates</span>
-												</label>
-											</div>
-
-											<div class="space-8"></div>
-
-											<div>
-												<label>
-													<input type="checkbox" name="form-field-checkbox" class="ace">
-													<span class="lbl"> Keep a history of my conversations</span>
-												</label>
-
-												<label>
-													<span class="space-2 block"></span>
-
-													for
-													<input type="text" class="input-mini" maxlength="3">
-													days
-												</label>
-											</div>
 										</div>
 
 										<div id="edit-password" class="tab-pane">
-											<div class="space-10"></div>
 
-											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">New Password</label>
-
-												<div class="col-sm-9">
-													<input type="password" id="form-field-pass1">
-												</div>
-											</div>
-
-											<div class="space-4"></div>
-
-											<div class="form-group">
-												<label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Confirm Password</label>
-
-												<div class="col-sm-9">
-													<input type="password" id="form-field-pass2">
-												</div>
-											</div>
 										</div>
 									</div>
 								</div>
 
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">
-										<button class="btn btn-info" type="button">
+										<button class="btn btn-info" type="button" id="btn_form_sale_credit">
 											<i class="ace-icon fa fa-check bigger-110"></i>
 											ซื้อคอร์ส
 										</button>
-
+										{{ csrf_field() }}
+										<input type="hidden" name="customers_id" value="{{ $view_data['customers_id'] }}">
+										<input type="hidden" name="type_course" value="credit">
 										&nbsp; &nbsp;
 										<button class="btn" type="reset">
 											<i class="ace-icon fa fa-undo bigger-110"></i>

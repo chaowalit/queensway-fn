@@ -51,13 +51,13 @@ jQuery(function($) {
 			"fnRowSelected": function(row) {
 				//check checkbox when row is selected
 				try {
-					$(row).find('input[type=checkbox]').get(0).checked = true
+					//$(row).find('input[type=checkbox]').get(0).checked = true
 				} catch (e) {}
 			},
 			"fnRowDeselected": function(row) {
 				//uncheck checkbox
 				try {
-					$(row).find('input[type=checkbox]').get(0).checked = false
+					//$(row).find('input[type=checkbox]').get(0).checked = false
 				} catch (e) {}
 			},
 
@@ -153,37 +153,37 @@ jQuery(function($) {
 			});
 
 		//and make the list, buttons and checkboxed Ace-like
-		$(colvis.dom.collection)
-			.addClass(
-				'dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
-			.find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
-			.find('input[type=checkbox]').addClass('ace').next().addClass(
-				'lbl padding-8');
+		// $(colvis.dom.collection)
+		// 	.addClass(
+		// 		'dropdown-menu dropdown-light dropdown-caret dropdown-caret-right')
+		// 	.find('li').wrapInner('<a href="javascript:void(0)" />') //'A' tag is required for better styling
+		// 	.find('input[type=checkbox]').addClass('ace').next().addClass(
+		// 		'lbl padding-8');
 
 
 
 		/////////////////////////////////
 		//table checkboxes
-		$('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
+		//$('th input[type=checkbox], td input[type=checkbox]').prop('checked', false);
 
 		//select/deselect all rows according to table header checkbox
-		$('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click',
-			function() {
-				var th_checked = this.checked; //checkbox inside "TH" table header
-
-				$(this).closest('table').find('tbody > tr').each(function() {
-					var row = this;
-					if (th_checked) tableTools_obj.fnSelect(row);
-					else tableTools_obj.fnDeselect(row);
-				});
-			});
+		// $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click',
+		// 	function() {
+		// 		var th_checked = this.checked; //checkbox inside "TH" table header
+		//
+		// 		$(this).closest('table').find('tbody > tr').each(function() {
+		// 			var row = this;
+		// 			if (th_checked) tableTools_obj.fnSelect(row);
+		// 			else tableTools_obj.fnDeselect(row);
+		// 		});
+		// 	});
 
 		//select/deselect a row when the checkbox is checked/unchecked
-		$('#dynamic-table').on('click', 'td input[type=checkbox]', function() {
-			var row = $(this).closest('tr').get(0);
-			if (!this.checked) tableTools_obj.fnSelect(row);
-			else tableTools_obj.fnDeselect($(this).closest('tr').get(0));
-		});
+		// $('#dynamic-table').on('click', 'td input[type=checkbox]', function() {
+		// 	var row = $(this).closest('tr').get(0);
+		// 	if (!this.checked) tableTools_obj.fnSelect(row);
+		// 	else tableTools_obj.fnDeselect($(this).closest('tr').get(0));
+		// });
 
 
 
@@ -196,26 +196,26 @@ jQuery(function($) {
 
 		//And for the first simple table, which doesn't have TableTools or dataTables
 		//select/deselect all rows according to table header checkbox
-		var active_class = 'active';
-		$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click',
-			function() {
-				var th_checked = this.checked; //checkbox inside "TH" table header
-
-				$(this).closest('table').find('tbody > tr').each(function() {
-					var row = this;
-					if (th_checked) $(row).addClass(active_class).find(
-						'input[type=checkbox]').eq(0).prop('checked', true);
-					else $(row).removeClass(active_class).find('input[type=checkbox]').eq(
-						0).prop('checked', false);
-				});
-			});
+		// var active_class = 'active';
+		// $('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click',
+		// 	function() {
+		// 		var th_checked = this.checked; //checkbox inside "TH" table header
+		//
+		// 		$(this).closest('table').find('tbody > tr').each(function() {
+		// 			var row = this;
+		// 			if (th_checked) $(row).addClass(active_class).find(
+		// 				'input[type=checkbox]').eq(0).prop('checked', true);
+		// 			else $(row).removeClass(active_class).find('input[type=checkbox]').eq(
+		// 				0).prop('checked', false);
+		// 		});
+		// 	});
 
 		//select/deselect a row when the checkbox is checked/unchecked
-		$('#simple-table').on('click', 'td input[type=checkbox]', function() {
-			var $row = $(this).closest('tr');
-			if (this.checked) $row.addClass(active_class);
-			else $row.removeClass(active_class);
-		});
+		// $('#simple-table').on('click', 'td input[type=checkbox]', function() {
+		// 	var $row = $(this).closest('tr');
+		// 	if (this.checked) $row.addClass(active_class);
+		// 	else $row.removeClass(active_class);
+		// });
 
 
 
@@ -295,3 +295,137 @@ function result_search_customer(keyword, column_name) {
 		}
 	});
 }
+
+//---------------------------------------------------- Form sale credit --------------------------------------------------//
+$("input[name='total_price']").keyup(function() {
+	if ($.isNumeric($(this).val())) {
+		$("#total_credit").val($(this).val() * $("#multiplier_price").val());
+
+		$("#payment_amount").val('');
+		$("#limit_credit").val('');
+		$("#accrued_expenses").val('');
+		$("#cash").val('');
+		$("#credit_debit_card").val('');
+	} else {
+		$("#total_credit").val('');
+
+		$("#payment_amount").val('');
+		$("#limit_credit").val('');
+		$("#accrued_expenses").val('');
+		$("#cash").val('');
+		$("#credit_debit_card").val('');
+	}
+});
+$("#multiplier_price").change(function() {
+	var total_price = $("input[name='total_price']").val();
+	if ($.trim(total_price) != "" && $.isNumeric(total_price)) {
+		$("#total_credit").val(total_price * $(this).val());
+
+		$("#payment_amount").val('');
+		$("#limit_credit").val('');
+		$("#accrued_expenses").val('');
+		$("#cash").val('');
+		$("#credit_debit_card").val('');
+	} else {
+		$("#total_credit").val('');
+
+		$("#payment_amount").val('');
+		$("#limit_credit").val('');
+		$("#accrued_expenses").val('');
+		$("#cash").val('');
+		$("#credit_debit_card").val('');
+	}
+});
+
+$("#cash").keyup(function() {
+	if ($.trim($(this).val()) != '' && $.isNumeric($(this).val())) {
+		var credit_debit_card = ($.trim($("#credit_debit_card").val()) != '') ?
+			parseInt($("#credit_debit_card").val()) : 0;
+
+		var total_pay = parseInt($(this).val()) + credit_debit_card;
+		var total_price = parseInt($("input[name='total_price']").val());
+
+		$("#limit_credit").val(total_pay * $("#multiplier_price").val());
+		$("#payment_amount").val(parseInt(total_pay));
+		$("#accrued_expenses").val(total_price - total_pay);
+	} else {
+		$("#payment_amount").val('');
+		$("#limit_credit").val('');
+		$("#accrued_expenses").val('');
+	}
+});
+
+$("#credit_debit_card").keyup(function() {
+	if ($.trim($(this).val()) != '' && $.isNumeric($(this).val())) {
+		var cash = ($.trim($("#cash").val()) != '') ? parseInt($("#cash").val()) :
+			0;
+		var total_pay = parseInt($(this).val()) + cash;
+		var total_price = parseInt($("input[name='total_price']").val());
+
+		$("#limit_credit").val(total_pay * $("#multiplier_price").val());
+		$("#payment_amount").val(parseInt(total_pay));
+		$("#accrued_expenses").val(total_price - total_pay);
+	} else {
+		$("#payment_amount").val('');
+		$("#limit_credit").val('');
+		$("#accrued_expenses").val('');
+	}
+});
+
+$("#btn_form_sale_credit").click(function() {
+	var book_no = $("input[name='book_no']").val();
+	var number_no = $("input[name='number_no']").val();
+	var total_price = $("input[name='total_price']").val();
+	var total_credit = $("#total_credit").val();
+	var consultant = $("#consultant").val();
+	var payment_info = check_form_payment_info('credit');
+
+	if ($.trim(book_no) == "") {
+		alert('กรุณากรอกข้อมูล ช่องเล่มที่ใบเสร็จ');
+		return;
+	} else if ($.trim(number_no) == "") {
+		alert('กรุณากรอกข้อมูล ช่องเลขที่ใบเสร็จ');
+		return;
+	} else if ($.trim(total_price) == "" || !$.isNumeric(total_price)) {
+		alert('กรุณากรอกข้อมูล ช่องยอดที่ซื้อจริง');
+		return;
+	} else if ($.trim(total_credit) == "" || !$.isNumeric(total_credit)) {
+		alert('กรุณากรอกข้อมูล ช่องยอดที่ซื้อจริง เพื่อคำนวณวงเงินทั้งหมด');
+		return;
+	} else if ($.trim(consultant) == "") {
+		alert('กรุณากรอกข้อมูล ช่องผู้รับผิดชอบ');
+		return;
+	} else if (payment_info == 200) {
+		$("#form_sale_credit").submit();
+	} else {
+		alert(payment_info);
+		return;
+	}
+
+});
+
+function check_form_payment_info(course_type) {
+	if (course_type == 'credit') {
+		if ($.trim($("#payment_amount").val()) == "") {
+			return "ไม่มีข้อมูลในช่อง ยอดชำระ";
+		} else if ($.trim($("#limit_credit").val()) == "") {
+			return "ไม่มีข้อมูลในช่อง วงเงินขณะนี้";
+		} else if ($.trim($("#accrued_expenses").val()) == "") {
+			return "ไม่มีข้อมูลในช่อง ยอดค้างจ่าย";
+		} else if ($.trim($("#cash").val()) == "") {
+			return "กรุณากรอกข้อมูล ช่องเงินสด";
+		} else if ($.trim($("#credit_debit_card").val()) == "") {
+			return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
+		} else if ($("#payment_type").val() != "cash") {
+			if ($.trim($("#bank_name").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องธนาคาร";
+			}
+		}
+		return 200;
+	}
+}
+
+$("#form_sale_credit").submit(function(e) {
+	//alert('kkk');
+	//e.preventDefault();
+});

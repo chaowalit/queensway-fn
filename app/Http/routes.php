@@ -51,4 +51,5 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/sale_course/form_sale_credit/{id}', 'SaleCourseController@form_sale_credit');
     Route::get('/sale_course/form_sale_debit/{id}', 'SaleCourseController@form_sale_debit');
     Route::post('/sale_course/save_form_sale_credit', 'SaleCourseController@save_form_sale_credit');
+    Route::post('/sale_course/save_form_sale_debit', 'SaleCourseController@save_form_sale_debit');
 });

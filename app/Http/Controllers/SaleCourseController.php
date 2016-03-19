@@ -91,6 +91,14 @@ class SaleCourseController extends QwcController{
 
         $this->render_view('sale_course/form_sale_debit', $data, 'mng_course', 2);
     }
+
+    public function save_form_sale_debit(Request $request){
+        $buy_course = new BuyCourse;
+        $buy_course->save_form_sale_debit($request->all());
+
+        //dd($request->all());
+        return redirect('sale_course/search_customer');
+    }
 }
 
 ?>

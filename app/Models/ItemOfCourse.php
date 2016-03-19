@@ -51,6 +51,19 @@ class ItemOfCourse extends Model
             ->get();
 	}
 
+	public function getDataItemOfCourseById($id){
+		$CategoryItem = new CategoryItem;
+
+		return \DB::table($this->table)
+			->select($this->table.'.*', $CategoryItem->getTableName().'.*', $this->table.'.id as item_of_course_id')
+            ->join($CategoryItem->getTableName(), $this->table.'.category_item_id', '=', $CategoryItem->getTableName().'.id')
+			->where($this->table.'.id', $id)
+			->where($this->table.'.deleted_at', NULL)
+			->orderBy($this->table.'.category_item_id', 'asc')
+
+            ->get();
+	}
+
 	public function CategoryItem()
     {
         return $this->hasOne('App\Models\CategoryItem', 'category_item_id', 'id');

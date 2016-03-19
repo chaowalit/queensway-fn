@@ -52,6 +52,27 @@ class HistoryPayment extends Model
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
+
+	public function save_history_payment_of_debit($buy_course_id, $data){
+		$res = $this->set_fillable_debit($buy_course_id, $data);
+		\DB::table($this->table)->insert($res);
+		return 200;
+	}
+	public function set_fillable_debit($buy_course_id, $data){
+		return [
+			"buy_course_id" => $buy_course_id,
+			"payment_amount" => $data['payment_amount'],
+			"payment_type" => $data['payment_type'],
+			"cash" => $data['cash'],
+			"credit_debit_card" => $data['credit_debit_card'],
+			"bank_name" => $data['bank_name'],
+			"TID" => $data['TID'],
+			"MID" => $data['MID'],
+			"comment" => $data['comment_history_payment'],
+			"created_at" => date("Y-m-d H:i:s"),
+			"updated_at" => date("Y-m-d H:i:s"),
+		];
+	}
 }
 
 ?>

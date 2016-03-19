@@ -235,8 +235,7 @@ jQuery(function($) {
 			var off2 = $source.offset();
 			//var w2 = $source.width();
 
-			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
-				'right';
+			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
 			return 'left';
 		}
 	}
@@ -412,20 +411,175 @@ function check_form_payment_info(course_type) {
 			return "ไม่มีข้อมูลในช่อง วงเงินขณะนี้";
 		} else if ($.trim($("#accrued_expenses").val()) == "") {
 			return "ไม่มีข้อมูลในช่อง ยอดค้างจ่าย";
-		} else if ($.trim($("#cash").val()) == "") {
-			return "กรุณากรอกข้อมูล ช่องเงินสด";
-		} else if ($.trim($("#credit_debit_card").val()) == "") {
-			return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
-		} else if ($("#payment_type").val() != "cash") {
-			if ($.trim($("#bank_name").val()) == "") {
+		} else if ($("#payment_type").val() == "cash") {
+			if ($.trim($("#cash").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องเงินสด";
+			}
+
+		} else if ($("#payment_type").val() == "credit-debit") {
+			if ($.trim($("#credit_debit_card").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
+			} else if ($.trim($("#bank_name").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องธนาคาร";
+			}
+		} else if ($("#payment_type").val() == "cash-credit-debit") {
+			if ($.trim($("#cash").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องเงินสด";
+			} else if ($.trim($("#credit_debit_card").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
+			} else if ($.trim($("#bank_name").val()) == "") {
 				return "กรุณากรอกข้อมูล ช่องธนาคาร";
 			}
 		}
 		return 200;
+	} else if (course_type == "debit") {
+		if ($.trim($("#payment_amount").val()) == "") {
+			return "ไม่มีข้อมูลในช่อง ยอดชำระ";
+		} else if ($.trim($("#accrued_expenses").val()) == "") {
+			return "ไม่มีข้อมูลในช่อง ยอดค้างจ่าย";
+		} else if ($("#payment_type").val() == "cash") {
+			if ($.trim($("#cash").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องเงินสด";
+			}
+
+		} else if ($("#payment_type").val() == "credit-debit") {
+			if ($.trim($("#credit_debit_card").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
+			} else if ($.trim($("#bank_name").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องธนาคาร";
+			}
+		} else if ($("#payment_type").val() == "cash-credit-debit") {
+			if ($.trim($("#cash").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องเงินสด";
+			} else if ($.trim($("#credit_debit_card").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
+			} else if ($.trim($("#bank_name").val()) == "") {
+				return "กรุณากรอกข้อมูล ช่องธนาคาร";
+			}
+		}
+		return 200;
+	} else {
+		return "Error...";
 	}
 }
 
 $("#form_sale_credit").submit(function(e) {
 	//alert('kkk');
 	//e.preventDefault();
+});
+
+//------------------------------------------------ Form Sale debit ----------------------------------------------//
+function cal_amount(item_of_course_id) {
+	if ($.trim($("#amount_" + item_of_course_id).val()) != '' && $.isNumeric($(
+			"#amount_" + item_of_course_id).val())) {
+		var amount = parseInt($("#amount_" + item_of_course_id).val());
+
+		var price_per_unit = ($.trim($("#price_per_unit_" + item_of_course_id).val()) !=
+				'') ?
+			parseInt($("#price_per_unit_" + item_of_course_id).val()) : 0;
+
+		$("#total_per_item_" + item_of_course_id).val(amount * price_per_unit);
+	} else {
+		$("#total_per_item_" + item_of_course_id).val('');
+		$("input[name='total_price']").val('');
+	}
+}
+
+function cal_price_per_unit(item_of_course_id) {
+	if ($.trim($("#price_per_unit_" + item_of_course_id).val()) != '' && $.isNumeric(
+			$("#price_per_unit_" + item_of_course_id).val())) {
+		var amount = parseInt($("#price_per_unit_" + item_of_course_id).val());
+
+		var price_per_unit = ($.trim($("#amount_" + item_of_course_id).val()) != '') ?
+			parseInt($("#amount_" + item_of_course_id).val()) : 0;
+
+		$("#total_per_item_" + item_of_course_id).val(amount * price_per_unit);
+	} else {
+		$("#total_per_item_" + item_of_course_id).val('');
+		$("input[name='total_price']").val('');
+	}
+}
+
+$("#btn_form_sale_debit").click(function() {
+	var book_no = $("input[name='book_no']").val();
+	var number_no = $("input[name='number_no']").val();
+	var total_price = $("input[name='total_price']").val();
+	var consultant = $("#consultant").val();
+	var payment_info = check_form_payment_info('debit');
+	var check_item_select = check_item_select_();
+
+	if ($.trim(book_no) == "") {
+		alert('กรุณากรอกข้อมูล ช่องเล่มที่ใบเสร็จ');
+		return;
+	} else if ($.trim(number_no) == "") {
+		alert('กรุณากรอกข้อมูล ช่องเลขที่ใบเสร็จ');
+		return;
+	} else if ($.trim(total_price) == "" || !$.isNumeric(total_price)) {
+		alert('ไม่มีข้อมูลในช่อง รวมราคาทั้งหมด');
+		return;
+	} else if ($.trim(consultant) == "") {
+		alert('กรุณากรอกข้อมูล ช่องผู้รับผิดชอบ');
+		return;
+	} else if (check_item_select != 200) {
+		alert(check_item_select);
+		return;
+	} else if (payment_info == 200) {
+		$("#form_sale_debit").submit();
+	} else {
+		alert(payment_info);
+		return;
+	}
+
+});
+
+$("#form_sale_debit").submit(function(e) {
+	//alert('kkk');
+	//e.preventDefault();
+});
+
+function check_item_select_() {
+	var check_list = $("input[name='check_list[]']").map(function() {
+		if ($(this).is(':checked')) {
+			return $(this).val();
+		}
+	}).get();
+	if (check_list.length == 0) {
+		$("#total_price").val('');
+		return "คุณไม่ได้เลือกรายการคอร์ส ที่ต้องการซื้อ";
+	} else {
+		return 200;
+	}
+}
+
+$("#btn_cal_total_price_item").click(function(e) {
+	var check_list = $("input[name='check_list[]']").map(function() {
+		if ($(this).is(':checked')) {
+			return $(this).val();
+		}
+	}).get();
+	if (check_list.length > 0) {
+		var total_price = 0;
+		$.each(check_list, function(k, v) {
+			var total_per_item = $.trim($("#total_per_item_" + v).val());
+			if ($.isNumeric(total_per_item)) {
+				total_price = total_price + parseInt(total_per_item);
+			} else {
+				//alert("ไม่สามารถคำนวณราคาได้ เนื่องจากราคารวมต่อไอเทมบางไอเทม ไม่มีค่า");
+				total_price = 0;
+				return false;
+			}
+		});
+		if (total_price > 0) {
+			console.log(total_price);
+			$("#total_price").val(total_price);
+		} else {
+			alert("ไม่สามารถคำนวณราคาได้ เนื่องจากราคารวมต่อไอเทมบางไอเทม ไม่มีค่า");
+			$("#total_price").val('');
+		}
+
+	} else {
+		alert('กรุณาเลือกรายการคอร์ส ที่ต้องการ ก่อนการกดปุ่ม \'สรุปราคา\'');
+		$("#total_price").val('');
+	}
+
 });

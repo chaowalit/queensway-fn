@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\HistoryPayment;
 use App\Models\ItemOfCourse;
+use App\Models\Customers;
 
 class BuyCourse extends Model
 {
@@ -49,7 +50,7 @@ class BuyCourse extends Model
 		$HistoryPayment = new HistoryPayment;
 		$history_payment = $HistoryPayment->save_history_payment_of_credit($buy_course_id, $data);
 
-		return 200;
+		return ['status' => 200, 'buy_course_id' => $buy_course_id, 'message' => 'ok'];
 	}
 	public function set_data_fillable_form_sale_credit($data){
 		return [
@@ -60,10 +61,10 @@ class BuyCourse extends Model
 			"number_no" => $data['number_no'],
 			"total_price" => $data['total_price'],
 			"multiplier_price" => $data['multiplier_price'],
-			"total_credit" => $data['total_credit'],
+			"total_credit" => ($data['total_price'] * $data['multiplier_price']),//$data['total_credit'],
 			"consultant" => $data['consultant'],
-			"payment_amount_total" => $data['payment_amount'],
-			"accrued_expenses" => $data['accrued_expenses'],
+			"payment_amount_total" => ($data['cash'] + $data['credit_debit_card']), //$data['payment_amount'],
+			"accrued_expenses" => $data['total_price'] - ($data['cash'] + $data['credit_debit_card']), //$data['accrued_expenses'],
 			"limit_credit" => $data['limit_credit'],
 			"status_course" => "active",
 			"comment" => $data['comment_sale_credit'],
@@ -80,7 +81,7 @@ class BuyCourse extends Model
 		$HistoryPayment = new HistoryPayment;
 		$history_payment = $HistoryPayment->save_history_payment_of_debit($buy_course_id, $data);
 
-		return 200;
+		return ['status' => 200, 'buy_course_id' => $buy_course_id, 'message' => 'ok'];
 	}
 	public function set_data_fillable_form_sale_debit($data){
 		$item_of_course = array();
@@ -116,6 +117,42 @@ class BuyCourse extends Model
 			"created_at" => date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
+	}
+
+	public function getDataSaleCourseById($buy_course_id){
+		$HistoryPayment = new HistoryPayment;
+		$Customers = new Customers;
+
+		$course = \DB::table($this->table)
+					->select($this->table.'.*')->where('id', $buy_course_id)->where('deleted_at', NULL)->get();
+		if(count($course) > 0){
+			$course = (array)$course[0];
+
+			$customer = $Customers->getDataCustomerById($course['customers_id']);
+			if(count($customer) > 0){
+				$course['data_customer'] = (array)$customer[0];
+			}else{
+				$course['data_customer'] = [];
+			}
+
+			$history_payment = $HistoryPayment->getDataHistoryPayment($course['id']);
+			if(count($history_payment) > 0){
+				foreach($history_payment as $index => $tmp_1){
+					$course['history_payment'][$index] = (array)$tmp_1;
+				}
+
+			}else{
+				$course['history_payment'] = [];
+			}
+
+			$course['usage_course'] = [];
+			//dd($course);
+			return $course;
+		}else{
+			return [];
+		}
+
+
 	}
 }
 

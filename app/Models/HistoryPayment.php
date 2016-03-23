@@ -73,6 +73,10 @@ class HistoryPayment extends Model
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
+	public function getDataHistoryPayment($buy_course_id){
+		return \DB::table($this->table)->where('deleted_at', NULL)->where('buy_course_id', $buy_course_id)
+					->orderBy('created_at', 'desc')->get();
+	}
 }
 
 ?>

@@ -30,6 +30,10 @@ class Customers extends Model
 
     protected $dates = ['deleted_at'];
 
+    public function getTableName(){
+		return $this->table;
+	}
+
     public function count_customers(){
 
         return \DB::table($this->table)->count();
@@ -53,5 +57,9 @@ class Customers extends Model
         \DB::table($this->table)
             ->where('id', $customers_id)
             ->update($data);
+    }
+
+    public function getDataCustomerById($customers_id){
+        return \DB::table($this->table)->where('deleted_at', NULL)->where('id', $customers_id)->get();
     }
 }

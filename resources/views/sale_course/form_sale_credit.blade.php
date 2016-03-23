@@ -56,8 +56,13 @@
 <button type="button" class="close" data-dismiss="alert">&times;</button>
 &nbsp; -->
 								<div class="inline middle blue bigger-110"> กรุณากรอกข้อมูลให้สมบูรณ์ เพื่อความถูกต้องของการออก "รายงาน" </div>
-							</div><!-- /.well -->
 
+							</div><!-- /.well -->
+							@if (count($errors) > 0)
+							<div class="well well-sm">
+								<div class="inline middle red bigger-110"> เกิดข้อผิดพลาดในการซื้อคอร์ส กรุณาลองใหม่อีกครั้ง และควรตรวจสอบข้อมูลก่อนการบันทึกให้ "ถูกต้อง" </div>
+							</div><!-- /.well -->
+							@endif
 							<div class="space"></div>
 
 							<form action="{{ url('sale_course/save_form_sale_credit') }}" class="form-horizontal" id="form_sale_credit" method="POST">

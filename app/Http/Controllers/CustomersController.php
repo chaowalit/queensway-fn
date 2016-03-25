@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\QwcController;
 use App\Models\Customers;
+use App\Models\BuyCourse;
 
 class CustomersController extends QwcController
 {
@@ -155,9 +156,16 @@ class CustomersController extends QwcController
     public function del_customers(Request $request){
         try {
             $id = $request->input('id', '');
-            Customers::where('id', $id)->delete();
+            $BuyCourse = new BuyCourse;
+            $check_buy = $BuyCourse->query_customer_buy_course($id);
+            if(count($check_buy) == 0){
+                Customers::where('id', $id)->delete();
 
-            return "200";
+                return "200";
+            }else{
+                return "error";
+            }
+
         } catch (Exception $e) {
             return "error";
         }

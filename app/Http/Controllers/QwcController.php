@@ -9,8 +9,8 @@ use App\Http\Controllers\Controller;
 
 class QwcController extends Controller
 {
-    
-    public function render_view($view_path = '', $data = array(), $menu_nav = '', $menu_level = 0){
+
+    public function render_view($view_path = '', $data = array(), $menu_nav = '', $menu_level = 0, $page_inside = 1){
 		//$sidebar      = app()->make('App\Services\Template')->settingSideBar($menu_nav, $menu_level);
 		//$header_title = app()->make('App\Services\Template')->settingHeaderTitle($menu_nav, $menu_level);
     	$template_data = [
@@ -23,6 +23,6 @@ class QwcController extends Controller
 		}else{
 			dump($template_data); die;
 		}
-    	
+
     }
 }

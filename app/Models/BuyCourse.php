@@ -65,7 +65,7 @@ class BuyCourse extends Model
 			"consultant" => $data['consultant'],
 			"payment_amount_total" => ($data['cash'] + $data['credit_debit_card']), //$data['payment_amount'],
 			"accrued_expenses" => $data['total_price'] - ($data['cash'] + $data['credit_debit_card']), //$data['accrued_expenses'],
-			"limit_credit" => $data['limit_credit'],
+			"limit_credit" => ($data['cash'] + $data['credit_debit_card']) * $data['multiplier_price'], // $data['limit_credit'],
 			"status_course" => "active",
 			"comment" => $data['comment_sale_credit'],
 			"created_at" => date("Y-m-d H:i:s"),
@@ -85,6 +85,7 @@ class BuyCourse extends Model
 	}
 	public function set_data_fillable_form_sale_debit($data){
 		$item_of_course = array();
+		$total_price = 0;
 		foreach($data['check_list'] as $k => $v){
 			$temp['item_of_course_id'] = $v;
 
@@ -94,10 +95,9 @@ class BuyCourse extends Model
 			$temp['item_name'] = $item[0]->item_name;
 
 			$temp['amount_total'] = $data['amount_'.$v];
-			$temp['amount_usage'] = '0';
 			$temp['price_per_unit'] = $data['price_per_unit_'.$v];
-			$temp['total_per_item'] = $data['total_per_item_'.$v];
-
+			$temp['total_per_item'] = ($data['amount_'.$v] * $data['price_per_unit_'.$v]),  //$data['total_per_item_'.$v];
+			$total_price = $total_price + ($data['amount_'.$v] * $data['price_per_unit_'.$v]);
 			array_push($item_of_course, $temp);
 		}
 		//dd($item_of_course);
@@ -107,16 +107,21 @@ class BuyCourse extends Model
 			"order_number" => $data['number_no'].'-'.date("YmdHis"),
 			"book_no" => $data['book_no'],
 			"number_no" => $data['number_no'],
-			"total_price" => $data['total_price'],
+			"total_price" => $total_price, //$data['total_price'],
 			"item_of_course" => serialize($item_of_course),
 			"consultant" => $data['consultant'],
-			"payment_amount_total" => $data['payment_amount'],
-			"accrued_expenses" => $data['accrued_expenses'],
+			"payment_amount_total" => ($data['cash'] + $data['credit_debit_card']),
+			"accrued_expenses" => $data['total_price'] - ($data['cash'] + $data['credit_debit_card']),
 			"status_course" => "active",
 			"comment" => $data['comment_sale_debit'],
 			"created_at" => date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
+	}
+
+	public function query_customer_buy_course($id){
+		return \DB::table($this->table)->where('customers_id', $id)->where('deleted_at', NULL)->get();
+		//ค้นหา ลูกค้า ว่ามีประวัติการซื้อคอร์สหรือไม่ เพื่อใช้ในการตรวจสอบ กรณีลบลูกค้า ถ้ามี ห้ามลบ
 	}
 
 	public function getDataSaleCourseById($buy_course_id){

@@ -284,8 +284,8 @@
 
             success: function(response){
                 if($.trim(response) == 'error'){
-                    alert('An error occurred... Refresh System in 3 seconds');
-                    window.setTimeout('location.reload()', 3000); //Reloads after three seconds
+                    alert('ไม่สามารถลบลูกค้าได้... ระบบจะรีเฟรชใน 3 วินาที');
+                    window.setTimeout('location.reload()', 1000); //Reloads after three seconds
                 }else{
                     load_customers_list_table(current_page);
                 }

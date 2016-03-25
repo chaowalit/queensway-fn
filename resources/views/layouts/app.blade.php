@@ -205,9 +205,9 @@
 
                         <ul class="submenu">
                             <li class="">
-                                <a href="tables.html">
+                                <a href="{{ url('course/search_customer_use_course') }}?sub_menu=1">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    ตัดคอร์สที่ซื้อ
+                                    ตัด/ชำระเงิน (คอร์ส)
                                 </a>
 
                                 <b class="arrow"></b>
@@ -216,7 +216,7 @@
                             <li class="">
                                 <a href="tables.html">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    ประวัติการชำระเงิน
+                                    ดูประวัติใบเสร็จการสั่งซื้อ
                                 </a>
 
                                 <b class="arrow"></b>
@@ -225,11 +225,12 @@
                             <li class="">
                                 <a href="jqgrid.html">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    ประวัติการตัดคอร์ส
+                                    ทำการโอนคอร์ส
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
+
                         </ul>
                     </li>
 

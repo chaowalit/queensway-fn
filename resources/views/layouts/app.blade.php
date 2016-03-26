@@ -193,7 +193,7 @@
                         </ul>
                     </li>
 
-                    <li class="">
+                    <li class="<?php echo ($menu_nav == 'use_course')? "active open":" "; ?>">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-eye"></i>
                             <span class="menu-text"> จัดการคอร์สที่ซื้อ </span>
@@ -204,7 +204,7 @@
                         <b class="arrow"></b>
 
                         <ul class="submenu">
-                            <li class="">
+                            <li class="<?php echo ($menu_nav == 'use_course' && $menu_level == '1')? "active":" "; ?>">
                                 <a href="{{ url('course/search_customer_use_course') }}?sub_menu=1">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     ตัด/ชำระเงิน (คอร์ส)

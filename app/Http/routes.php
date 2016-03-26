@@ -57,4 +57,7 @@ Route::group(['middleware' => 'web'], function () {
 
     //---------- Course Use ----------------------------//
     Route::get('course/search_customer_use_course', 'CourseController@search_customer_use_course');
+    Route::post('course/ajax_search_customer_use_course', 'CourseController@ajax_search_customer_use_course');
+
+    Route::get('course/show_all_course_for_customer', 'CourseController@show_all_course_for_customer');
 });

@@ -17,6 +17,7 @@ class QwcController extends Controller
 			"view_data"    => $data,
 			"menu_nav"     => $menu_nav,  // it is name of in active_menu, css, js
 			"menu_level"   => $menu_level, // it is check active_submenu
+            "page_inside" => $page_inside, // ตรวจสอบแต่ละของ sub menu ที่เราทำงานอยู่ เพื่อแยก js
 		];
 		if($menu_nav){
 			echo view($view_path, $template_data);

@@ -157,6 +157,12 @@ class BuyCourse extends Model
 					->where('deleted_at', NULL)->orderBy($this->table.'.updated_at', 'desc')->get();
 	}
 
+	public function getDataBuyCourseById($buy_course_id){
+		$course = \DB::table($this->table)
+					->select($this->table.'.*')->where('id', $buy_course_id)->where('deleted_at', NULL)->get();
+		return $course;
+	}
+
 	public function getDataSaleCourseById($buy_course_id){
 		// (ส่ง buy_course_id ได้แค่ 1 คอร์สเท่านั้น) จะแสดงทั้งรายละเอียดคอร์สที่ซื้อ ลูกค้าคนไหนซื้อไป ประวัติการชำระเงิน
 		$HistoryPayment = new HistoryPayment;

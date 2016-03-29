@@ -1,5 +1,5 @@
 <?php
-dump($view_data['course_all']);
+//dump($view_data['course_all']);
 //dump($view_data['customer']);
 ?>
 @extends('layouts.app')
@@ -180,6 +180,8 @@ dump($view_data['course_all']);
 							</div>
 						</div>
 						<div id="messages" class="tab-pane fade active in">
+                            <label style="font-size: 20px;font-weight: 400;font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }} ({{ $view_data['data_customer']['nickname'] }})</label>
+
 							<h4 class="header blue bolder smaller">แบบวงเงิน</h4>
 							<table id="dynamic-table-1" class="table table-striped table-bordered table-hover">
 								<thead>
@@ -222,7 +224,7 @@ dump($view_data['course_all']);
 
 													<ul class="dropdown-menu">
 														<li>
-															<a href="{{ url('history_payment/payment') }}">ชำระเงิน</a>
+															<a href="{{ url('history_payment/payment') }}/{{ base64_encode($val->id) }}">ชำระเงิน</a>
 														</li>
 
 														<li>
@@ -278,7 +280,7 @@ dump($view_data['course_all']);
 
 													<ul class="dropdown-menu">
 														<li>
-															<a href="{{ url('history_payment/payment') }}">ชำระเงิน</a>
+															<a href="{{ url('history_payment/payment') }}/{{ base64_encode($val->id) }}">ชำระเงิน</a>
 														</li>
 
 														<li>

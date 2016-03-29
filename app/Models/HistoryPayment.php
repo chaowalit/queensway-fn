@@ -40,6 +40,8 @@ class HistoryPayment extends Model
 	public function set_fillable_credit($buy_course_id, $data){
 		return [
 			"buy_course_id" => $buy_course_id,
+			"book_no" => $data['book_no'],
+			"number_no" => $data['number_no'],
 			"payment_amount" => $data['payment_amount'],
 			"payment_type" => $data['payment_type'],
 			"cash" => $data['cash'],
@@ -61,6 +63,8 @@ class HistoryPayment extends Model
 	public function set_fillable_debit($buy_course_id, $data){
 		return [
 			"buy_course_id" => $buy_course_id,
+			"book_no" => $data['book_no'],
+			"number_no" => $data['number_no'],
 			"payment_amount" => $data['payment_amount'],
 			"payment_type" => $data['payment_type'],
 			"cash" => $data['cash'],

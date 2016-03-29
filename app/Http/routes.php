@@ -60,4 +60,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('course/ajax_search_customer_use_course', 'CourseController@ajax_search_customer_use_course');
 
     Route::get('course/show_all_course_for_customer', 'CourseController@show_all_course_for_customer');
+
+    //------------------------------ History Payment --------------------------//
+    Route::get('history_payment/payment/{id}', 'HistoryPaymentController@index');
+    Route::post('history_payment/save_history_payment', 'HistoryPaymentController@save_history_payment');
 });

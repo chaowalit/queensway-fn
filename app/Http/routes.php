@@ -64,4 +64,5 @@ Route::group(['middleware' => 'web'], function () {
     //------------------------------ History Payment --------------------------//
     Route::get('history_payment/payment/{id}', 'HistoryPaymentController@index');
     Route::post('history_payment/save_history_payment', 'HistoryPaymentController@save_history_payment');
+    Route::get('history_payment/invoice/{id}', 'HistoryPaymentController@invoice');
 });

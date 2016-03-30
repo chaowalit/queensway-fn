@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\BuyCourse;
 
 class HistoryPayment extends Model
 {
@@ -80,6 +81,41 @@ class HistoryPayment extends Model
 	public function getDataHistoryPayment($buy_course_id){
 		return \DB::table($this->table)->where('deleted_at', NULL)->where('buy_course_id', $buy_course_id)
 					->orderBy('created_at', 'desc')->get();
+	}
+
+	public function save_history_payment($data, $buy_course){
+		//dump($data);
+		//----------- save history payment -------------------------------//
+		$res = $this->set_fillable_credit($buy_course[0]->id, $data);
+		\DB::table($this->table)->insert($res);
+		//----------- ตัดยอดค้างชำระจากคอร์สที่ซื้อมา ---------------------------//
+		if($buy_course[0]->type_course == 'credit'){
+			$update = array();
+			$update['payment_amount_total'] = ($buy_course[0]->payment_amount_total + $data['payment_amount']);
+			$update['accrued_expenses'] = ($buy_course[0]->accrued_expenses - $data['payment_amount']);
+			$update['limit_credit'] = $buy_course[0]->limit_credit + ($buy_course[0]->multiplier_price * $data['payment_amount']);
+
+			$BuyCourse = new BuyCourse;
+			$update_course_buy = $BuyCourse->update_course_accrued_expenses($update, $buy_course[0]->id);
+			if($update_course_buy == 200){
+				return 200;
+			}else{
+				//error
+			}
+		}else if($buy_course[0]->type_course == 'debit'){
+			$update = array();
+			$update['payment_amount_total'] = ($buy_course[0]->payment_amount_total + $data['payment_amount']);
+			$update['accrued_expenses'] = ($buy_course[0]->accrued_expenses - $data['payment_amount']);
+
+			$BuyCourse = new BuyCourse;
+			$update_course_buy = $BuyCourse->update_course_accrued_expenses($update, $buy_course[0]->id);
+			if($update_course_buy == 200){
+				return 200;
+			}else{
+				//error
+			}
+		}
+		//dd($buy_course);
 	}
 }
 

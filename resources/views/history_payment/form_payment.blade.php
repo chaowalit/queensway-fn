@@ -39,7 +39,7 @@
                 </small>
             </h1>
         </div><!-- /.page-header -->
-        <?php echo csrf_field(); dump($view_data['buy_course']); ?>
+        <?php echo csrf_field(); //dump($view_data['buy_course']); ?>
 
 
 		<div class="row">

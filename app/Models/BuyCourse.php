@@ -120,6 +120,13 @@ class BuyCourse extends Model
 		];
 	}
 
+	public function update_course_accrued_expenses($data, $buy_course_id){
+		\DB::table($this->table)
+            ->where('id', $buy_course_id)
+            ->update($data);
+		return 200;
+	}
+
 	public function query_customer_buy_course($id){
 		return \DB::table($this->table)->where('customers_id', $id)->where('deleted_at', NULL)->get();
 		//ค้นหา ลูกค้า ว่ามีประวัติการซื้อคอร์สหรือไม่ เพื่อใช้ในการตรวจสอบ กรณีลบลูกค้า ถ้ามี ห้ามลบ

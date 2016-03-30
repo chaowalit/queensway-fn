@@ -81,3 +81,11 @@ $("#btn_form_payment").click(function() {
 
 	$("#form_payment").submit();
 });
+
+$("#form_payment").submit(function(e) {
+	if (confirm('คุณแน่ใจหรือไม่ ที่จะบันทึกประวัติการชำระเงินนี้...')) {
+		//e.preventDefault();
+	} else {
+		e.preventDefault();
+	}
+});

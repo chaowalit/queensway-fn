@@ -157,7 +157,7 @@
                     <li class="<?php echo ($menu_nav == 'mng_course')? "active open":" "; ?>">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-info-circle"></i>
-                            <span class="menu-text"> จัดการข้อมูลคอร์ส </span>
+                            <span class="menu-text"> ข้อมูลคอร์ส </span>
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
 
@@ -196,7 +196,7 @@
                     <li class="<?php echo ($menu_nav == 'use_course')? "active open":" "; ?>">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-eye"></i>
-                            <span class="menu-text"> จัดการคอร์สที่ซื้อ </span>
+                            <span class="menu-text"> จัดการคอร์ส </span>
 
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
@@ -207,25 +207,16 @@
                             <li class="<?php echo ($menu_nav == 'use_course' && $menu_level == '1')? "active":" "; ?>">
                                 <a href="{{ url('course/search_customer_use_course') }}?sub_menu=1">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    ตัด/ชำระเงิน (คอร์ส)
+                                    ตัด/ ชำระเงิน/ ยกเลิก
                                 </a>
 
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="">
-                                <a href="tables.html">
+                            <li class="<?php echo ($menu_nav == 'use_course' && $menu_level == '2')? "active":" "; ?>">
+                                <a href="{{ url('course/search_customer_use_course') }}?sub_menu=2">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     ดูประวัติใบเสร็จการสั่งซื้อ
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="">
-                                <a href="jqgrid.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    ทำการโอนคอร์ส
                                 </a>
 
                                 <b class="arrow"></b>

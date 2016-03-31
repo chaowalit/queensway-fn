@@ -14,9 +14,9 @@
             </li>
 
             <li>
-                <a href="#">จัดการคอร์สที่ซื้อ</a>
+                <a href="#">จัดการคอร์ส</a>
             </li>
-            <li class="active">ตัด/ชำระเงิน (คอร์ส)</li>
+            <li class="active"><?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระเงิน/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?></li>
         </ul><!-- /.breadcrumb -->
 
         <div class="nav-search" id="nav-search">
@@ -41,7 +41,7 @@
 
         <div class="page-header">
             <h1>
-                กรุณาเลือกลูกค้าที่ต้องการ ตัด/ชำระเงิน คอร์ส
+                กรุณาเลือกลูกค้าที่ต้องการ <?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระเงิน/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?>
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     <!--ดูข้อมูล &amp; แก้ไขข้อมูล &amp; ลบข้อมูล ลูกค้าที่นี้-->

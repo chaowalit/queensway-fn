@@ -22,6 +22,12 @@
         <tr>
             <td class="">
                 {{ $val->customer_number }}
+                <?php
+                    $count = $accrued_expenses[$val->id]['credit_accrued_expenses'] + $accrued_expenses[$val->id]['debit_accrued_expenses'];
+                    if($count > 0){
+                ?>
+                <i class="ace-icon fa fa-bell orange pull-right"></i>
+                <?php } ?>
             </td>
 
             <td>
@@ -186,6 +192,15 @@
                             </td>
                             <td>{{ date("d-m-Y H:i:s", strtotime($val->updated_at)) }}</td>
 
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#" style="color: red;">ค้างชำระคอร์ส</a>
+                            </td>
+                            <td>
+                                แบบวงเงิน: <strong style="color: red;"><?php echo $accrued_expenses[$val->id]['credit_accrued_expenses']; ?></strong> บาท,
+                                แบบรายคอร์ส: <strong style="color: red;"><?php echo $accrued_expenses[$val->id]['debit_accrued_expenses']; ?></strong> บาท
+                            </td>
                         </tr>
                     </tbody>
                 </table>

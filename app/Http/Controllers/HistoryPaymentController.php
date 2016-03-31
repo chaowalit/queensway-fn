@@ -52,7 +52,7 @@ class HistoryPaymentController extends QwcController{
 		$buy_course_id = base64_decode($buy_course_id);
 		$BuyCourse = new BuyCourse;
 		$result = $BuyCourse->getDataSaleCourseById($buy_course_id);
-		$this->render_view('sale_course/invoice', $result, 'use_course', 1);
+		$this->render_view('sale_course/invoice', $result, 'use_course', 2);
 	}
 }
 

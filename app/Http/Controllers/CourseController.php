@@ -23,7 +23,11 @@ class CourseController extends QwcController{
 
 			$this->render_view('course/search_customer_use_course', $data, 'use_course', $sub_menu, 1);
 		}else if($sub_menu == 2){
+			$data = array(
+				'sub_menu' => $sub_menu,
+			);
 
+			$this->render_view('course/search_customer_use_course', $data, 'use_course', $sub_menu, 1);
 		}else if($sub_menu == 3){
 
 		}else{
@@ -50,6 +54,7 @@ class CourseController extends QwcController{
 		$sub_menu = $request->input('sub_menu', '');
 
 		if($sub_menu == 1){
+			
 			$BuyCourse = new BuyCourse;
 			$course_all = $BuyCourse->show_all_course_for_customer($customer_id);
 
@@ -63,6 +68,19 @@ class CourseController extends QwcController{
 
 			$this->render_view('course/show_all_course_for_customer', $data, 'use_course', $sub_menu, 2);
 		}else if($sub_menu == 2){
+
+			$BuyCourse = new BuyCourse;
+			$course_all = $BuyCourse->show_all_course_for_customer($customer_id);
+
+			$Customers = new Customers;
+			$customer = $Customers->getDataCustomerById($customer_id);
+			$data = array(
+				'sub_menu' => $sub_menu,
+				'course_all' => $course_all,
+				'data_customer' => (array)$customer[0],
+			);
+
+			$this->render_view('course/show_all_course_for_customer', $data, 'use_course', $sub_menu, 2);
 
 		}else if($sub_menu == 3){
 

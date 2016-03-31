@@ -125,15 +125,15 @@
 														@if($view_data['type_course'] == 'credit')
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดที่ซื้อจริง:-
-															<b class="red">{{ $view_data['total_price'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['total_price'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>จำนวนเท่า:-
-															<b class="red">{{ number_format($view_data['multiplier_price']) }} เท่าของยอดที่ซื้อจริง</b>
+															<b class="red">{{ number_format($view_data['multiplier_price'], 1) }} เท่าของยอดที่ซื้อจริง</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ได้วงเงินทั้งหมด:-
-															<b class="red">{{ $view_data['total_credit'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['total_credit'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>Consultant:-
@@ -141,19 +141,19 @@
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดชำระทั้งหมด:-
-															<b class="red">{{ $view_data['payment_amount_total'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['payment_amount_total'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>วงเงินขณะนี้:-
-															<b class="red">{{ $view_data['limit_credit'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['limit_credit'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดค้างชำระทั้งหมด:-
-															<b class="red">{{ $view_data['accrued_expenses'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>วงเงินที่ใช้ไปทั้งหมด:-
-															<b class="red">{{ $view_data['usage_credit'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['usage_credit'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>สถานะคอร์ส:-
@@ -167,7 +167,7 @@
 														@else
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>รวมราคาทั้งหมด:-
-															<b class="red">{{ $view_data['total_price'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['total_price'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>Consultant:-
@@ -175,12 +175,12 @@
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดชำระทั้งหมด:-
-															<b class="red">{{ $view_data['payment_amount_total'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['payment_amount_total'], 2) }} บาท</b>
 														</li>
 
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดค้างชำระทั้งหมด:-
-															<b class="red">{{ $view_data['accrued_expenses'] }} บาท</b>
+															<b class="red">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>สถานะคอร์ส:-
@@ -273,8 +273,8 @@
 															{{ $val['amount_total'] }}
 														</td>
 														<td class="hidden-480">{{ $val['amount_usage'] }}</td>
-														<td class="hidden-480">{{ $val['price_per_unit'] }}</td>
-														<td>{{ $val['total_per_item'] }}</td>
+														<td class="hidden-480">{{ number_format($val['price_per_unit'], 2) }}</td>
+														<td>{{ number_format($val['total_per_item'], 2) }}</td>
 													</tr>
 													@endforeach
 												</tbody>
@@ -287,7 +287,7 @@
 											<div class="col-sm-5 pull-right">
 												<h4 class="pull-right">
 													รวมราคาทั้งหมด :
-													<span class="red">฿{{ $view_data['total_price'] }}</span>
+													<span class="red">฿{{ number_format($view_data['total_price'], 2) }}</span>
 												</h4>
 											</div>
 											<div class="col-sm-7 pull-left red"> *ตารางแสดงรายการคอร์สที่ซื้อทั้งหมด (แบบรายคอร์ส) เท่านั้น</div>
@@ -360,13 +360,13 @@
 															<td>
 																ธนาคาร:- {{ $val['bank_name'] }}<br>
 																ประเภทการชำระ:- {{ $val['payment_type'] }}<br>
-																จำนวนเงินสด:- {{ $val['cash'] }} บาท<br>
-																จำนวนตัดผ่านบัตร:- {{ $val['credit_debit_card'] }} บาท<br>
+																จำนวนเงินสด:- {{ number_format($val['cash'], 2) }} บาท<br>
+																จำนวนเงินตัดผ่านบัตร:- {{ number_format($val['credit_debit_card'], 2) }} บาท<br>
 																TID:- {{ $val['TID'] }}<br>
 																MID:- {{ $val['MID'] }}<br>
 																หมายเหตุ:- {{ $val['comment'] }}<br>
 															</td>
-															<td>{{ $val['payment_amount'] }}</td>
+															<td>{{ number_format($val['payment_amount'], 2) }}</td>
 															<td>{{ date("d-m-Y", strtotime($val['created_at'])) }}</td>
 														</tr>
 													@endforeach
@@ -380,7 +380,7 @@
 											<div class="col-sm-5 pull-right">
 												<h4 class="pull-right">
 													รวมยอดชำระทั้งหมด :
-													<span class="red">฿{{ $view_data['payment_amount_total'] }}</span>
+													<span class="red">฿{{ number_format($view_data['payment_amount_total'], 2) }}</span>
 												</h4>
 											</div>
 											<div class="col-sm-7 pull-left red"> </div>

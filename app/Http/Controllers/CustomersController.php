@@ -44,8 +44,11 @@ class CustomersController extends QwcController
         $current_page = $request->input('current_page', 1);
 
         $customers = $this->customers->get_list_customers(_pagination_($current_page, $limit)['offset'], _pagination_($current_page, $limit)['limit']);
+        $BuyCourse = new BuyCourse;
+        $accrued_expenses = $BuyCourse->check_customer_accrued_expenses($customers);
         $data = array(
             'customers' => $customers,
+            'accrued_expenses' => $accrued_expenses,
         );
         echo view('customers/list_customers', $data);
     }

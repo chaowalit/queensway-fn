@@ -19,9 +19,9 @@
             </li>
 
             <li>
-                <a href="#">จัดการคอร์สที่ซื้อ</a>
+                <a href="#">จัดการคอร์ส</a>
             </li>
-            <li class="">ตัด/ชำระเงิน (คอร์ส)</li>
+            <li class=""><?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระเงิน/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?></li>
 			<li class="active">แสดงรายการคอร์ส</li>
         </ul><!-- /.breadcrumb -->
 
@@ -34,7 +34,7 @@
 
         <div class="page-header">
             <h1>
-                กรุณาเลือกคอร์สที่ต้องการ ตัดคอร์สหรือชำระเงิน
+                กรุณาเลือกคอร์สที่ต้องการ <?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระเงิน/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?>
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     <!--ดูข้อมูล &amp; แก้ไขข้อมูล &amp; ลบข้อมูล ลูกค้าที่นี้-->
@@ -217,6 +217,7 @@
 											<td>{{ $val->consultant }}</td>
 											<td>
 												<div class="btn-group">
+                                                    @if($view_data['sub_menu'] == 1)
 													<button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle" aria-expanded="false">
 														เมนู
 														<i class="ace-icon fa fa-angle-down icon-on-right"></i>
@@ -230,7 +231,15 @@
 														<li>
 															<a href="#">ตัดคอร์ส</a>
 														</li>
+
+                                                        <li>
+															<a href="#">ยกเลิกคอร์ส</a>
+														</li>
 													</ul>
+                                                    @else
+
+                                                    <a href="{{ url('history_payment/invoice') }}/{{ base64_encode($val->id) }}" class="btn btn-white btn-info">ดูข้อมูล</a>
+                                                    @endif
 												</div>
 											</td>
 
@@ -273,6 +282,7 @@
 											<td>{{ $val->consultant }}</td>
 											<td>
 												<div class="btn-group">
+                                                    @if($view_data['sub_menu'] == 1)
 													<button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle" aria-expanded="false">
 														เมนู
 														<i class="ace-icon fa fa-angle-down icon-on-right"></i>
@@ -286,7 +296,15 @@
 														<li>
 															<a href="#">ตัดคอร์ส</a>
 														</li>
+
+                                                        <li>
+															<a href="#">ยกเลิกคอร์ส</a>
+														</li>
 													</ul>
+                                                    @else
+
+                                                    <a href="{{ url('history_payment/invoice') }}/{{ base64_encode($val->id) }}" class="btn btn-white btn-info">ดูข้อมูล</a>
+                                                    @endif
 												</div>
 											</td>
 

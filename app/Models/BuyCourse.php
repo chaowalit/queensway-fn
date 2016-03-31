@@ -203,8 +203,25 @@ class BuyCourse extends Model
 		}else{
 			return [];
 		}
+	}
 
-
+	public function check_customer_accrued_expenses($customers){
+		$res = array();
+		foreach($customers as $key => $val){
+			$result = $this->query_customer_buy_course($val->id);
+			$credit = 0.00;
+			$debit = 0.00;
+			foreach($result as $k => $v){
+				if($v->type_course == 'credit'){
+					$credit = $credit + $v->accrued_expenses;
+				}else if($v->type_course == 'debit'){
+					$debit = $debit + $v->accrued_expenses;
+				}
+			}
+			$res[$val->id] = ['credit_accrued_expenses' => number_format($credit, 2), 'debit_accrued_expenses' => number_format($debit, 2)];
+		}
+		//dd($res);
+		return $res;
 	}
 }
 

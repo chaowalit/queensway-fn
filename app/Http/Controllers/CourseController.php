@@ -54,7 +54,7 @@ class CourseController extends QwcController{
 		$sub_menu = $request->input('sub_menu', '');
 
 		if($sub_menu == 1){
-			
+
 			$BuyCourse = new BuyCourse;
 			$course_all = $BuyCourse->show_all_course_for_customer($customer_id);
 
@@ -88,6 +88,12 @@ class CourseController extends QwcController{
 			echo "Error";
 		}
 
+	}
+
+	public function delete_course(Request $request){
+		$buy_course_id = $request->input('buy_course_id', '');
+		$BuyCourse = new BuyCourse;
+		$res = $BuyCourse->delete_course($buy_course_id);
 	}
 }
 

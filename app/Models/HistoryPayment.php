@@ -13,6 +13,8 @@ class HistoryPayment extends Model
 
 	protected $fillable = [
     	'buy_course_id',
+		'book_no',
+		'number_no',
 		'payment_amount',
 		'payment_type',
 		'cash',

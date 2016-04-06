@@ -369,3 +369,41 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 @endif
 
 @endif
+
+<script>
+    $(document).ready(function(){
+
+    });
+
+    function delete_soft_buy_course(buy_course_id){
+        if(confirm('คุณต้องการ "ลบ" คอร์สนี้ ใช้หรือไม่')){
+            $.ajax({
+                url:'course/delete_course',
+                data: {'buy_course_id': buy_course_id, '_token': $( "input[name='_token']" ).val()},
+                dataType: 'html',
+
+                type: 'POST',
+
+                success: function(response){
+                    if($.trim(response) != '200'){
+                        alert(response);
+
+                    }else{
+
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+
+                    window.setTimeout('location.reload()', 2000); //Reloads after three seconds
+                }
+            });
+        }
+    }
+
+    function delete_history_payment(history_payment_id){
+        if(confirm('คุณต้องการ "ลบ" ประวัติการชำระเงิน นี้ใช้หรือไม่')){
+
+        }
+    }
+</script>

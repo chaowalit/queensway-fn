@@ -208,12 +208,12 @@
 										<tr>
 											<td>{{ $val->status_course }}</td>
 											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
-											<td>{{ $val->total_price }}</td>
+											<td>{{ number_format($val->total_price, 2) }}</td>
 
-											<td>{{ $val->payment_amount_total }}</td>
-											<td>{{ $val->accrued_expenses }}</td>
-											<td>{{ $val->limit_credit }}</td>
-											<td>{{ $val->usage_credit }}</td>
+											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td>{{ number_format($val->limit_credit, 2) }}</td>
+											<td>{{ number_format($val->usage_credit, 2) }}</td>
 											<td>{{ $val->consultant }}</td>
 											<td>
 												<div class="btn-group">
@@ -229,7 +229,7 @@
 														</li>
 
 														<li>
-															<a href="#">ตัดคอร์ส</a>
+															<a href="{{ url('usage_course/form_usage_course') }}/{{ base64_encode($val->id) }}">ตัดคอร์ส</a>
 														</li>
 
                                                         <li>
@@ -274,10 +274,10 @@
 										<tr>
 											<td>{{ $val->status_course }}</td>
 											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
-											<td>{{ $val->total_price }}</td>
+											<td>{{ number_format($val->total_price, 2) }}</td>
 
-											<td>{{ $val->payment_amount_total }}</td>
-											<td>{{ $val->accrued_expenses }}</td>
+											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
 
 											<td>{{ $val->consultant }}</td>
 											<td>
@@ -294,7 +294,7 @@
 														</li>
 
 														<li>
-															<a href="#">ตัดคอร์ส</a>
+															<a href="{{ url('usage_course/form_usage_course') }}/{{ base64_encode($val->id) }}">ตัดคอร์ส</a>
 														</li>
 
                                                         <li>

@@ -120,75 +120,75 @@
 													<ul class="list-unstyled spaced">
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ประเภทคอร์ส:-
-															<b class="red">{{ $view_data['type_course'] == 'credit'? 'แบบวงเงิน':'แบบรายคอร์ส' }}</b>
+															<b class="blue">{{ $view_data['type_course'] == 'credit'? 'แบบวงเงิน':'แบบรายคอร์ส' }}</b>
 														</li>
 														@if($view_data['type_course'] == 'credit')
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดที่ซื้อจริง:-
-															<b class="red">{{ number_format($view_data['total_price'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['total_price'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>จำนวนเท่า:-
-															<b class="red">{{ number_format($view_data['multiplier_price'], 1) }} เท่าของยอดที่ซื้อจริง</b>
+															<b class="blue">{{ number_format($view_data['multiplier_price'], 1) }} เท่าของยอดที่ซื้อจริง</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ได้วงเงินทั้งหมด:-
-															<b class="red">{{ number_format($view_data['total_credit'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['total_credit'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>Consultant:-
-															<b class="red">{{ $view_data['consultant'] }}</b>
+															<b class="blue">{{ $view_data['consultant'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดชำระทั้งหมด:-
-															<b class="red">{{ number_format($view_data['payment_amount_total'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['payment_amount_total'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>วงเงินขณะนี้:-
-															<b class="red">{{ number_format($view_data['limit_credit'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['limit_credit'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดค้างชำระทั้งหมด:-
-															<b class="red">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>วงเงินที่ใช้ไปทั้งหมด:-
-															<b class="red">{{ number_format($view_data['usage_credit'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['usage_credit'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>สถานะคอร์ส:-
-															<b class="red">{{ $view_data['status_course'] }}</b>
+															<b class="blue">{{ $view_data['status_course'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>หมายเหตุ:-
-															<b class="red">{{ $view_data['comment'] }}</b>
+															<b class="blue">{{ $view_data['comment'] }}</b>
 														</li>
 
 														@else
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>รวมราคาทั้งหมด:-
-															<b class="red">{{ number_format($view_data['total_price'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['total_price'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>Consultant:-
-															<b class="red">{{ $view_data['consultant'] }}</b>
+															<b class="blue">{{ $view_data['consultant'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดชำระทั้งหมด:-
-															<b class="red">{{ number_format($view_data['payment_amount_total'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['payment_amount_total'], 2) }} บาท</b>
 														</li>
 
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดค้างชำระทั้งหมด:-
-															<b class="red">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
+															<b class="blue">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>สถานะคอร์ส:-
-															<b class="red">{{ $view_data['status_course'] }}</b>
+															<b class="blue">{{ $view_data['status_course'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>หมายเหตุ:-
-															<b class="red">{{ $view_data['comment'] }}</b>
+															<b class="blue">{{ $view_data['comment'] }}</b>
 														</li>
 
 														@endif
@@ -214,30 +214,30 @@
 													<ul class="list-unstyled  spaced">
 														<li>
 															<i class="ace-icon fa fa-caret-right green"></i>รหัสลูกค้า:-
-															<b class="red">{{ $view_data['data_customer']['customer_number'] }}</b>
+															<b class="green">{{ $view_data['data_customer']['customer_number'] }}</b>
 														</li>
 
 														<li>
 															<i class="ace-icon fa fa-caret-right green"></i>ชื่อ-นามสกุล:-
-															<b class="red">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }}</b>
+															<b class="green">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }}</b>
 														</li>
 
 														<li>
 															<i class="ace-icon fa fa-caret-right green"></i>หมายเลข ปปช.:-
-															<b class="red">{{ $view_data['data_customer']['thai_id'] }}</b>
+															<b class="green">{{ $view_data['data_customer']['thai_id'] }}</b>
 														</li>
 
 														<li>
 															<i class="ace-icon fa fa-caret-right green"></i>ที่อยู่:-
-															<b class="red">{{ $view_data['data_customer']['address'] }}</b>
+															<b class="green">{{ $view_data['data_customer']['address'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right green"></i>โทร:-
-															<b class="red">{{ $view_data['data_customer']['tel'] }}</b>
+															<b class="green">{{ $view_data['data_customer']['tel'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right green"></i>อีเมล:-
-															<b class="red">{{ $view_data['data_customer']['email'] }}</b>
+															<b class="green">{{ $view_data['data_customer']['email'] }}</b>
 														</li>
 													</ul>
 												</div>
@@ -295,7 +295,7 @@
 
 										<div class="space-6"></div>
 										<div class="well">
-											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#">ลบคอร์สนี้</a>)
+											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
 										</div>
 									</div>
 								</div>
@@ -340,34 +340,35 @@
 										</div><!-- /.row -->
 
 										<div class="space"></div>
-
+										<?php //dump($view_data['history_payment']); ?>
 										<div>
 											<table class="table table-striped table-bordered">
 												<thead>
 													<tr>
-														<th class="center">#</th>
+														<th class="center">เล่มที่/เลขที่ ใบเสร็จ</th>
 														<th>ข้อมูลการชำระ</th>
 														<th>ยอดชำระ(บาท)</th>
 														<th>วันที่ชำระ</th>
-
+														<th style="width: 5%;"></th>
 													</tr>
 												</thead>
 
 												<tbody>
 													@foreach($view_data['history_payment'] as $key => $val)
 														<tr>
-															<td>{{ $key+1 }}</td>
+															<td><?php echo $val['book_no'].'<br>'.$val['number_no']; ?></td>
 															<td>
-																ธนาคาร:- {{ $val['bank_name'] }}<br>
-																ประเภทการชำระ:- {{ $val['payment_type'] }}<br>
-																จำนวนเงินสด:- {{ number_format($val['cash'], 2) }} บาท<br>
-																จำนวนเงินตัดผ่านบัตร:- {{ number_format($val['credit_debit_card'], 2) }} บาท<br>
-																TID:- {{ $val['TID'] }}<br>
-																MID:- {{ $val['MID'] }}<br>
-																หมายเหตุ:- {{ $val['comment'] }}<br>
+																<b>ธนาคาร:</b> {{ $val['bank_name'] }}<br>
+																<b>ประเภทการชำระ:</b> {{ $val['payment_type'] }}<br>
+																<b>จำนวนเงินสด:</b> {{ number_format($val['cash'], 2) }} บาท<br>
+																<b>จำนวนเงินตัดผ่านบัตร:</b> {{ number_format($val['credit_debit_card'], 2) }} บาท<br>
+																<b>TID:</b> {{ $val['TID'] }}<br>
+																<b>MID:</b> {{ $val['MID'] }}<br>
+																<b>หมายเหตุ:</b> {{ $val['comment'] }}<br>
 															</td>
 															<td>{{ number_format($val['payment_amount'], 2) }}</td>
 															<td>{{ date("d-m-Y", strtotime($val['created_at'])) }}</td>
+															<td><a href="#" onclick="delete_history_payment('{{ $val['id'] }}')"><b>[ลบ]</b></a></td>
 														</tr>
 													@endforeach
 												</tbody>
@@ -388,7 +389,7 @@
 
 										<div class="space-6"></div>
 										<div class="well">
-											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#">ลบคอร์สนี้</a>)
+											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
 										</div>
 									</div>
 								</div>
@@ -408,5 +409,5 @@
 		</div><!-- /.row -->
 	</div><!-- /.page-content -->
 </div>
-
+{{ csrf_field() }}
 @endsection

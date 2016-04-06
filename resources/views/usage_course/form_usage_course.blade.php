@@ -98,60 +98,141 @@
 								</div>
 
 								<hr>
-
+								<?php
+								//dump($view_data['course']);
+								//dump($view_data['item_of_course']);
+								$item_of_course = @unserialize($view_data['course']['item_of_course']);
+								//dump($item_of_course);
+								?>
 								<div class="step-content pos-rel">
 									<div class="step-pane active" data-step="1">
-										<!-- <h3 class="lighter block green">Enter the following information</h3> -->
+										<h3 class="lighter block green" style="margin-top: 0px;">{{ $view_data['course']['data_customer']['prefix'] }} {{ $view_data['course']['data_customer']['full_name'] }} ({{ $view_data['course']['data_customer']['nickname'] }})</h3>
 										<div class="row">
 											<div class="col-xs-12">
 												<table id="simple-table" class="table table-striped table-bordered table-hover">
 													<thead>
 														<tr style="background: #438eb9;color:white;">
-															<th class="center">
-																<!-- <label class="pos-rel">
-																	<input type="checkbox" class="ace">
-																	<span class="lbl"></span>
-																</label> -->
-															</th>
+															@if($view_data['course']['type_course'] == 'credit')
+															<th class="center"></th>
 															<th>รายการคอร์ส(item)</th>
-															<th>ราคา MPL ขั้นต่ำ(บาท)</th>
 															<th class="hidden-480">ราคาวงเงิน(บาท)</th>
 
-															<th>
-																<!-- <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i> -->
+															<th style="width:7%;">
 																จำนวนครั้ง
 															</th>
-															<th class="hidden-480">ราคาต่อครั้ง(บาท)</th>
+															<th class="hidden-480" style="width:10%;">ราคาต่อครั้ง(บาท)</th>
 
-															<th>รวมราคา(บาท)</th>
+															<th style="width:11%;">รวมราคา(บาท)</th>
+															@else
+															<th class="center"></th>
+															<th>รายการคอร์ส(item)</th>
+															<th>จำนวนที่ซื้อ</th>
+															<th>จำนวนที่ใช้</th>
+															<th style="width:7%;">
+																จำนวนครั้ง
+															</th>
+															<th class="hidden-480" style="width:10%;">ราคาต่อครั้ง(บาท)</th>
+
+															<th style="width:11%;">รวมราคา(บาท)</th>
+															@endif
 														</tr>
 													</thead>
 
 													<tbody>
+														@if($view_data['course']['type_course'] == 'credit')
+														@foreach($view_data['item_of_course'] as $key => $val)
+														<!-- แบบวงเงิน -->
 														<tr>
 															<td class="center">
 																<label class="pos-rel">
-																	<input type="checkbox" class="ace">
+																	<input type="checkbox" name="" class="ace">
 																	<span class="lbl"></span>
 																</label>
 															</td>
-
 															<td>
-																<a href="#">ace.com</a>
+																<a href="#">{{ $val->item_name }}</a>
 															</td>
-															<td>$45</td>
-															<td class="hidden-480">3,330</td>
-															<td>Feb 12</td>
+															<td>{{ number_format($val->price_credit, 2) }}</td>
+															<td>
+																<span class="block input-icon input-icon-right">
+																	<input type="number" name="" id="" class="width-100">
+																	<i class="ace-icon fa fa-info-circle"></i>
+																</span>
+															</td>
 
 															<td class="hidden-480">
-																<span class="label label-sm label-warning">Expiring</span>
+																<span class="block input-icon input-icon-right">
+																	<input type="number" name="" id="" value="{{ $val->price_credit }}" class="width-100" readonly="true">
+																	<i class="ace-icon fa fa-info-circle"></i>
+																</span>
 															</td>
 
 															<td>
-
+																<span class="block input-icon input-icon-right">
+																	<input type="number" name="" id="" class="width-100" readonly="true">
+																	<i class="ace-icon fa fa-info-circle"></i>
+																</span>
 															</td>
 														</tr>
+														@endforeach
+														@else
+														@foreach($item_of_course as $key => $val)
+														<!-- แบบรายคอร์ส -->
+														<tr>
+															<td class="center">
+																<label class="pos-rel">
+																	<input type="checkbox" name="" class="ace">
+																	<span class="lbl"></span>
+																</label>
+															</td>
+															<td>
+																<a href="#">{{ $val['item_name'] }}</a>
+															</td>
+															<td>{{ $val['amount_total'] }}</td>
+															<td>{{ $val['amount_usage'] }}</td>
+															<td>
+																<span class="block input-icon input-icon-right">
+																	<input type="number" name="" id="" class="width-100">
+																	<i class="ace-icon fa fa-info-circle"></i>
+																</span>
+															</td>
+
+															<td class="hidden-480">
+																<span class="block input-icon input-icon-right">
+																	<input type="number" name="" id="" value="{{ $val['price_per_unit'] }}" class="width-100" readonly="true">
+																	<i class="ace-icon fa fa-info-circle"></i>
+																</span>
+															</td>
+
+															<td>
+																<span class="block input-icon input-icon-right">
+																	<input type="number" name="" id="" class="width-100" readonly="true">
+																	<i class="ace-icon fa fa-info-circle"></i>
+																</span>
+															</td>
+														</tr>
+														@endforeach
+														@endif
+
 													</tbody>
+												</table>
+
+												<table id="" class="table table-striped table-bordered table-hover">
+													<tr>
+														<th colspan="4" class="center">
+															สรุปทั้งหมด
+														</th>
+
+														<th class="center" style="width:7%;">
+															<span id="summary_amount">0</span>
+														</th>
+														<th class="center" style="width:10%;">
+															<span id="summary_price_per_unit"></span>
+														</th>
+														<th class="center" style="width:11%;">
+															<span id="summary_total_per_item">0.00</span>
+														</th>
+													</tr>
 												</table>
 											</div><!-- /.span -->
 										</div>
@@ -217,7 +298,7 @@
 											</div>
 										</form> -->
 
-										<form class="form-horizontal hide" id="validation-form" method="get" novalidate="novalidate">
+										<!-- <form class="form-horizontal hide" id="validation-form" method="get" novalidate="novalidate">
 											<div class="form-group">
 												<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Email Address:</label>
 
@@ -439,17 +520,11 @@
 													</label>
 												</div>
 											</div>
-										</form>
+										</form> -->
 									</div>
 
 									<div class="step-pane" data-step="2">
 										<div>
-
-
-
-
-
-
 
 										</div>
 									</div>
@@ -489,7 +564,7 @@
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div id="modal-wizard-container">
-								<div class="modal-header">
+								<!-- <div class="modal-header">
 									<ul class="steps">
 										<li data-step="1" class="active">
 											<span class="step">1</span>
@@ -511,12 +586,232 @@
 											<span class="title">Other Info</span>
 										</li>
 									</ul>
-								</div>
+								</div> -->
 
 								<div class="modal-body step-content">
 									<div class="step-pane active" data-step="1">
 										<div class="center">
-											<h4 class="blue">Step 1</h4>
+											<h4 class="blue">ข้อมูลคอร์ส</h4>
+											<div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="timeline-container timeline-style2">
+        												<span class="timeline-label" style="width: 120px;">
+        													<!-- <u><h4>ข้อมูลคอร์ส</h4></u> -->
+        												</span>
+
+        												<div class="timeline-items">
+        													<div class="timeline-item clearfix">
+        														<div class="timeline-info">
+        															<span class="timeline-date"><a href="#" class="purple bolder">ประเภทคอร์ส</a></span>
+
+        															<i class="timeline-indicator btn btn-info no-hover"></i>
+        														</div>
+
+        														<div class="widget-box transparent">
+        															<div class="widget-body">
+        																<div class="widget-main no-padding">
+        																	<!-- <span class="bigger-110"> -->
+        																	<span class="black bolder">
+                                                                                {{ $view_data['course']['type_course'] == 'credit'? 'แบบวงเงิน':'แบบรายคอร์ส' }}
+                                                                            </span>
+        																	<!-- </span> -->
+
+
+        																</div>
+        															</div>
+        														</div>
+        													</div>
+
+        													<div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+        															<span class="timeline-date"><a href="#" class="purple bolder">เล่มที่ใบเสร็จ</a></span>
+
+        															<i class="timeline-indicator btn btn-info no-hover"></i>
+        														</div>
+
+        														<div class="widget-box transparent">
+        															<div class="widget-body">
+        																<div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ $view_data['course']['book_no'] }}
+                                                                            </span>
+        																</div>
+        															</div>
+        														</div>
+        													</div>
+
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+        															<span class="timeline-date"><a href="#" class="purple bolder">เลขที่ใบเสร็จ</a></span>
+
+        															<i class="timeline-indicator btn btn-info no-hover"></i>
+        														</div>
+
+        														<div class="widget-box transparent">
+        															<div class="widget-body">
+        																<div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ $view_data['course']['number_no'] }}
+                                                                            </span>
+        																</div>
+        															</div>
+        														</div>
+        													</div>
+
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+        															<span class="timeline-date"><a href="#" class="purple bolder">
+                                                                        ราคาทั้งหมด
+                                                                    </a></span>
+
+        															<i class="timeline-indicator btn btn-info no-hover"></i>
+        														</div>
+
+        														<div class="widget-box transparent">
+        															<div class="widget-body">
+        																<div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ number_format($view_data['course']['total_price'], 2) }} บาท
+                                                                            </span>
+        																</div>
+        															</div>
+        														</div>
+        													</div>
+
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+        															<span class="timeline-date"><a href="#" class="purple bolder">
+                                                                        ยอดชำระทั้งหมด
+                                                                    </a></span>
+
+        															<i class="timeline-indicator btn btn-info no-hover"></i>
+        														</div>
+
+        														<div class="widget-box transparent">
+        															<div class="widget-body">
+        																<div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ number_format($view_data['course']['payment_amount_total'], 2) }} บาท
+                                                                            </span>
+        																</div>
+        															</div>
+        														</div>
+        													</div>
+
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+        															<span class="timeline-date"><a href="#" class="purple bolder">
+                                                                        ยอดค้างชำระทั้งหมด
+                                                                    </a></span>
+
+        															<i class="timeline-indicator btn btn-info no-hover"></i>
+        														</div>
+
+        														<div class="widget-box transparent">
+        															<div class="widget-body">
+        																<div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ number_format($view_data['course']['accrued_expenses'], 2) }} บาท
+                                                                            </span>
+        																</div>
+        															</div>
+        														</div>
+        													</div>
+
+        												</div><!-- /.timeline-items -->
+        											</div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="timeline-container timeline-style2">
+        												<span class="timeline-label">
+        													<b></b>
+        												</span>
+                                                        <div class="timeline-items">
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+        															<span class="timeline-date"><a href="#" class="purple bolder">
+                                                                        Consultant
+                                                                    </a></span>
+
+        															<i class="timeline-indicator btn btn-info no-hover"></i>
+        														</div>
+
+        														<div class="widget-box transparent">
+        															<div class="widget-body">
+        																<div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ $view_data['course']['consultant'] }}
+                                                                            </span>
+        																</div>
+        															</div>
+        														</div>
+        													</div>
+
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+                                                                    <span class="timeline-date"><a href="#" class="purple bolder">
+                                                                        หมายเหตุ
+                                                                    </a></span>
+
+                                                                    <i class="timeline-indicator btn btn-info no-hover"></i>
+                                                                </div>
+
+                                                                <div class="widget-box transparent">
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ $view_data['course']['comment'] }}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+                                                                    <span class="timeline-date"><a href="#" class="purple bolder">
+                                                                        วันที่ซื้อ
+                                                                    </a></span>
+
+                                                                    <i class="timeline-indicator btn btn-info no-hover"></i>
+                                                                </div>
+
+                                                                <div class="widget-box transparent">
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ date("d-m-Y H:i:s", strtotime($view_data['course']['created_at'])) }}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="timeline-item clearfix">
+                                                                <div class="timeline-info">
+                                                                    <span class="timeline-date"><a href="#" class="purple bolder">
+                                                                        สถานะคอร์ส
+                                                                    </a></span>
+
+                                                                    <i class="timeline-indicator btn btn-info no-hover"></i>
+                                                                </div>
+
+                                                                <div class="widget-box transparent">
+                                                                    <div class="widget-body">
+                                                                        <div class="widget-main no-padding">
+                                                                            <span class="black bolder">
+                                                                                {{ $view_data['course']['status_course'] }}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
 										</div>
 									</div>
 
@@ -541,7 +836,7 @@
 							</div>
 
 							<div class="modal-footer wizard-actions">
-								<button class="btn btn-sm btn-prev" disabled="disabled">
+								<!-- <button class="btn btn-sm btn-prev" disabled="disabled">
 									<i class="ace-icon fa fa-arrow-left"></i>
 									Prev
 								</button>
@@ -549,7 +844,7 @@
 								<button class="btn btn-success btn-sm btn-next" data-last="Finish">
 									Next
 									<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-								</button>
+								</button> -->
 
 								<button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
 									<i class="ace-icon fa fa-times"></i>

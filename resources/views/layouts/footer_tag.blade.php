@@ -366,6 +366,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 <script src="{{ asset('qwc/js/show_all_course_for_customer.js') }}"></script>
 @elseif($page_inside == 3)
 <script src="{{ asset('qwc/js/history_payment_form.js') }}"></script>
+@elseif($page_inside == 4)
+<script src="{{ asset('qwc/js/form_usage_course.js') }}"></script>
 @endif
 
 @endif

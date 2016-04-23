@@ -109,6 +109,10 @@
 										<h3 class="lighter block green" style="margin-top: 0px;">{{ $view_data['course']['data_customer']['prefix'] }} {{ $view_data['course']['data_customer']['full_name'] }} ({{ $view_data['course']['data_customer']['nickname'] }})</h3>
 										<div class="row">
 											<div class="col-xs-12">
+												<form action="{{ url('usage_course/save_form_usage_course') }}" id="send_form_usage_course" method="post">
+												<input type="hidden" name="buy_course_id" value="{{ $view_data['course']['id'] }}">
+												<input type="hidden" name="type_course" value="{{ $view_data['course']['type_course'] }}">
+
 												<table id="simple-table" class="table table-striped table-bordered table-hover">
 													<thead>
 														<tr style="background: #438eb9;color:white;">
@@ -145,7 +149,7 @@
 														<tr>
 															<td class="center">
 																<label class="pos-rel">
-																	<input type="checkbox" name="" class="ace">
+																	<input type="checkbox" name="check_usage_course[]" id="check_usage_course_{{ $val->item_of_course_id }}" value="{{ $val->item_of_course_id }}" onclick="checked_usage_course('{{ $val->item_of_course_id }}')" class="ace">
 																	<span class="lbl"></span>
 																</label>
 															</td>
@@ -155,25 +159,31 @@
 															<td>{{ number_format($val->price_credit, 2) }}</td>
 															<td>
 																<span class="block input-icon input-icon-right">
-																	<input type="number" name="" id="" class="width-100">
-																	<i class="ace-icon fa fa-info-circle"></i>
+																	<select class="form-control" onchange="selected_amount_usage_course('{{ $val->item_of_course_id }}')" name="amount_{{ $val->item_of_course_id }}" id="amount_{{ $val->item_of_course_id }}" >
+																		<?php for($i = 1;$i <= 5;$i++){ ?>
+																		<option value="{{ $i }}">{{ $i }}</option>
+																		<?php } ?>
+																	</select>
 																</span>
 															</td>
 
 															<td class="hidden-480">
 																<span class="block input-icon input-icon-right">
-																	<input type="number" name="" id="" value="{{ $val->price_credit }}" class="width-100" readonly="true">
+																	<input type="number" name="price_per_unit_{{ $val->item_of_course_id }}" id="price_per_unit_{{ $val->item_of_course_id }}" value="{{ $val->price_credit }}" class="width-100" readonly="true">
 																	<i class="ace-icon fa fa-info-circle"></i>
 																</span>
 															</td>
 
 															<td>
 																<span class="block input-icon input-icon-right">
-																	<input type="number" name="" id="" class="width-100" readonly="true">
+																	<input type="number" name="total_per_item_{{ $val->item_of_course_id }}" id="total_per_item_{{ $val->item_of_course_id }}" class="width-100" readonly="true">
 																	<i class="ace-icon fa fa-info-circle"></i>
 																</span>
 															</td>
 														</tr>
+														<input type="hidden" name="category_item_name_{{ $val->item_of_course_id }}" value="{{ $val->category_item_name }}">
+														<input type="hidden" name="item_name_{{ $val->item_of_course_id }}" value="{{ $val->item_name }}">
+
 														@endforeach
 														@else
 														@foreach($item_of_course as $key => $val)
@@ -181,7 +191,7 @@
 														<tr>
 															<td class="center">
 																<label class="pos-rel">
-																	<input type="checkbox" name="" class="ace">
+																	<input type="checkbox" name="check_usage_course[]" id="check_usage_course_{{ $val['item_of_course_id'] }}" value="{{ $val['item_of_course_id'] }}" onclick="checked_usage_course('{{ $val['item_of_course_id'] }}')" class="ace">
 																	<span class="lbl"></span>
 																</label>
 															</td>
@@ -192,30 +202,40 @@
 															<td>{{ $val['amount_usage'] }}</td>
 															<td>
 																<span class="block input-icon input-icon-right">
-																	<input type="number" name="" id="" class="width-100">
-																	<i class="ace-icon fa fa-info-circle"></i>
+																	<select class="form-control" onchange="selected_amount_usage_course('{{ $val['item_of_course_id'] }}')" name="amount_{{ $val['item_of_course_id'] }}" id="amount_{{ $val['item_of_course_id'] }}">
+																		<?php
+
+																		for($i = 1;$i <= ($val['amount_total'] - $val['amount_usage']);$i++){ ?>
+																		<option value="{{ $i }}">{{ $i }}</option>
+																		<?php } ?>
+																	</select>
 																</span>
 															</td>
 
 															<td class="hidden-480">
 																<span class="block input-icon input-icon-right">
-																	<input type="number" name="" id="" value="{{ $val['price_per_unit'] }}" class="width-100" readonly="true">
+																	<input type="number" name="price_per_unit_{{ $val['item_of_course_id'] }}" id="price_per_unit_{{ $val['item_of_course_id'] }}" value="{{ $val['price_per_unit'] }}" class="width-100" readonly="true">
 																	<i class="ace-icon fa fa-info-circle"></i>
 																</span>
 															</td>
 
 															<td>
 																<span class="block input-icon input-icon-right">
-																	<input type="number" name="" id="" class="width-100" readonly="true">
+																	<input type="number" name="total_per_item_{{ $val['item_of_course_id'] }}" id="total_per_item_{{ $val['item_of_course_id'] }}" class="width-100" readonly="true">
 																	<i class="ace-icon fa fa-info-circle"></i>
 																</span>
 															</td>
 														</tr>
+														<input type="hidden" name="category_item_name_{{ $val['item_of_course_id'] }}" value="{{ $val['category_item_name'] }}">
+														<input type="hidden" name="item_name_{{ $val['item_of_course_id'] }}" value="{{ $val['item_name'] }}">
+
 														@endforeach
 														@endif
 
 													</tbody>
 												</table>
+												{{ csrf_field() }}
+												</form>
 
 												<table id="" class="table table-striped table-bordered table-hover">
 													<tr>
@@ -224,14 +244,22 @@
 														</th>
 
 														<th class="center" style="width:7%;">
-															<span id="summary_amount">0</span>
+															<b><span id="summary_amount">0</span></b>
 														</th>
 														<th class="center" style="width:10%;">
 															<span id="summary_price_per_unit"></span>
 														</th>
 														<th class="center" style="width:11%;">
-															<span id="summary_total_per_item">0.00</span>
+															<b><span id="summary_total_per_item">0.00</span></b>
 														</th>
+													</tr>
+													<tr>
+														<!-- <th colspan="7" style="text-align:right;border:none;">
+															<button class="btn btn-white btn-info btn-bold">
+																<i class="ace-icon fa fa-refresh bigger-120 blue"></i>
+																สรุปทั้งหมด
+															</button>
+														</th> -->
 													</tr>
 												</table>
 											</div><!-- /.span -->
@@ -551,7 +579,7 @@
 									ยกเลิก
 								</button>
 
-								<button class="btn btn-success btn-next" data-last="Finish">
+								<button type="button" id="btn_form_usage_course" class="btn btn-success btn-next" data-last="Finish">
 									บันทึกการตัดคอร์ส
 
 								<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>

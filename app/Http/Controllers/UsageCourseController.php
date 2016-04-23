@@ -7,6 +7,7 @@ use App\Http\Controllers\QwcController;
 use App\Models\Customers;
 use App\Models\ItemOfCourse;
 use App\Models\BuyCourse;
+use App\Models\UsageCourse;
 
 class UsageCourseController extends QwcController{
 	public function __construct()
@@ -29,6 +30,23 @@ class UsageCourseController extends QwcController{
 		}else{
 			echo "error";
 		}
+	}
+	public function save_form_usage_course(Request $request){
+
+		$UsageCourse = new UsageCourse;
+		if($request->get('type_course') == "credit"){
+			$BuyCourse = new BuyCourse;
+			$data_course = $BuyCourse->getDataBuyCourseById($request->get('buy_course_id'));
+			dump($data_course);
+			$res = $UsageCourse->save_form_usage_course_by_credit($request->all());
+
+		}else if($request->get('type_course') == "debit"){
+
+		}else{
+			echo "error";
+		}
+
+		dd($request->all());
 	}
 }
 

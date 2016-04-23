@@ -69,4 +69,5 @@ Route::group(['middleware' => 'web'], function () {
 
     //------------------------------- Usage Course -----------------------------//
     Route::get('usage_course/form_usage_course/{id}', 'UsageCourseController@form_usage_course');
+    Route::post('usage_course/save_form_usage_course', 'UsageCourseController@save_form_usage_course');
 });

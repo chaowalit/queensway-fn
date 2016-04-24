@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\HistoryPayment;
 use App\Models\ItemOfCourse;
 use App\Models\Customers;
+use App\Models\UsageCourse;
 
 class BuyCourse extends Model
 {
@@ -88,6 +89,7 @@ class BuyCourse extends Model
 		$total_price = 0;
 		foreach($data['check_list'] as $k => $v){
 			$temp['item_of_course_id'] = $v;
+			$temp['referent_code'] = rand(100,999).'-'.date("YmdHis");
 
 			$ItemOfCourse = new ItemOfCourse;
 			$item = $ItemOfCourse->getDataItemOfCourseById($v);
@@ -174,6 +176,7 @@ class BuyCourse extends Model
 		// (ส่ง buy_course_id ได้แค่ 1 คอร์สเท่านั้น) จะแสดงทั้งรายละเอียดคอร์สที่ซื้อ ลูกค้าคนไหนซื้อไป ประวัติการชำระเงิน
 		$HistoryPayment = new HistoryPayment;
 		$Customers = new Customers;
+		$UsageCourse = new UsageCourse;
 
 		$course = \DB::table($this->table)
 					->select($this->table.'.*')->where('id', $buy_course_id)->where('deleted_at', NULL)->get();
@@ -197,7 +200,15 @@ class BuyCourse extends Model
 				$course['history_payment'] = [];
 			}
 
-			$course['usage_course'] = [];
+			$usage_course = $UsageCourse->getDataUsageCourseById($course['id']);
+			if(count($usage_course) > 0){
+				foreach($usage_course as $index => $tmp_1){
+					$course['usage_course'][$index] = (array)$tmp_1;
+				}
+			}else{
+				$course['usage_course'] = [];
+			}
+
 			//dd($course);
 			return $course;
 		}else{

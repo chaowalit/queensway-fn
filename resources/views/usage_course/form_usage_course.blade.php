@@ -144,6 +144,7 @@
 
 													<tbody>
 														@if($view_data['course']['type_course'] == 'credit')
+														<?php $check_item_found = true; ?>
 														@foreach($view_data['item_of_course'] as $key => $val)
 														<!-- แบบวงเงิน -->
 														<tr>
@@ -186,8 +187,11 @@
 
 														@endforeach
 														@else
+														<?php $check_item_found = false; ?>
 														@foreach($item_of_course as $key => $val)
 														<!-- แบบรายคอร์ส -->
+														@if(($val['amount_total'] - $val['amount_usage']) > 0)
+														<?php $check_item_found = true; ?>
 														<tr>
 															<td class="center">
 																<label class="pos-rel">
@@ -228,7 +232,8 @@
 														</tr>
 														<input type="hidden" name="category_item_name_{{ $val['item_of_course_id'] }}" value="{{ $val['category_item_name'] }}">
 														<input type="hidden" name="item_name_{{ $val['item_of_course_id'] }}" value="{{ $val['item_name'] }}">
-
+														<input type="hidden" name="referent_code_{{ $val['item_of_course_id'] }}" value="{{ $val['referent_code'] }}">
+														@endif
 														@endforeach
 														@endif
 
@@ -574,6 +579,7 @@
 
 							<hr>
 							<div class="wizard-actions">
+								@if($check_item_found)
 								<button class="btn btn-prev">
 									<i class="ace-icon fa fa-arrow-left"></i>
 									ยกเลิก
@@ -581,8 +587,9 @@
 
 								<button type="button" id="btn_form_usage_course" class="btn btn-success btn-next" data-last="Finish">
 									บันทึกการตัดคอร์ส
-
-								<i class="ace-icon fa fa-arrow-right icon-on-right"></i></button>
+									<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+								</button>
+								@endif
 							</div>
 						</div><!-- /.widget-main -->
 					</div><!-- /.widget-body -->

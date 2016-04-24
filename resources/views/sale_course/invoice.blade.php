@@ -398,8 +398,93 @@
 						</div>
 
 						<div id="dropdown13" class="tab-pane">
-							<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-							<p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+							<div class="widget-box transparent">
+								<div class="widget-header widget-header-large">
+									<h3 class="widget-title grey lighter">
+										<i class="ace-icon fa fa-leaf green"></i>
+										ประวัติการใช้คอร์ส
+									</h3>
+
+									<div class="widget-toolbar no-border invoice-info">
+										<span class="invoice-info-label">เล่มที่ใบเสร็จ:</span>
+										<span class="red">{{ $view_data['book_no'] }}</span>
+
+										<br>
+										<span class="invoice-info-label">เลขที่ใบเสร็จ:</span>
+										<span class="red">{{ $view_data['number_no'] }}</span>
+
+										<br>
+										<span class="invoice-info-label">วันที่ซื้อ:</span>
+										<span class="blue">{{ date("d-m-Y H:i:s", strtotime($view_data['created_at'])) }}</span>
+									</div>
+
+									<div class="widget-toolbar hidden-480" style="line-height: 72px;">
+										<a href="#">
+											<!--<i class="ace-icon fa fa-print"></i>-->
+										</a>
+									</div>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main padding-24">
+										<div class="row">
+
+
+										</div><!-- /.row -->
+
+										<div class="space"></div>
+										<?php //dump($view_data['history_payment']); ?>
+										<div>
+											<?php $total_cost = 0; ?>
+											<table class="table table-striped table-bordered">
+												<thead>
+													<tr>
+														<th class="center">รายการคอร์ส(item)</th>
+														<th>จำนวนครั้ง</th>
+														<th>ราคาต่อครั้ง(บาท)</th>
+														<th>รวมราคา(บาท)</th>
+														<th>วันที่ใช้บริการ</th>
+														<th style="width: 5%;"></th>
+													</tr>
+												</thead>
+
+												<tbody>
+													@foreach($view_data['usage_course'] as $key => $val)
+														<?php $total_cost = $total_cost + $val['total_per_item']; ?>
+														<tr>
+															<td>{{ $val['item_name'] }}</td>
+															<td>{{ $val['amount'] }}</td>
+															<td>{{ $val['price_per_unit'] }}</td>
+															<td>{{ $val['total_per_item'] }}</td>
+															<td>{{ date("d-m-Y H:i:s", strtotime($val['created_at'])) }}</td>
+															<td>
+																<a href="#" onclick="delete_usage_course('{{ $val['id'] }}')"><b>[ลบ]</b></a>
+															</td>
+														</tr>
+													@endforeach
+												</tbody>
+											</table>
+										</div>
+
+										<div class="hr hr8 hr-double hr-dotted"></div>
+
+										<div class="row">
+											<div class="col-sm-5 pull-right">
+												<h4 class="pull-right">
+													รวมยอดใช้งานทั้งหมด :
+													<span class="red">฿{{ $total_cost }}</span>
+												</h4>
+											</div>
+											<div class="col-sm-7 pull-left red"> </div>
+										</div>
+
+										<div class="space-6"></div>
+										<div class="well">
+											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

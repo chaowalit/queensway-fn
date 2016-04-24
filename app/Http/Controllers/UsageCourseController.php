@@ -34,19 +34,61 @@ class UsageCourseController extends QwcController{
 	public function save_form_usage_course(Request $request){
 
 		$UsageCourse = new UsageCourse;
+		$BuyCourse = new BuyCourse;
+		$data_course = $BuyCourse->getDataBuyCourseById($request->get('buy_course_id'));
+		//dump($data_course);
+		//dump(unserialize($data_course[0]->item_of_course));
 		if($request->get('type_course') == "credit"){
-			$BuyCourse = new BuyCourse;
-			$data_course = $BuyCourse->getDataBuyCourseById($request->get('buy_course_id'));
-			dump($data_course);
-			$res = $UsageCourse->save_form_usage_course_by_credit($request->all());
+
+			$total_cost = 0;
+			foreach($request->get('check_usage_course') as $key => $val){
+				$total_cost = $total_cost + $request->get('total_per_item_'.$val);
+			}
+
+			//dump($total_cost);
+			if($total_cost <= ($data_course[0]->limit_credit - $data_course[0]->usage_credit)){
+				$res = $UsageCourse->save_form_usage_course_by_credit($request->all(), $total_cost, $data_course);
+				if($res == 200){
+					return redirect('history_payment/invoice/'.base64_encode($data_course[0]->id));
+				}else{
+					echo "Error";
+					exit;
+				}
+			}else{
+				echo "เกิดข้อผิดพลาดในการตัดคอร์ส เนื่องคุณได้สั่งซื้อคอร์สเกินราคาที่จ่ายจริง";
+				exit;
+			}
+
 
 		}else if($request->get('type_course') == "debit"){
+			$total_cost = 0;
+			foreach($request->get('check_usage_course') as $key => $val){
+				$total_cost = $total_cost + $request->get('total_per_item_'.$val);
+			}
+			//dump($total_cost);
+			$total_use = 0;
+			foreach(unserialize($data_course[0]->item_of_course) as $key => $val){
+				$total_use = $total_use + ($val['amount_usage'] * $val['price_per_unit']);
+			}
+			//dump($total_use);
+			if($total_cost <= ($data_course[0]->payment_amount_total - $total_use)){
+				$res = $UsageCourse->save_form_usage_course_by_debit($request->all(), $data_course);
+				if($res == 200){
+					return redirect('history_payment/invoice/'.base64_encode($data_course[0]->id));
+				}else{
+					echo "Error";
+					exit;
+				}
+			}else{
+				echo "เกิดข้อผิดพลาดในการตัดคอร์ส เนื่องคุณได้สั่งซื้อคอร์สเกินราคาที่จ่ายจริง";
+				exit;
+			}
 
 		}else{
 			echo "error";
 		}
 
-		dd($request->all());
+		//dd($request->all());
 	}
 }
 

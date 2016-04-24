@@ -233,7 +233,8 @@
 														</li>
 
                                                         <li>
-															<a href="#">ยกเลิกคอร์ส</a>
+															<a href="#" onclick="cancel_buy_course_of_credit('{{ $val->id }}')">ยกเลิกคอร์ส</a>
+                                                            <!-- แบบวงเงิน -->
 														</li>
 													</ul>
                                                     @else
@@ -298,7 +299,8 @@
 														</li>
 
                                                         <li>
-															<a href="#">ยกเลิกคอร์ส</a>
+                                                            <a href="#" onclick="cancel_buy_course_of_debit('{{ $val->id }}')">ยกเลิกคอร์ส</a>
+                                                            <!-- แบบรายคอร์ส -->
 														</li>
 													</ul>
                                                     @else
@@ -321,36 +323,7 @@
 			</div><!-- /.col -->
 		</div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <!-- PAGE CONTENT BEGINS -->
-                <div class="row">
-                    <div class="col-xs-12" id="show_list_customers">
 
-                        <!-- load data ajax -->
-                        <div class="col-xs-12" style="text-align: center;">
-                            <h3 class="smaller lighter grey">
-                                <!--<i class="ace-icon fa fa-spinner fa-spin orange bigger-125"></i>-->
-
-                            </h3>
-                        </div>
-
-                    </div><!-- /.span -->
-
-                </div><!-- /.row -->
-
-                <div class="hr hr-18 dotted hr-double"></div>
-                <!--
-                <h4 class="pink">
-                    <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-                    <a href="#modal-table" role="button" class="green" data-toggle="modal"> Table Inside a Modal Box </a>
-                </h4>
-
-                <div class="hr hr-18 dotted hr-double"></div>
-                -->
-
-            </div><!-- /.col -->
-        </div><!-- /.row -->
     </div><!-- /.page-content -->
 </div>
 @endsection

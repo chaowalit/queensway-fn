@@ -54,7 +54,7 @@
 
                             <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                                 <li>
-                                    <a href="#">
+                                    <a href="#modal-setting-profile" data-toggle="modal">
                                         <i class="ace-icon fa fa-cog"></i>
                                         การตั้งค่าระบบ
                                     </a>
@@ -755,21 +755,110 @@
 
         @include('layouts/footer_tag')
 
-        <!--
-            @if (Auth::guest())
-                <li><a href="{{ url('/login') }}">Login</a></li>
-                <li><a href="{{ url('/register') }}">Register</a></li>
-            @else
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
+        <div id="modal-setting-profile" class="modal">
+			<div class="modal-dialog" style="width: 600px;">
+				<div class="modal-content">
+					<div id="modal-wizard-container">
+						<div class="modal-header">
+							<h4>การตั้งค่าระบบ</h4>
+						</div>
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                    </ul>
-                </li>
-            @endif
-        -->
+						<div class="modal-body step-content">
+							<div class="step-pane active" data-step="1">
+								<div class="center">
+                                    <form class="form-horizontal" id="sample-form">
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">ชื่อบริษัท</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100">
+													<i class="ace-icon fa fa-info-circle"></i>
+												</span>
+											</div>
+
+										</div>
+
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">รหัสสาขา</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100">
+													<i class="ace-icon fa fa-info-circle"></i>
+												</span>
+											</div>
+
+										</div>
+
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">ชื่อสาขา</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100">
+													<i class="ace-icon fa fa-info-circle"></i>
+												</span>
+											</div>
+
+										</div>
+
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">ชื่อผู้รับผิดชอบ</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100">
+													<i class="ace-icon fa fa-info-circle"></i>
+												</span>
+											</div>
+
+										</div>
+
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">นามสกุลผู้รับผิดชอบ</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100">
+													<i class="ace-icon fa fa-info-circle"></i>
+												</span>
+											</div>
+
+										</div>
+
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">Email</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100">
+													<i class="ace-icon fa fa-info-circle"></i>
+												</span>
+											</div>
+
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="modal-footer wizard-actions">
+						<button class="btn btn-success btn-sm btn-next" data-last="Finish">
+							Update
+							<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+						</button>
+
+						<button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
+							<i class="ace-icon fa fa-times"></i>
+							Cancel
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
     </body>
 </html>

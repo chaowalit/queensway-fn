@@ -230,7 +230,8 @@ jQuery(function($) {
 		var off2 = $source.offset();
 		//var w2 = $source.width();
 
-		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
+			'right';
 		return 'left';
 	}
 	//----------------------------------------------------------------------------------
@@ -463,8 +464,13 @@ jQuery(function($) {
 		var off2 = $source.offset();
 		//var w2 = $source.width();
 
-		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
+			'right';
 		return 'left';
 	}
 
 });
+
+function cancel_buy_course_of_credit(buy_course_id) {
+
+}

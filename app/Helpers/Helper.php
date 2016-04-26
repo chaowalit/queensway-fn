@@ -1,4 +1,10 @@
 <?php
+if (!function_exists('getPasswordApiV1')) {
+	function getPasswordApiV1() {
+		return sha1('Qwc-Queensway-th');
+	}
+}
+
 if (!function_exists('showFullMonth')) {
 	function showFullMonth($month, $lang = 'en') {
 		if ($lang == 'en') {

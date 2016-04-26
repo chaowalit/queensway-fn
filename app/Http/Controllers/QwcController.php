@@ -26,4 +26,21 @@ class QwcController extends Controller
 		}
 
     }
+
+    public function render_json($code = 200, $message = 'OK', $res_data = array(), $total = 0, $total_result = 0){
+        $render = array();
+        $render['header']['code'] = $code;
+        $render['header']['message'] = $message;
+        $render['total'] = $total;
+        $render['total_result'] = $total_result;
+
+        if($code == 200){
+            $render['data']['item'] = $res_data;
+        }else{
+            $render['data'] = [];
+        }
+
+
+        return json_encode($render, true);
+    }
 }

@@ -722,10 +722,11 @@
 
             <div class="footer">
                 <div class="footer-inner">
-                    <div class="footer-content">
-                        <span class="bigger-120">
-                            <span class="blue bolder">Qwc</span>
-                            Application &copy; {{ Auth::user()->company_name }} &copy; {{ Auth::user()->branch_no }} - {{ Auth::user()->branch_name }}
+                    <div class="footer-content" style="line-height: normal;">
+                        <span class="bigger-100">
+                            <span class="blue bolder">{{ Auth::user()->company_name }}</span>
+                            &copy; {{ Auth::user()->branch_no }} - {{ Auth::user()->branch_name }} <br>
+                            {{ Auth::user()->address }} <br> โทร.{{ Auth::user()->tel }}
                         </span>
 
                         &nbsp; &nbsp;
@@ -772,7 +773,7 @@
 
 											<div class="col-xs-12 col-sm-7">
 												<span class="block input-icon input-icon-right">
-													<input type="text" id="inputInfo" class="width-100">
+													<input type="text" id="inputInfo" class="width-100" value="{{ Auth::user()->company_name }}" readonly="true">
 													<i class="ace-icon fa fa-info-circle"></i>
 												</span>
 											</div>
@@ -784,7 +785,7 @@
 
 											<div class="col-xs-12 col-sm-7">
 												<span class="block input-icon input-icon-right">
-													<input type="text" id="inputInfo" class="width-100">
+													<input type="text" id="inputInfo" class="width-100" value="{{ Auth::user()->branch_no }}" readonly="true">
 													<i class="ace-icon fa fa-info-circle"></i>
 												</span>
 											</div>
@@ -796,7 +797,7 @@
 
 											<div class="col-xs-12 col-sm-7">
 												<span class="block input-icon input-icon-right">
-													<input type="text" id="inputInfo" class="width-100">
+													<input type="text" id="inputInfo" class="width-100" value="{{ Auth::user()->branch_name }}" readonly="true">
 													<i class="ace-icon fa fa-info-circle"></i>
 												</span>
 											</div>
@@ -808,7 +809,7 @@
 
 											<div class="col-xs-12 col-sm-7">
 												<span class="block input-icon input-icon-right">
-													<input type="text" id="inputInfo" class="width-100">
+													<input type="text" id="inputInfo" class="width-100" value="{{ Auth::user()->first_name }}" readonly="true">
 													<i class="ace-icon fa fa-info-circle"></i>
 												</span>
 											</div>
@@ -820,7 +821,32 @@
 
 											<div class="col-xs-12 col-sm-7">
 												<span class="block input-icon input-icon-right">
-													<input type="text" id="inputInfo" class="width-100">
+													<input type="text" id="inputInfo" class="width-100" value="{{ Auth::user()->last_name }}" readonly="true">
+													<i class="ace-icon fa fa-info-circle"></i>
+												</span>
+											</div>
+
+										</div>
+
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">ที่อยู่</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+
+                                                    <textarea id="inputInfo" class="width-100" rows="3" readonly="true">{{ Auth::user()->address }}</textarea>
+													
+												</span>
+											</div>
+
+										</div>
+
+                                        <div class="form-group has-info">
+											<label for="inputInfo" class="col-xs-12 col-sm-3 control-label no-padding-right">โทรศัพท์</label>
+
+											<div class="col-xs-12 col-sm-7">
+												<span class="block input-icon input-icon-right">
+													<input type="text" id="inputInfo" class="width-100" value="{{ Auth::user()->tel }}" readonly="true">
 													<i class="ace-icon fa fa-info-circle"></i>
 												</span>
 											</div>
@@ -832,7 +858,7 @@
 
 											<div class="col-xs-12 col-sm-7">
 												<span class="block input-icon input-icon-right">
-													<input type="text" id="inputInfo" class="width-100">
+													<input type="text" id="inputInfo" class="width-100" value="{{ Auth::user()->email }}" readonly="true">
 													<i class="ace-icon fa fa-info-circle"></i>
 												</span>
 											</div>
@@ -846,10 +872,10 @@
 					</div>
 
 					<div class="modal-footer wizard-actions">
-						<button class="btn btn-success btn-sm btn-next" data-last="Finish">
+						<!-- <button class="btn btn-success btn-sm btn-next" data-last="Finish">
 							Update
 							<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-						</button>
+						</button> -->
 
 						<button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
 							<i class="ace-icon fa fa-times"></i>

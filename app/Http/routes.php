@@ -14,6 +14,8 @@
 Route::get('/', function () {
     return redirect('customers');
 });
+//-------------------------------- Api V1 ----------------------------------//
+Route::post('api/v1/getCompanyInfo', 'api\v1\CompanyController@getCompanyInfo');
 
 /*
 |--------------------------------------------------------------------------
@@ -70,4 +72,6 @@ Route::group(['middleware' => 'web'], function () {
     //------------------------------- Usage Course -----------------------------//
     Route::get('usage_course/form_usage_course/{id}', 'UsageCourseController@form_usage_course');
     Route::post('usage_course/save_form_usage_course', 'UsageCourseController@save_form_usage_course');
+
+
 });

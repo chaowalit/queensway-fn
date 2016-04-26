@@ -36,6 +36,11 @@
     </head>
 
     <body class="login-layout light-login">
+        <?php
+        $data_qwc = \DB::table('users')
+                    ->select('users.*')->where('id', 1)->where('deleted_at', NULL)->get();
+        //dump($data_qwc);
+        ?>
         <div class="main-container">
             <div class="main-content">
                 <div class="row">
@@ -47,7 +52,7 @@
                                     <span class="red">Qwc</span>
                                     <span class="grey" id="id-text2">Application</span>
                                 </h1>
-                                <h4 class="blue" id="id-company-text">&copy; Company Name - Branch Name</h4>
+                                <h4 class="blue" id="id-company-text">{{ $data_qwc[0]->company_name }} -- สาขา {{ $data_qwc[0]->branch_name }}</h4>
                             </div>
 
                             <div class="space-6"></div>
@@ -133,21 +138,21 @@
                                         <!--
                                         <div class="toolbar clearfix">
                                             <div>
-                                                
+
                                                 <a href="#" data-target="#forgot-box" class="forgot-password-link">
                                                     <i class="ace-icon fa fa-arrow-left"></i>
                                                     I forgot my password
                                                 </a>
-                                                
+
                                             </div>
 
                                             <div>
-                                                
+
                                                 <a href="#" data-target="#signup-box" class="user-signup-link">
                                                     I want to register
                                                     <i class="ace-icon fa fa-arrow-right"></i>
                                                 </a>
-                                            
+
                                             </div>
                                         </div>
                                         -->
@@ -331,34 +336,34 @@
                 $(target).addClass('visible');//show target
              });
             });
-            
-            
-            
+
+
+
             //you don't need this, just used for changing background
             jQuery(function($) {
                 $('#btn-login-light').on('click', function(e) {
                     $('body').attr('class', 'login-layout light-login');
                     $('#id-text2').attr('class', 'grey');
                     $('#id-company-text').attr('class', 'blue');
-                    
+
                     e.preventDefault();
                  });
                  $('#btn-login-dark').on('click', function(e) {
                     $('body').attr('class', 'login-layout');
                     $('#id-text2').attr('class', 'white');
                     $('#id-company-text').attr('class', 'blue');
-                    
+
                     e.preventDefault();
                  });
-                 
+
                  $('#btn-login-blur').on('click', function(e) {
                     $('body').attr('class', 'login-layout blur-login');
                     $('#id-text2').attr('class', 'white');
                     $('#id-company-text').attr('class', 'light-blue');
-                    
+
                     e.preventDefault();
                  });
-             
+
             });
         </script>
     </body>

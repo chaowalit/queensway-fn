@@ -234,6 +234,20 @@ class BuyCourse extends Model
 		//dd($res);
 		return $res;
 	}
+
+	public function get_search_customers_for_admin($keyword, $column_name){
+		$Customers = new Customers;
+		return \DB::table($this->table)->select($Customers->getTableName().'.*')
+									->join($Customers->getTableName(), $this->table.'.customers_id', '=', $Customers->getTableName().'.id')
+
+									->where($Customers->getTableName().'.'.$column_name, $keyword)
+									->where($Customers->getTableName().'.deleted_at', NULL)
+									->where($this->table.'.deleted_at', NULL)
+									->groupBy($Customers->getTableName().'.id')
+									->orderBy($this->table.'.updated_at', 'desc')
+									->take(1)
+									->get();
+	}
 }
 
 ?>

@@ -16,6 +16,10 @@ Route::get('/', function () {
 });
 //-------------------------------- Api V1 ----------------------------------//
 Route::post('api/v1/getCompanyInfo', 'api\v1\CompanyController@getCompanyInfo');
+Route::post('api/v1/updateCompanyInfo', 'api\v1\CompanyController@updateCompanyInfo');
+Route::post('api/v1/changePasswordCompany', 'api\v1\CompanyController@changePasswordCompany');
+
+Route::get('api/v1/search_customer', 'api\v1\CustomerController@search_customer');
 
 /*
 |--------------------------------------------------------------------------

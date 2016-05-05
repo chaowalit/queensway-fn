@@ -726,7 +726,7 @@
                         <span class="bigger-100">
                             <span class="blue bolder">{{ Auth::user()->company_name }}</span>
                             &copy; {{ Auth::user()->branch_no }} - {{ Auth::user()->branch_name }} <br>
-                            {{ Auth::user()->address }} <br> โทร.{{ Auth::user()->tel }}
+                            {{ Auth::user()->address }} <br> โทร. {{ Auth::user()->tel }}
                         </span>
 
                         &nbsp; &nbsp;
@@ -835,7 +835,7 @@
 												<span class="block input-icon input-icon-right">
 
                                                     <textarea id="inputInfo" class="width-100" rows="3" readonly="true">{{ Auth::user()->address }}</textarea>
-													
+
 												</span>
 											</div>
 

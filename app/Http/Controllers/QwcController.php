@@ -37,7 +37,7 @@ class QwcController extends Controller
         if($code == 200){
             $render['data']['item'] = $res_data;
         }else{
-            $render['data'] = [];
+            $render['data'] = $res_data;
         }
 
 

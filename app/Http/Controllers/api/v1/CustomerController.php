@@ -40,7 +40,7 @@ class CustomerController extends QwcController{
 		}else{
 			return $this->render_json(404, 'Not found Data Customer', [], 0, 0);
 		}
-		dd($customers);
+		//dd($customers);
 	}
 }
 ?>

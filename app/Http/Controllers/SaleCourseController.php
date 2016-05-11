@@ -170,6 +170,42 @@ class SaleCourseController extends QwcController{
             return redirect('sale_course/search_customer'); //for case error
         }
     }
+    //--------------------------------------- save sale transfer corse -------------------------------------//
+    public function transfer_save_form_sale_credit(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'book_no' => 'required',
+            'number_no' => 'required',
+            'total_price' => 'required|numeric',
+            'multiplier_price' => 'required|numeric',
+            'total_credit' => 'required|numeric',
+            'consultant' => 'required',
+            'payment_amount' => 'required|numeric',
+            'limit_credit' => 'required|numeric',
+            'accrued_expenses' => 'required|numeric|min:0',
+            'cash' => 'numeric',
+            'credit_debit_card' => 'numeric',
+
+            //'title' => 'required|unique:posts|max:255',
+            //'' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('sale_course/form_sale_credit/'.base64_encode($request->get('customers_id')))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+//dump($request->all());
+        $buy_course = new BuyCourse;
+        $res = $buy_course->transfer_save_form_sale_credit($request->all());
+//dd($res);
+        if($res['status'] == 200){
+            $buy_course_id = $res['buy_course_id'];
+            return \Redirect::to('sale_course/invoice/'.base64_encode($buy_course_id));
+            //return \Redirect::route('sale_course/invoice', array('buy_course_id' => $buy_course_id));
+        }else{
+            return redirect('sale_course/search_customer'); //for case error
+        }
+    }
 }
 
 ?>

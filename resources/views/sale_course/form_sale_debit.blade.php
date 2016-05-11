@@ -37,7 +37,7 @@
 				ซื้อคอร์สแบบรายคอร์ส
 				<small>
 					<i class="ace-icon fa fa-angle-double-right"></i>
-
+					<b class="red">{{ isset($view_data['transfer_course'])? "กำลัง ย้าย/เปลี่ยน คอร์สอยู่":"" }}</b>
 				</small>
 			</h1>
 		</div><!-- /.page-header -->
@@ -55,7 +55,15 @@
 								<!-- -
 <button type="button" class="close" data-dismiss="alert">&times;</button>
 &nbsp; -->
-								<div class="inline middle blue bigger-110"> กรุณากรอกข้อมูลให้สมบูรณ์ เพื่อความถูกต้องของการออก "รายงาน" </div>
+							<div class="inline middle {{ isset($view_data['transfer_course'])? "red":"blue" }} bigger-110">
+								@if(isset($view_data['transfer_course']))
+									ตอนนี้คุณกำลังอยู่ในขั้นตอนการย้ายคอร์ส กรุณาทำรายการด้านล่างให้ถูกต้องสมบูรณ์
+								@else
+									กรุณากรอกข้อมูลให้สมบูรณ์ เพื่อความถูกต้องของการออก "รายงาน"
+								@endif
+
+							</div>
+							
 							</div><!-- /.well -->
 							@if (count($errors) > 0)
 							<div class="well well-sm">

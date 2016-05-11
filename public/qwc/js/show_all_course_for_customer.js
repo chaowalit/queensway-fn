@@ -230,8 +230,7 @@ jQuery(function($) {
 		var off2 = $source.offset();
 		//var w2 = $source.width();
 
-		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
-			'right';
+		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
 		return 'left';
 	}
 	//----------------------------------------------------------------------------------
@@ -464,13 +463,88 @@ jQuery(function($) {
 		var off2 = $source.offset();
 		//var w2 = $source.width();
 
-		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
-			'right';
+		if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
 		return 'left';
 	}
 
 });
 
-function cancel_buy_course_of_credit(buy_course_id) {
+function transfer_buy_course_of_credit(buy_course_id) {
+	$.ajax({
+		url: 'transfer_buy_course_of_credit',
+		data: {
+			'buy_course_id': buy_course_id,
+
+		},
+		dataType: 'json',
+		//async: false,
+		type: 'GET',
+		//processData: false,
+		//contentType: false,
+		success: function(response) {
+			console.log(response);
+			$("#book_no").val(response.book_no);
+			$("#number_no").val(response.number_no);
+			$("#referent_payment_transfer").val(response.referent_payment_transfer);
+			$("#buy_course_id").val(response.buy_course_id);
+			if (response.buy_course_id && response.referent_payment_transfer &&
+				response.number_no && response.book_no) {
+				$("#show_modal_confirm_transfer_course").click();
+			}
+
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			//alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+			alert('status code: ' + jqXHR.status + ', ' + 'errorThrown: ' +
+				errorThrown + ', ' + 'jqXHR.responseText: ' + jqXHR.responseText);
+			//$('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+			console.log('jqXHR:');
+			console.log(jqXHR);
+			console.log('textStatus:');
+			console.log(textStatus);
+			console.log('errorThrown:');
+			console.log(errorThrown);
+		}
+	});
+
+}
+
+function transfer_buy_course_of_debit(buy_course_id) {
+	$.ajax({
+		url: 'transfer_buy_course_of_debit',
+		data: {
+			'buy_course_id': buy_course_id,
+
+		},
+		dataType: 'json',
+		//async: false,
+		type: 'GET',
+		//processData: false,
+		//contentType: false,
+		success: function(response) {
+			console.log(response);
+			$("#book_no").val(response.book_no);
+			$("#number_no").val(response.number_no);
+			$("#referent_payment_transfer").val(response.referent_payment_transfer);
+			$("#buy_course_id").val(response.buy_course_id);
+			if (response.buy_course_id && response.referent_payment_transfer &&
+				response.number_no && response.book_no) {
+				$("#show_modal_confirm_transfer_course").click();
+			}
+
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			//alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
+			alert('status code: ' + jqXHR.status + ', ' + 'errorThrown: ' +
+				errorThrown + ', ' + 'jqXHR.responseText: ' + jqXHR.responseText);
+			//$('#result').html('<p>status code: '+jqXHR.status+'</p><p>errorThrown: ' + errorThrown + '</p><p>jqXHR.responseText:</p><div>'+jqXHR.responseText + '</div>');
+			console.log('jqXHR:');
+			console.log(jqXHR);
+			console.log('textStatus:');
+			console.log(textStatus);
+			console.log('errorThrown:');
+			console.log(errorThrown);
+		}
+	});
 
 }

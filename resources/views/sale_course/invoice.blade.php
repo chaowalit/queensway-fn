@@ -379,6 +379,15 @@
 
 										<div class="row">
 											<div class="col-sm-5 pull-right">
+												<h5 class="pull-right" style="margin-bottom: 0px;">
+													ยอดชำระยกมา :
+													<span class="red">฿{{ number_format($view_data['referent_payment_transfer'], 2) }}</span>
+												</h5>
+											</div>
+											<div class="col-sm-7 pull-left red"> </div>
+										</div>
+										<div class="row">
+											<div class="col-sm-5 pull-right">
 												<h4 class="pull-right">
 													รวมยอดชำระทั้งหมด :
 													<span class="red">฿{{ number_format($view_data['payment_amount_total'], 2) }}</span>

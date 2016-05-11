@@ -233,7 +233,7 @@
 														</li>
 
                                                         <li>
-															<a href="#" onclick="cancel_buy_course_of_credit('{{ $val->id }}')">ย้าย/เปลี่ยน คอร์ส</a>
+															<a href="javascript:void(0);" onclick="transfer_buy_course_of_credit('{{ $val->id }}')">ย้าย/เปลี่ยน คอร์ส</a>
                                                             <!-- แบบวงเงิน -->
 														</li>
 													</ul>
@@ -299,7 +299,7 @@
 														</li>
 
                                                         <li>
-                                                            <a href="#" onclick="cancel_buy_course_of_debit('{{ $val->id }}')">ย้าย/เปลี่ยน คอร์ส</a>
+                                                            <a href="javascript:void(0);" onclick="transfer_buy_course_of_debit('{{ $val->id }}')">ย้าย/เปลี่ยน คอร์ส</a>
                                                             <!-- แบบรายคอร์ส -->
 														</li>
 													</ul>
@@ -325,5 +325,102 @@
 
 
     </div><!-- /.page-content -->
+</div>
+
+<!-- Modal -->
+<a href="#modal-confirm-transfer-course" id="show_modal_confirm_transfer_course" data-toggle="modal" style="display: none;">
+    <i class="ace-icon fa fa-cog"></i>
+</a>
+<div id="modal-confirm-transfer-course" class="modal">
+    <div class="modal-dialog" style="width: 600px;">
+        <div class="modal-content">
+            <form action="{{ url('course/form_transfer_buy_course') }}" method="POST" class="form-horizontal">
+                <div id="modal-wizard-container">
+
+                    <div class="modal-header">
+                        <h4>ผลการคำนวณการ ย้าย/เปลี่ยน คอร์ส</h4>
+                    </div>
+
+                    <div class="modal-body step-content" style="height: 220px;">
+                        <div class="step-pane active" data-step="1">
+                            <div class="center">
+
+                                <div class="form-group has-info">
+                                    <label for="" class="col-xs-12 col-sm-4 control-label no-padding-right">เล่มที่ใบเสร็จ : </label>
+
+                                    <div class="col-xs-12 col-sm-6">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="text" name="book_no" id="book_no" class="width-100" required readonly="true">
+                                            <i class="ace-icon fa fa-info-circle"></i>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group has-info">
+                                    <label for="" class="col-xs-12 col-sm-4 control-label no-padding-right">เลขที่ใบเสร็จ : </label>
+
+                                    <div class="col-xs-12 col-sm-6">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="text" name="number_no" id="number_no" class="width-100" required readonly="true">
+                                            <i class="ace-icon fa fa-info-circle"></i>
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group has-info">
+                                    <label for="" class="col-xs-12 col-sm-4 control-label no-padding-right">จำนวนยอดเงินที่ยังไม่ได้ใช้ : </label>
+
+                                    <div class="col-xs-12 col-sm-6">
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="text" name="referent_payment_transfer" id="referent_payment_transfer" class="width-100" required readonly="true">
+                                            <i class="ace-icon fa fa-info-circle"></i>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group has-info">
+                                    <label for="" class="col-xs-12 col-sm-4 control-label no-padding-right">ต้องการสร้างคอร์สใหม่แบบ : </label>
+
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="radio pull-left">
+    										<label>
+    											<input name="type_course" value="credit" type="radio" class="ace" checked="true">
+    											<span class="lbl"> แบบวงเงิน</span>
+    										</label>
+    									</div>
+
+                                        <div class="radio">
+    										<label>
+    											<input name="type_course" value="debit" type="radio" class="ace">
+    											<span class="lbl"> แบบรายคอร์ส</span>
+    										</label>
+    									</div>
+                                    </div>
+
+                                </div>
+                                <input type="hidden" name="buy_course_id" id="buy_course_id">
+                                {{ csrf_field() }}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer wizard-actions">
+                    <button class="btn btn-success btn-sm btn-next" data-last="Finish">
+                        ยืนยัน
+                        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                    </button>
+
+                    <button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
+                        <i class="ace-icon fa fa-times"></i>
+                        ยกเลิก
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

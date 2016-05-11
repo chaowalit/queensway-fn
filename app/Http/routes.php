@@ -61,12 +61,18 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('sale_course/invoice/{id}', 'SaleCourseController@invoice');
 
+    Route::post('/sale_course/transfer_save_form_sale_credit', 'SaleCourseController@transfer_save_form_sale_credit');
+
     //---------- Course Use ----------------------------//
     Route::get('course/search_customer_use_course', 'CourseController@search_customer_use_course');
     Route::post('course/ajax_search_customer_use_course', 'CourseController@ajax_search_customer_use_course');
 
     Route::get('course/show_all_course_for_customer', 'CourseController@show_all_course_for_customer');
     Route::post('course/delete_course', 'CourseController@delete_course');
+    Route::get('course/transfer_buy_course_of_credit', 'CourseController@transfer_buy_course_of_credit');
+    Route::get('course/transfer_buy_course_of_debit', 'CourseController@transfer_buy_course_of_debit');
+
+    Route::post('course/form_transfer_buy_course', 'CourseController@form_transfer_buy_course');
 
     //------------------------------ History Payment --------------------------//
     Route::get('history_payment/payment/{id}', 'HistoryPaymentController@index');

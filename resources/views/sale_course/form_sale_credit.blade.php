@@ -37,7 +37,7 @@
 				ซื้อคอร์สแบบวงเงิน
 				<small>
 					<i class="ace-icon fa fa-angle-double-right"></i>
-
+					<b class="red">{{ isset($view_data['transfer_course'])? "กำลัง ย้าย/เปลี่ยน คอร์สอยู่":"" }}</b>
 				</small>
 			</h1>
 		</div><!-- /.page-header -->
@@ -55,7 +55,14 @@
 								<!-- -
 <button type="button" class="close" data-dismiss="alert">&times;</button>
 &nbsp; -->
-								<div class="inline middle blue bigger-110"> กรุณากรอกข้อมูลให้สมบูรณ์ เพื่อความถูกต้องของการออก "รายงาน" </div>
+								<div class="inline middle {{ isset($view_data['transfer_course'])? "red":"blue" }} bigger-110">
+									@if(isset($view_data['transfer_course']))
+										ตอนนี้คุณกำลังอยู่ในขั้นตอนการย้ายคอร์ส กรุณาทำรายการด้านล่างให้ถูกต้องสมบูรณ์
+									@else
+										กรุณากรอกข้อมูลให้สมบูรณ์ เพื่อความถูกต้องของการออก "รายงาน"
+									@endif
+
+								</div>
 
 							</div><!-- /.well -->
 							@if (count($errors) > 0)
@@ -65,7 +72,12 @@
 							@endif
 							<div class="space"></div>
 
+							@if(isset($view_data['transfer_course']))
+							<form action="{{ url('sale_course/transfer_save_form_sale_credit') }}" class="form-horizontal" id="form_sale_credit" method="POST">
+								<input type="hidden" name="old_buy_course_id" value="{{ $view_data['old_buy_course_id'] }}">
+							@else
 							<form action="{{ url('sale_course/save_form_sale_credit') }}" class="form-horizontal" id="form_sale_credit" method="POST">
+							@endif
 								<div class="tabbable">
 									<ul class="nav nav-tabs padding-16">
 										<li class="active">
@@ -262,6 +274,18 @@
 
 											<div class="space"></div>
 											<h4 class="header blue bolder smaller">ข้อมูลทางการเงิน</h4>
+
+											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right red" for="">
+													ยอดชำระยกมา
+												</label>
+												<div class="col-sm-6">
+													<input type="text" name="referent_payment_transfer" id="referent_payment_transfer" value="{{ $view_data['referent_payment_transfer'] }}" readonly="true" class="red">
+												</div>
+												<div class="col-sm-3">
+
+												</div>
+											</div>
 
 											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right" for="">ยอดชำระ</label>

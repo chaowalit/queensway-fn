@@ -289,6 +289,64 @@ class BuyCourse extends Model
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
+
+	public function transfer_save_form_sale_debit($data = array()){
+//dd($data);
+		$res = $this->set_data_fillable_form_sale_debit_transfer($data);
+
+		$buy_course_id = \DB::table($this->table)->insertGetId($res);
+
+		$HistoryPayment = new HistoryPayment;
+		$history_payment = $HistoryPayment->save_history_payment_of_debit($buy_course_id, $data);
+
+		$data_update_old = array(
+			"status_course" => "transfer",
+			"referent_buy_course_id" => $buy_course_id,
+		);
+		\DB::table($this->table)
+            ->where('id', $data['old_buy_course_id'])
+            ->update($data_update_old);
+
+		return ['status' => 200, 'buy_course_id' => $buy_course_id, 'message' => 'ok'];
+	}
+	public function set_data_fillable_form_sale_debit_transfer($data){
+		$item_of_course = array();
+		$total_price = 0;
+		foreach($data['check_list'] as $k => $v){
+			$temp['item_of_course_id'] = $v;
+			$temp['referent_code'] = rand(100,999).'-'.date("YmdHis");
+
+			$ItemOfCourse = new ItemOfCourse;
+			$item = $ItemOfCourse->getDataItemOfCourseById($v);
+			$temp['category_item_name'] = $item[0]->category_item_name;
+			$temp['item_name'] = $item[0]->item_name;
+
+			$temp['amount_total'] = $data['amount_'.$v];
+			$temp['amount_usage'] = '0';
+			$temp['price_per_unit'] = $data['price_per_unit_'.$v];
+			$temp['total_per_item'] = ($data['amount_'.$v] * $data['price_per_unit_'.$v]);  //$data['total_per_item_'.$v];
+			$total_price = $total_price + ($data['amount_'.$v] * $data['price_per_unit_'.$v]);
+			array_push($item_of_course, $temp);
+		}
+		//dd($item_of_course);
+		return [
+			"customers_id" => $data['customers_id'],
+			"type_course" => $data['type_course'],
+			"order_number" => $data['number_no'].'-'.date("YmdHis"),
+			"book_no" => $data['book_no'],
+			"number_no" => $data['number_no'],
+			"total_price" => $total_price, //$data['total_price'],
+			"item_of_course" => serialize($item_of_course),
+			"consultant" => $data['consultant'],
+			"payment_amount_total" => ($data['cash'] + $data['credit_debit_card'] + $data['referent_payment_transfer']),
+			"accrued_expenses" => $data['total_price'] - ($data['cash'] + $data['credit_debit_card'] + $data['referent_payment_transfer']),
+			"status_course" => "active",
+			"comment" => $data['comment_sale_debit'],
+			"referent_payment_transfer" => $data['referent_payment_transfer'],
+			"created_at" => date("Y-m-d H:i:s"),
+			"updated_at" => date("Y-m-d H:i:s"),
+		];
+	}
 }
 
 ?>

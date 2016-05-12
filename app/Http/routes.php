@@ -62,6 +62,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('sale_course/invoice/{id}', 'SaleCourseController@invoice');
 
     Route::post('/sale_course/transfer_save_form_sale_credit', 'SaleCourseController@transfer_save_form_sale_credit');
+    Route::post('/sale_course/transfer_save_form_sale_debit', 'SaleCourseController@transfer_save_form_sale_debit');
 
     //---------- Course Use ----------------------------//
     Route::get('course/search_customer_use_course', 'CourseController@search_customer_use_course');

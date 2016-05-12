@@ -274,7 +274,7 @@
 
 											<div class="space"></div>
 											<h4 class="header blue bolder smaller">ข้อมูลทางการเงิน</h4>
-
+											@if(isset($view_data['transfer_course']))
 											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right red" for="">
 													ยอดชำระยกมา
@@ -286,7 +286,7 @@
 
 												</div>
 											</div>
-
+											@endif
 											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right" for="">ยอดชำระ</label>
 

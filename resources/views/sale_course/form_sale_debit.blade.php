@@ -63,7 +63,7 @@
 								@endif
 
 							</div>
-							
+
 							</div><!-- /.well -->
 							@if (count($errors) > 0)
 							<div class="well well-sm">
@@ -73,7 +73,12 @@
 
 							<div class="space"></div>
 
+							@if(isset($view_data['transfer_course']))
+							<form action="{{ url('sale_course/transfer_save_form_sale_debit') }}" class="form-horizontal" id="form_sale_debit" method="POST">
+								<input type="hidden" name="old_buy_course_id" value="{{ $view_data['old_buy_course_id'] }}">
+							@else
 							<form class="form-horizontal" action="{{ url('sale_course/save_form_sale_debit') }}" id="form_sale_debit" method="POST">
+							@endif
 								<div class="tabbable">
 									<ul class="nav nav-tabs padding-16">
 										<li class="active">
@@ -320,6 +325,20 @@
 
 											<div class="space"></div>
 											<h4 class="header blue bolder smaller">ข้อมูลทางการเงิน</h4>
+
+											@if(isset($view_data['transfer_course']))
+											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right red" for="">
+													ยอดชำระยกมา
+												</label>
+												<div class="col-sm-6">
+													<input type="text" name="referent_payment_transfer" id="referent_payment_transfer" value="{{ $view_data['referent_payment_transfer'] }}" readonly="true" class="red">
+												</div>
+												<div class="col-sm-3">
+
+												</div>
+											</div>
+											@endif
 
 											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right" for="">ยอดชำระ</label>

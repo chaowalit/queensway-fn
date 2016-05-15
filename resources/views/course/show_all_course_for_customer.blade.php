@@ -21,7 +21,7 @@
             <li>
                 <a href="#">จัดการคอร์ส</a>
             </li>
-            <li class=""><?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระเงิน/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?></li>
+            <li class=""><?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระ/ ย้าย/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?></li>
 			<li class="active">แสดงรายการคอร์ส</li>
         </ul><!-- /.breadcrumb -->
 
@@ -34,7 +34,7 @@
 
         <div class="page-header">
             <h1>
-                กรุณาเลือกคอร์สที่ต้องการ <?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระเงิน/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?>
+                กรุณาเลือกคอร์สที่ต้องการ <?php echo ($view_data['sub_menu'] == 1)? "ตัด/ ชำระ/ ย้าย/ ยกเลิก":"ดูประวัติใบเสร็จการสั่งซื้อ"; ?>
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     <!--ดูข้อมูล &amp; แก้ไขข้อมูล &amp; ลบข้อมูล ลูกค้าที่นี้-->
@@ -50,22 +50,48 @@
 					<ul class="nav nav-tabs" id="myTab">
 						<li class="">
 							<a data-toggle="tab" href="#home" aria-expanded="false">
-								<i class="green ace-icon fa fa-home bigger-120"></i>
+								<i class="green ace-icon fa fa-users bigger-120"></i>
 								ลูกค้าที่เลือก
 							</a>
 						</li>
 
 						<li class="active">
 							<a data-toggle="tab" href="#messages" aria-expanded="true">
-								คอร์สทั้งหมดของลูกค้า
-								<span class="badge badge-danger">{{ count($view_data['course_all']) }}</span>
+                                <i class="green ace-icon fa fa-eye bigger-120"></i>
+								คอร์สทั้งหมดที่ใช้งานได้
+                                <?php
+                                    $active = 0;    $transfer = 0;  $cancel = 0;
+                                    foreach($view_data['course_all'] as $val){
+                                        if($val->status_course == "active"){
+                                            $active++;
+                                        }else if($val->status_course == "transfer"){
+                                            $transfer++;
+                                        }else if($val->status_course == "cancel"){
+                                            $cancel++;
+                                        }
+                                    }
+                                ?>
+								<span class="badge badge-danger">{{ $active }}</span>
 							</a>
 						</li>
-
+                        <li class="">
+							<a data-toggle="tab" href="#course_transfer" aria-expanded="false">
+								<i class="green ace-icon fa fa-exchange bigger-120"></i>
+								คอร์สที่ย้าย/เปลี่ยน
+                                <span class="badge badge-danger">{{ $transfer }}</span>
+							</a>
+						</li>
+                        <li class="">
+							<a data-toggle="tab" href="#course_cancel" aria-expanded="false">
+								<i class="green ace-icon fa fa-times bigger-120"></i>
+								คอร์สที่ถูกยกเลิก
+                                <span class="badge badge-danger">{{ $cancel }}</span>
+							</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">
-
+                        <!-- ดูข้อมูลลูกค้าที่เลือก -->
 						<div id="home" class="tab-pane fade">
 							<div class="tabbable">
 								<div class="tab-content profile-edit-tab-content">
@@ -179,6 +205,8 @@
 								</div>
 							</div>
 						</div>
+
+                        <!-- คอร์สที่ใช้งานได้ -->
 						<div id="messages" class="tab-pane fade active in">
                             <label style="font-size: 20px;font-weight: 400;font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }} ({{ $view_data['data_customer']['nickname'] }})</label>
 
@@ -316,6 +344,193 @@
 								</tbody>
 							</table>
 						</div>
+
+                        <!-- คอร์สที่โอนย้าย -->
+                        <div id="course_transfer" class="tab-pane fade">
+                            <label style="font-size: 20px;font-weight: 400;font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }} ({{ $view_data['data_customer']['nickname'] }})</label>
+
+							<h4 class="header blue bolder smaller">แบบวงเงิน</h4>
+							<table id="dynamic-table-1" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+
+										<th class="">
+											สถานะ
+										</th>
+										<th>เล่มที่/เลขที่ใบเสร็จ</th>
+										<th>ราคาทั้งหมด</th>
+
+										<th class="hidden-480">ยอดชำระ</th>
+										<th>ยอดค้างชำระ</th>
+										<th>วงเงินขณะนี้</th>
+										<th>วงเงินที่ใช้ไป</th>
+										<th>Consultant</th>
+										<th style="width: 12%;"></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									@foreach($view_data['course_all'] as $val)
+										@if($val->type_course == 'credit' && $val->status_course == "transfer")
+										<tr>
+											<td>{{ $val->status_course }}</td>
+											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ number_format($val->total_price, 2) }}</td>
+
+											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td>{{ number_format($val->limit_credit, 2) }}</td>
+											<td>{{ number_format($val->usage_credit, 2) }}</td>
+											<td>{{ $val->consultant }}</td>
+											<td>
+												<div class="btn-group">
+                                                    <a href="{{ url('history_payment/invoice') }}/{{ base64_encode($val->id) }}" class="btn btn-white btn-info">ดูข้อมูล</a>
+												</div>
+											</td>
+
+										</tr>
+										@endif
+									@endforeach
+								</tbody>
+							</table>
+
+							<h4 class="header blue bolder smaller">แบบรายคอร์ส</h4>
+							<table id="dynamic-table-2" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+
+										<th class="">
+											สถานะ
+										</th>
+										<th>เล่มที่/เลขที่ใบเสร็จ</th>
+										<th>ราคาทั้งหมด</th>
+
+										<th class="hidden-480">ยอดชำระ</th>
+										<th>ยอดค้างชำระ</th>
+										<th>Consultant</th>
+
+										<th style="width: 12%;"></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									@foreach($view_data['course_all'] as $val)
+										@if($val->type_course == 'debit' && $val->status_course == "transfer")
+										<tr>
+											<td>{{ $val->status_course }}</td>
+											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ number_format($val->total_price, 2) }}</td>
+
+											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+
+											<td>{{ $val->consultant }}</td>
+											<td>
+												<div class="btn-group">
+                                                    <a href="{{ url('history_payment/invoice') }}/{{ base64_encode($val->id) }}" class="btn btn-white btn-info">ดูข้อมูล</a>
+												</div>
+											</td>
+
+										</tr>
+										@endif
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+
+                        <!-- คอร์สที่ถูกยกเลิก -->
+                        <div id="course_cancel" class="tab-pane fade">
+                            <label style="font-size: 20px;font-weight: 400;font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }} ({{ $view_data['data_customer']['nickname'] }})</label>
+
+							<h4 class="header blue bolder smaller">แบบวงเงิน</h4>
+							<table id="dynamic-table-1" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+
+										<th class="">
+											สถานะ
+										</th>
+										<th>เล่มที่/เลขที่ใบเสร็จ</th>
+										<th>ราคาทั้งหมด</th>
+
+										<th class="hidden-480">ยอดชำระ</th>
+										<th>ยอดค้างชำระ</th>
+										<th>วงเงินขณะนี้</th>
+										<th>วงเงินที่ใช้ไป</th>
+										<th>Consultant</th>
+										<th style="width: 12%;"></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									@foreach($view_data['course_all'] as $val)
+										@if($val->type_course == 'credit' && $val->status_course == "cancel")
+										<tr>
+											<td>{{ $val->status_course }}</td>
+											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ number_format($val->total_price, 2) }}</td>
+
+											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td>{{ number_format($val->limit_credit, 2) }}</td>
+											<td>{{ number_format($val->usage_credit, 2) }}</td>
+											<td>{{ $val->consultant }}</td>
+											<td>
+												<div class="btn-group">
+                                                    <a href="{{ url('history_payment/invoice') }}/{{ base64_encode($val->id) }}" class="btn btn-white btn-info">ดูข้อมูล</a>
+												</div>
+											</td>
+
+										</tr>
+										@endif
+									@endforeach
+								</tbody>
+							</table>
+
+							<h4 class="header blue bolder smaller">แบบรายคอร์ส</h4>
+							<table id="dynamic-table-2" class="table table-striped table-bordered table-hover">
+								<thead>
+									<tr>
+
+										<th class="">
+											สถานะ
+										</th>
+										<th>เล่มที่/เลขที่ใบเสร็จ</th>
+										<th>ราคาทั้งหมด</th>
+
+										<th class="hidden-480">ยอดชำระ</th>
+										<th>ยอดค้างชำระ</th>
+										<th>Consultant</th>
+
+										<th style="width: 12%;"></th>
+									</tr>
+								</thead>
+
+								<tbody>
+									@foreach($view_data['course_all'] as $val)
+										@if($val->type_course == 'debit' && $val->status_course == "cancel")
+										<tr>
+											<td>{{ $val->status_course }}</td>
+											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ number_format($val->total_price, 2) }}</td>
+
+											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+
+											<td>{{ $val->consultant }}</td>
+											<td>
+												<div class="btn-group">
+                                                    <a href="{{ url('history_payment/invoice') }}/{{ base64_encode($val->id) }}" class="btn btn-white btn-info">ดูข้อมูล</a>
+												</div>
+											</td>
+
+										</tr>
+										@endif
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+
 
 
 					</div>

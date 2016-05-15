@@ -207,7 +207,7 @@
                             <li class="<?php echo ($menu_nav == 'use_course' && $menu_level == '1')? "active":" "; ?>">
                                 <a href="{{ url('course/search_customer_use_course') }}?sub_menu=1">
                                     <i class="menu-icon fa fa-caret-right"></i>
-                                    ตัด/ ชำระเงิน/ ยกเลิก
+                                    ตัด/ ชำระ/ ย้าย/ ยกเลิก
                                 </a>
 
                                 <b class="arrow"></b>

@@ -33,6 +33,7 @@ class BuyCourse extends Model
 		'comment',
 		'referent_buy_course_id',
 		'referent_payment_transfer',
+		'amount_price_cancel',
     ];
 
     protected $casts = [

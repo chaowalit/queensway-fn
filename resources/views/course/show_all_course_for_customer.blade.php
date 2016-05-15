@@ -232,7 +232,7 @@
 
 								<tbody>
 									@foreach($view_data['course_all'] as $val)
-										@if($val->type_course == 'credit')
+										@if($val->type_course == 'credit' && $val->status_course == "active")
 										<tr>
 											<td>{{ $val->status_course }}</td>
 											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
@@ -299,7 +299,7 @@
 
 								<tbody>
 									@foreach($view_data['course_all'] as $val)
-										@if($val->type_course == 'debit')
+										@if($val->type_course == 'debit' && $val->status_course == "active")
 										<tr>
 											<td>{{ $val->status_course }}</td>
 											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>

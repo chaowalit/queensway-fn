@@ -383,14 +383,15 @@
                                 <div class="form-group has-info">
                                     <label for="" class="col-xs-12 col-sm-4 control-label no-padding-right">ต้องการสร้างคอร์สใหม่แบบ : </label>
 
-                                    <div class="col-xs-12 col-sm-6">
-                                        <div class="radio pull-left">
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="radio">
     										<label>
-    											<input name="type_course" value="credit" type="radio" class="ace" checked="true">
+    											<input name="type_course" value="credit" type="radio" class="ace" checked>
     											<span class="lbl"> แบบวงเงิน</span>
     										</label>
     									</div>
-
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3">
                                         <div class="radio">
     										<label>
     											<input name="type_course" value="debit" type="radio" class="ace">

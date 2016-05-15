@@ -235,7 +235,8 @@ jQuery(function($) {
 			var off2 = $source.offset();
 			//var w2 = $source.width();
 
-			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
+				'right';
 			return 'left';
 		}
 	}
@@ -394,6 +395,10 @@ $("#btn_form_sale_credit").click(function() {
 	} else if ($.trim(consultant) == "") {
 		alert('กรุณากรอกข้อมูล ช่องผู้รับผิดชอบ');
 		return;
+	} else if ($("#referent_payment_transfer").length && parseInt($(
+			"#referent_payment_transfer").val()) > total_price) {
+		alert('ยอดชำระยกมา ห้าม มากกว่า ยอดที่ซื้อจริง');
+		return;
 	} else if (payment_info == 200) {
 		$("#form_sale_credit").submit();
 	} else {
@@ -415,8 +420,14 @@ function check_form_payment_info(course_type) {
 			if ($.trim($("#cash").val()) == "") {
 				return "กรุณากรอกข้อมูล ช่องเงินสด";
 			}
+			if ($.trim($("#credit_debit_card").val()) != "") {
+				return "ห้ามกรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
+			}
 
 		} else if ($("#payment_type").val() == "credit-debit") {
+			if ($.trim($("#cash").val()) != "") {
+				return "ห้ามกรอกข้อมูล ช่องเงินสด";
+			}
 			if ($.trim($("#credit_debit_card").val()) == "") {
 				return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
 			} else if ($.trim($("#bank_name").val()) == "") {
@@ -431,6 +442,21 @@ function check_form_payment_info(course_type) {
 				return "กรุณากรอกข้อมูล ช่องธนาคาร";
 			}
 		}
+
+
+		var referent_payment_transfer = ($("#referent_payment_transfer").length) ?
+			parseInt($("#referent_payment_transfer").val()) : 0;
+		var cash = ($.trim($("#cash").val()) != "" && $.isNumeric($("#cash").val())) ?
+			parseInt($("#cash").val()) : 0;
+		var credit_debit_card = ($.trim($("#credit_debit_card").val()) != "" && $.isNumeric(
+				$("#credit_debit_card").val())) ?
+			parseInt($("#credit_debit_card").val()) : 0;
+		var total_price = parseInt($("input[name='total_price']").val());
+		var total_payment = (referent_payment_transfer + cash + credit_debit_card);
+		if (total_price < total_payment) {
+			return "คุณไม่สามารถชำระเงินเกินราคาทั้งหมดได้";
+		}
+
 		return 200;
 	} else if (course_type == "debit") {
 		if ($.trim($("#payment_amount").val()) == "") {
@@ -441,8 +467,14 @@ function check_form_payment_info(course_type) {
 			if ($.trim($("#cash").val()) == "") {
 				return "กรุณากรอกข้อมูล ช่องเงินสด";
 			}
+			if ($.trim($("#credit_debit_card").val()) != "") {
+				return "ห้ามกรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
+			}
 
 		} else if ($("#payment_type").val() == "credit-debit") {
+			if ($.trim($("#cash").val()) != "") {
+				return "ห้ามกรอกข้อมูล ช่องเงินสด";
+			}
 			if ($.trim($("#credit_debit_card").val()) == "") {
 				return "กรุณากรอกข้อมูล ช่องบัตรเครดิต/เดบิต";
 			} else if ($.trim($("#bank_name").val()) == "") {
@@ -457,6 +489,20 @@ function check_form_payment_info(course_type) {
 				return "กรุณากรอกข้อมูล ช่องธนาคาร";
 			}
 		}
+
+		var referent_payment_transfer = ($("#referent_payment_transfer").length) ?
+			parseInt($("#referent_payment_transfer").val()) : 0;
+		var cash = ($.trim($("#cash").val()) != "" && $.isNumeric($("#cash").val())) ?
+			parseInt($("#cash").val()) : 0;
+		var credit_debit_card = ($.trim($("#credit_debit_card").val()) != "" && $.isNumeric(
+				$("#credit_debit_card").val())) ?
+			parseInt($("#credit_debit_card").val()) : 0;
+		var total_price = $("input[name='total_price']").val();
+		var total_payment = (referent_payment_transfer + cash + credit_debit_card);
+		if (total_price < total_payment) {
+			return "คุณไม่สามารถชำระเงินเกินราคาทั้งหมดได้";
+		}
+
 		return 200;
 	} else {
 		return "Error...";

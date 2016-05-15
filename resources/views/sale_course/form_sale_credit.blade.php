@@ -280,7 +280,7 @@
 													ยอดชำระยกมา
 												</label>
 												<div class="col-sm-6">
-													<input type="text" name="referent_payment_transfer" id="referent_payment_transfer" value="{{ $view_data['referent_payment_transfer'] }}" readonly="true" class="red">
+													<input type="text" name="referent_payment_transfer" id="referent_payment_transfer" value="{{ str_replace(',' ,'', $view_data['referent_payment_transfer']) }}" readonly="true" class="red">
 												</div>
 												<div class="col-sm-3">
 

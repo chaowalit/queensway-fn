@@ -86,5 +86,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('usage_course/form_usage_course/{id}', 'UsageCourseController@form_usage_course');
     Route::post('usage_course/save_form_usage_course', 'UsageCourseController@save_form_usage_course');
 
-
+    //------------------------------- Report -----------------------------------//
+    Route::get('report', 'ReportController@index');
 });

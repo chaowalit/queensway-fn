@@ -239,7 +239,7 @@
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
-											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"color: blue;" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
 											<td>{{ number_format($val->limit_credit, 2) }}</td>
 											<td>{{ number_format($val->usage_credit, 2) }}</td>
 											<td>{{ $val->consultant }}</td>
@@ -311,7 +311,7 @@
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
-											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"color: blue;" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
 
 											<td>{{ $val->consultant }}</td>
 											<td>
@@ -388,7 +388,7 @@
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
-											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"color: blue;" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
 											<td>{{ number_format($val->limit_credit, 2) }}</td>
 											<td>{{ number_format($val->usage_credit, 2) }}</td>
 											<td>{{ $val->consultant }}</td>
@@ -432,7 +432,7 @@
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
-											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"color: blue;" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
 
 											<td>{{ $val->consultant }}</td>
 											<td>
@@ -481,7 +481,7 @@
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
-											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"color: blue;" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
 											<td>{{ number_format($val->limit_credit, 2) }}</td>
 											<td>{{ number_format($val->usage_credit, 2) }}</td>
 											<td>{{ $val->consultant }}</td>
@@ -525,7 +525,7 @@
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
-											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
+											<td style="{{ (number_format($val->accrued_expenses, 2) > 0)? "color: red;":"color: blue;" }}">{{ number_format($val->accrued_expenses, 2) }}</td>
 
 											<td>{{ $val->consultant }}</td>
 											<td>

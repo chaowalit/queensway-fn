@@ -149,7 +149,7 @@
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดค้างชำระทั้งหมด:-
-															<b class="blue">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
+															<b class="{{ (number_format($view_data['accrued_expenses'], 2) == 0.00)? "blue":"red" }}">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>วงเงินที่ใช้ไปทั้งหมด:-
@@ -157,7 +157,7 @@
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>สถานะคอร์ส:-
-															<b class="blue">{{ $view_data['status_course'] }}</b>
+															<b class="{{ ($view_data['status_course'] == "active")? "blue":"red" }}">{{ $view_data['status_course'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>หมายเหตุ:-
@@ -180,11 +180,11 @@
 
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>ยอดค้างชำระทั้งหมด:-
-															<b class="blue">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
+															<b class="{{ (number_format($view_data['accrued_expenses'], 2) == 0.00)? "blue":"red" }}">{{ number_format($view_data['accrued_expenses'], 2) }} บาท</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>สถานะคอร์ส:-
-															<b class="blue">{{ $view_data['status_course'] }}</b>
+															<b class="{{ ($view_data['status_course'] == "active")? "blue":"red" }}">{{ $view_data['status_course'] }}</b>
 														</li>
 														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>หมายเหตุ:-
@@ -294,6 +294,18 @@
 										</div>
 
 										<div class="space-6"></div>
+										@if(isset($view_data['referent_course_transfer']))
+										<div class="well red" style="border: 1px solid #dd5a43;">
+											<b style="color: #000;">**คอร์สนี้ถูกย้ายไปที่ ==> </b> <b>เล่มที่ใบเสร็จ : {{ $view_data['referent_course_transfer']['book_no'] }}
+											&nbsp; เลขที่ใบเสร็จ : {{ $view_data['referent_course_transfer']['number_no'] }}
+											&nbsp; ยอดเงินที่ยกไปคือ {{ number_format($view_data['referent_course_transfer']['referent_payment_transfer'], 2) }} บาท</b>
+										</div>
+										@endif
+
+										<div class="well red" style="border: 1px solid #dd5a43;">
+											<b>**คอร์สนี้ถูกยกเลิกแล้ว ยอดเงินที่ถูกยกเลิก คือ {{ number_format($view_data['amount_price_cancel'], 2) }} บาท</b>
+										</div>
+
 										<div class="well">
 											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
 										</div>

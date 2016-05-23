@@ -225,8 +225,8 @@
                         </ul>
                     </li>
 
-                    <li class="">
-                        <a href="index.html">
+                    <li class="<?php echo ($menu_nav == 'report')? "active":" "; ?>">
+                        <a href="{{ url('report') }}">
                             <i class="menu-icon fa fa-book"></i>
                             <span class="menu-text"> รายงาน </span>
                         </a>

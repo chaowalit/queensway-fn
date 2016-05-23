@@ -52,6 +52,16 @@ class HistoryPaymentController extends QwcController{
 		$buy_course_id = base64_decode($buy_course_id);
 		$BuyCourse = new BuyCourse;
 		$result = $BuyCourse->getDataSaleCourseById($buy_course_id);
+
+		if($result['status_course'] == "transfer"){
+			$referent_buy_course_id = $result['referent_buy_course_id'];
+			$res_referent = $BuyCourse->getDataBuyCourseById($referent_buy_course_id);
+			if(isset($res_referent[0])){
+				//dump((array)$res_referent[0]);
+				$result['referent_course_transfer'] = (array)$res_referent[0];
+			}
+		}
+		//dd($result);
 		$this->render_view('sale_course/invoice', $result, 'use_course', 2);
 	}
 }

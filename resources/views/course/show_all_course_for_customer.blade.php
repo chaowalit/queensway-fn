@@ -264,6 +264,11 @@
 															<a href="javascript:void(0);" onclick="transfer_buy_course_of_credit('{{ $val->id }}')">ย้าย/เปลี่ยน คอร์ส</a>
                                                             <!-- แบบวงเงิน -->
 														</li>
+
+                                                        <li>
+															<a href="javascript:void(0);" onclick="cancel_buy_course_of_credit('{{ $val->id }}')">ยกเลิกคอร์ส</a>
+                                                            <!-- แบบวงเงิน -->
+														</li>
 													</ul>
                                                     @else
 
@@ -328,6 +333,11 @@
 
                                                         <li>
                                                             <a href="javascript:void(0);" onclick="transfer_buy_course_of_debit('{{ $val->id }}')">ย้าย/เปลี่ยน คอร์ส</a>
+                                                            <!-- แบบรายคอร์ส -->
+														</li>
+
+                                                        <li>
+                                                            <a href="javascript:void(0);" onclick="cancel_buy_course_of_debit('{{ $val->id }}')">ยกเลิกคอร์ส</a>
                                                             <!-- แบบรายคอร์ส -->
 														</li>
 													</ul>

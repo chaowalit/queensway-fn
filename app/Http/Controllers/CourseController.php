@@ -191,6 +191,19 @@ class CourseController extends QwcController{
 		}
 
 	}
+
+	public function cancel_course($buy_course_id, $price){
+		$price = str_replace(',', '', $price);
+		$data = array(
+			"status_course" => "cancel",
+			"amount_price_cancel" => $price,
+		);
+		\DB::table('buy_course')
+            ->where('id', $buy_course_id)
+            ->update($data);
+
+		return redirect('history_payment/invoice/'.base64_encode($buy_course_id));
+	}
 }
 
 ?>

@@ -75,6 +75,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::post('course/form_transfer_buy_course', 'CourseController@form_transfer_buy_course');
 
+    Route::get('course/cancel_course/{id}/{price}', 'CourseController@cancel_course');
+
     //------------------------------ History Payment --------------------------//
     Route::get('history_payment/payment/{id}', 'HistoryPaymentController@index');
     Route::post('history_payment/save_history_payment', 'HistoryPaymentController@save_history_payment');

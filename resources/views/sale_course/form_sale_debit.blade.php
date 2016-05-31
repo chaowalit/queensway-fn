@@ -265,7 +265,9 @@
 																</td>
 
 																<td>{{ $val->item_name }}</td>
-																<td class="hidden-480">{{ $val->price }}</td>
+																<td class="hidden-480">{{ $val->price }}
+																	<input type="hidden" name="mpl_price_{{ $val->item_of_course_id }}" id="mpl_price_{{ $val->item_of_course_id }}" value="{{ $val->price }}">
+																</td>
 																<td>
 																	<div class="hidden-sm hidden-xs action-buttons">
 																		<input type="number" name="amount_{{ $val->item_of_course_id }}" id="amount_{{ $val->item_of_course_id }}" value="" style="width: 50px;" min="0" max="99" onkeyup="cal_amount('{{ $val->item_of_course_id }}')">

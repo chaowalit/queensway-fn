@@ -12,6 +12,7 @@ class ReportController extends QwcController{
 	public function __construct()
     {
         $this->middleware('auth');
+
     }
 
 	public function index(){
@@ -22,4 +23,14 @@ class ReportController extends QwcController{
 		$this->render_view('report/form_report', $data, 'report', 1, 1);
 	}
 }
+
+/*
+$data = ItemOfCourse::get()->toArray();
+return \Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+	$excel->sheet('mySheet', function($sheet) use ($data)
+	{
+		$sheet->fromArray($data);
+	});
+})->download('xls');
+*/
 ?>

@@ -302,9 +302,11 @@
 										</div>
 										@endif
 
+										@if($view_data['status_course'] == "cancel")
 										<div class="well red" style="border: 1px solid #dd5a43;">
 											<b>**คอร์สนี้ถูกยกเลิกแล้ว ยอดเงินที่ถูกยกเลิก คือ {{ number_format($view_data['amount_price_cancel'], 2) }} บาท</b>
 										</div>
+										@endif
 
 										<div class="well">
 											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)

@@ -1,4 +1,23 @@
 jQuery(function($) {
+	//datepicker plugin
+	//link
+	$('.date-picker').datepicker({
+			autoclose: true,
+			todayHighlight: true
+		})
+		//show datepicker when clicking on the icon
+		.next().on(ace.click_event, function() {
+			$(this).prev().focus();
+		});
+
+	$('#time_sale_course').timepicker({
+		minuteStep: 1,
+		showSeconds: true,
+		showMeridian: false
+	}).next().on(ace.click_event, function() {
+		$(this).prev().focus();
+	});
+
 	//initiate dataTables plugin
 	if ($("#user-profile-3").length) {
 		var oTable1 =
@@ -235,8 +254,7 @@ jQuery(function($) {
 			var off2 = $source.offset();
 			//var w2 = $source.width();
 
-			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return
-				'right';
+			if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
 			return 'left';
 		}
 	}
@@ -258,6 +276,9 @@ $(document).ready(function() {
 		result_search_customer($("#nav-search-input").val(), $("#column_name").val());
 	}
 	//result_search_customer($("#nav-search-input").val(), $("#column_name").val());
+
+
+
 });
 
 function result_search_customer(keyword, column_name) {
@@ -580,7 +601,26 @@ $("#btn_form_sale_debit").click(function() {
 
 $("#form_sale_debit").submit(function(e) {
 	//alert('kkk');
-	//e.preventDefault();
+	var check_list = $("input[name='check_list[]']").map(function() {
+		if ($(this).is(':checked')) {
+			return $(this).val();
+		}
+	}).get();
+	var check_submit = 1;
+	$.each(check_list, function(k, v) {
+		if (parseInt($("#mpl_price_" + v).val()) > parseInt($("#price_per_unit_" +
+				v).val())) {
+			alert("ราคา MPL ขั้นต่ำ ต้องมากกว่าราคาขายจริง ...");
+			check_submit = 0;
+			return false;
+		} else {
+
+		}
+	});
+	//alert(check_submit);
+	if (check_submit == 0) {
+		e.preventDefault();
+	}
 });
 
 function check_item_select_() {

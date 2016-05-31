@@ -17,6 +17,7 @@ class ItemOfCourse extends Model
     	'item_name',
     	'comment',
     	'price',
+		'price_credit',
     	'active',
 
     ];

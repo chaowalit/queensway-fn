@@ -71,7 +71,7 @@ class BuyCourse extends Model
 			"limit_credit" => ($data['cash'] + $data['credit_debit_card']) * $data['multiplier_price'], // $data['limit_credit'],
 			"status_course" => "active",
 			"comment" => $data['comment_sale_credit'],
-			"created_at" => date("Y-m-d H:i:s"),
+			"created_at" => date("Y-m-d", strtotime($data['date_sale_course'])).' '.$data['time_sale_course'], //date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
@@ -119,7 +119,7 @@ class BuyCourse extends Model
 			"accrued_expenses" => $data['total_price'] - ($data['cash'] + $data['credit_debit_card']),
 			"status_course" => "active",
 			"comment" => $data['comment_sale_debit'],
-			"created_at" => date("Y-m-d H:i:s"),
+			"created_at" => date("Y-m-d", strtotime($data['date_sale_course'])).' '.$data['time_sale_course'], //date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
@@ -250,6 +250,25 @@ class BuyCourse extends Model
 									->take(1)
 									->get();
 	}
+
+	public function list_search_customers_for_admin($keyword){
+		$Customers = new Customers;
+		return \DB::table($this->table)->select($Customers->getTableName().'.*')
+									->join($Customers->getTableName(), $this->table.'.customers_id', '=', $Customers->getTableName().'.id')
+
+									//->where($Customers->getTableName().'.'.$column_name, $keyword)
+									->where(function ($query) use ($Customers, $keyword){
+						                $query->where($Customers->getTableName().'.full_name', 'LIKE', '%'.$keyword.'%')
+						                      ->orWhere($Customers->getTableName().'.nickname', 'LIKE', '%'.$keyword.'%');
+						            })
+
+									->where($Customers->getTableName().'.deleted_at', NULL)
+									->where($this->table.'.deleted_at', NULL)
+									->groupBy($Customers->getTableName().'.id')
+									->orderBy($this->table.'.updated_at', 'desc')
+									//->take(1)
+									->get();
+	}
 	//------------------------------------------- model save sale course transfer --------------------------------------//
 	public function transfer_save_form_sale_credit($data = array()){
 		$res = $this->set_data_fillable_form_sale_credit_transfer($data);
@@ -286,7 +305,7 @@ class BuyCourse extends Model
 			"status_course" => "active",
 			"comment" => $data['comment_sale_credit'],
 			"referent_payment_transfer" => $data['referent_payment_transfer'],
-			"created_at" => date("Y-m-d H:i:s"),
+			"created_at" => date("Y-m-d", strtotime($data['date_sale_course'])).' '.$data['time_sale_course'], //date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
@@ -344,7 +363,7 @@ class BuyCourse extends Model
 			"status_course" => "active",
 			"comment" => $data['comment_sale_debit'],
 			"referent_payment_transfer" => $data['referent_payment_transfer'],
-			"created_at" => date("Y-m-d H:i:s"),
+			"created_at" => date("Y-m-d", strtotime($data['date_sale_course'])).' '.$data['time_sale_course'], //date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}

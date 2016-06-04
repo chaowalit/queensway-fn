@@ -20,6 +20,7 @@ Route::post('api/v1/updateCompanyInfo', 'api\v1\CompanyController@updateCompanyI
 Route::post('api/v1/changePasswordCompany', 'api\v1\CompanyController@changePasswordCompany');
 
 Route::get('api/v1/search_customer', 'api\v1\CustomerController@search_customer');
+Route::get('api/v1/list_customer', 'api\v1\CustomerController@list_customer');
 
 /*
 |--------------------------------------------------------------------------

@@ -318,6 +318,38 @@
 											<div class="space-4"></div>
 
 											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right" for="">วันที่ซื้อ</label>
+
+												<div class="col-sm-9">
+													<div class="input-group col-xs-6 col-sm-5">
+														<input class="form-control date-picker" name="date_sale_course" id="date_sale_course" type="text" data-date-format="dd-mm-yyyy" value="{{ date("d-m-Y") }}">
+														<span class="input-group-addon">
+															<i class="fa fa-calendar bigger-110"></i>
+														</span>
+													</div>
+													<label style="color: red;"> * รูปแบบ : วว-ดด-ปปปป</label>
+												</div>
+											</div>
+
+											<div class="space-4"></div>
+
+											<div class="form-group">
+												<label class="col-sm-3 control-label no-padding-right" for="">เวลาที่ซื้อ</label>
+
+												<div class="col-sm-9">
+													<div class="input-group bootstrap-timepicker col-xs-6 col-sm-5">
+														<input name="time_sale_course" id="time_sale_course" type="text" class="form-control">
+														<span class="input-group-addon">
+															<i class="fa fa-clock-o bigger-110"></i>
+														</span>
+													</div>
+													<label style="color: red;"> * รูปแบบ : ชั่วโมง-นาที-วินาที</label>
+												</div>
+											</div>
+
+											<div class="space-4"></div>
+
+											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right" for="">หมายเหตุ</label>
 
 												<div class="col-sm-9">

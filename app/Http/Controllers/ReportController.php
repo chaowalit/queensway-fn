@@ -20,6 +20,8 @@ class ReportController extends QwcController{
 
 		);
 
+		//dump(app()->make("App\Services\Report")->get_report_for_month(0, 0));
+
 		$this->render_view('report/form_report', $data, 'report', 1, 1);
 	}
 }

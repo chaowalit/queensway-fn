@@ -41,7 +41,7 @@ class CustomerController extends QwcController{
 	public function search_customer(Request $request){
 		$keyword = $request->get('keyword', null);
 		$BuyCourse = new BuyCourse;
-        $customers = $BuyCourse->get_search_customers_for_admin($keyword, 'thai_id');
+        $customers = $BuyCourse->get_search_customers_for_admin($keyword, 'id');
 		if(count($customers) > 0){
 			$data_qwc = \DB::table('users')
 	                    ->select('users.*')->where('id', 1)->where('deleted_at', NULL)->get();

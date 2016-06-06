@@ -39,8 +39,18 @@ class Customers extends Model
         return \DB::table($this->table)->count();
     }
 
-    public function get_list_customers($offset, $limit){
-        return \DB::table($this->table)->where('deleted_at', NULL)->orderBy('updated_at', 'desc')->skip($offset)->take($limit)->get();
+    public function get_list_customers($offset, $limit, $keyword, $type_search){
+        if($keyword != ''){
+            return \DB::table($this->table)
+                        ->where($type_search, 'like', '%'.$keyword.'%')
+                        ->where('deleted_at', NULL)
+                        ->orderBy('updated_at', 'desc')
+                        ->skip($offset)
+                        ->take($limit)
+                        ->get();
+        }else{
+            return \DB::table($this->table)->where('deleted_at', NULL)->orderBy('updated_at', 'desc')->skip($offset)->take($limit)->get();
+        }
     }
 
     public function get_list_search_customers($keyword, $column_name){

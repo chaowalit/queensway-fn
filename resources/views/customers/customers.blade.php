@@ -21,15 +21,15 @@
 
         <div class="nav-search" id="nav-search">
             <form class="form-search">
-                <select class="nav-search-input" id="">
-                    <option value="">รหัสลูกค้า</option>
-                    <option value="" selected>ชื่อ-นามสกุล</option>
-                    <option value="">เลขบัตร ปปช.</option>
-                    <option value="">โทรศัพท์</option>
-                    <option value="">Email</option>
+                <select class="nav-search-input" name="type_search" id="type_search">
+                    <option value="customer_number">รหัสลูกค้า</option>
+                    <option value="full_name" selected>ชื่อ-นามสกุล</option>
+                    <option value="thai_id">เลขบัตร ปปช.</option>
+                    <option value="tel">โทรศัพท์</option>
+                    <option value="email">Email</option>
                 </select>
                 <span class="input-icon">
-                    <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off">
+                    <input type="text" placeholder="Search ..." class="nav-search-input" name="text_search_customer" id="text_search_customer" autocomplete="off">
                     <i class="ace-icon fa fa-search nav-search-icon"></i>
                 </span>
             </form>
@@ -84,7 +84,7 @@
                         <input type="hidden" id="limit" value="{{ $view_data['limit'] }}">
                     </div><!-- /.span -->
                 </div><!-- /.row -->
-                                            
+
                 <div class="hr hr-18 dotted hr-double"></div>
                 <!--
                 <h4 class="pink">
@@ -94,7 +94,7 @@
 
                 <div class="hr hr-18 dotted hr-double"></div>
                 -->
-                
+
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.page-content -->

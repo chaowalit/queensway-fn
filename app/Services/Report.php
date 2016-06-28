@@ -1,12 +1,124 @@
 <?php
 namespace App\Services;
 use App\Models\Customers;
+use App\Models\CategoryItem;
 use App\Models\ItemOfCourse;
 use App\Models\BuyCourse;
 
 class Report {
-	public function get_report_for_month($month = '', $year = ''){
-		return ItemOfCourse::get()->toArray();
+	public function get_report_for_month_by_debit($month_report, $year_report){
+		$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
+		$a_date = $year_report.'-'.$month_report.'-01';
+		$time_end = date("Y-m-t", strtotime($a_date)).' 23:59:59';
+
+		$arr_report = array();
+		$arr_category = array();
+
+		$BuyCourse = new BuyCourse;
+		$result = \DB::table($BuyCourse->getTableName())
+                    ->whereBetween('created_at', [$time_start, $time_end])
+					->where('type_course', 'debit')
+					->where('deleted_at', NULL)
+					->get();
+		//dump($result);
+		//dump(unserialize($result[1]->item_of_course));
+		foreach($result as $key => $val){
+			$temp_1 = unserialize($val->item_of_course);
+			foreach($temp_1 as $ctg_1){
+				if(!isset($arr_category[$ctg_1['category_item_name']])){
+					$arr_category[$ctg_1['category_item_name']] = array();
+				}
+			}
+		}
+		foreach($result as $key => $val){
+			$temp_1 = unserialize($val->item_of_course);
+			foreach($temp_1 as $ctg_1){
+				if(array_search($ctg_1['item_name'], $arr_category[$ctg_1['category_item_name']]) === false){
+					$temp_val = $arr_category[$ctg_1['category_item_name']];
+					$temp_val[] = $ctg_1['item_name'];
+					$arr_category[$ctg_1['category_item_name']] = $temp_val;
+				}
+			}
+		}
+		$array_data = array();
+		$count = 0;
+		foreach($arr_category as $key => $val){
+			$array_data[] = '';
+			$array_data[] = $key;
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$arr_report[] = $array_data;
+			$array_data = array();
+			foreach ($val as $k => $v) {
+				$name = $v;
+				$mpl = 0;
+				$unit = "ครั้ง";
+				$corse_1 = 0;
+				$corse_2 = 0;
+				$corse_3 = 0;
+				$corse_4 = 0;
+				$corse_5 = 0;
+				$corse_6 = 0;
+				foreach($result as $s_key => $s_val){
+					$temp_1 = unserialize($s_val->item_of_course);
+					foreach($temp_1 as $ctg_1){
+						if($v == $ctg_1['item_name']){
+							$corse_1 = $corse_1 + $ctg_1['amount_total'];
+							$corse_2 = $corse_2 + $ctg_1['amount_usage'];
+							$corse_3 = $corse_3 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']);
+
+							$corse_4 = $corse_4 + $ctg_1['total_per_item'];
+							$corse_5 = $corse_5 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']);
+							$corse_6 = $corse_6 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']));
+
+							if($mpl == 0){
+								$ItemOfCourse = new ItemOfCourse;
+								$item_ = \DB::table($ItemOfCourse->getTableName())
+											->where('id', $ctg_1['item_of_course_id'])
+											->get();
+								$mpl = $item_[0]->price;
+							}
+						}
+					}
+				}
+
+				$array_data[] = ++$count;
+				$array_data[] = $name;
+				$array_data[] = $mpl;
+				$array_data[] = $unit;
+				$array_data[] = $corse_1;
+				$array_data[] = $corse_2;
+				$array_data[] = $corse_3;
+				$array_data[] = $corse_4;
+				$array_data[] = $corse_5;
+				$array_data[] = $corse_6;
+				$arr_report[] = $array_data;
+				$array_data = array();
+			}
+		}
+		//dump($arr_report);
+		//dd($arr_category);
+
+		// $CategoryItem = new CategoryItem;
+		// $category = \DB::table($CategoryItem->getTableName())
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// foreach($category as $ctg){
+		// 	$ItemOfCourse = new ItemOfCourse;
+		// 	$item_ = \DB::table($ItemOfCourse->getTableName())
+		// 				->where('category_item_id', $ctg->id)
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		//
+		// }
+
+		return $arr_report;
 	}
 
 	public function get_month_report(array $ban) {

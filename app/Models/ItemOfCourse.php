@@ -28,6 +28,10 @@ class ItemOfCourse extends Model
 
     protected $dates = ['deleted_at'];
 
+	public function getTableName(){
+		return $this->table;
+	}
+	
 	public function getItemOfCourse(){
 		$CategoryItem = new CategoryItem;
 

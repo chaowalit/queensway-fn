@@ -101,74 +101,94 @@
 				</div>
 			</div><!-- /.col -->
 
-            <div class="col-sm-4">
-				<div class="widget-box">
-					<div class="widget-header">
-						<h4 class="widget-title">
-                            <i class="ace-icon fa fa-book"></i>
-                            รายงานแบบรายเดือน
-                        </h4>
+            <form action="{{ url('gen_report_for_month') }}" method="post">
+                <?php echo csrf_field(); ?>
+                <div class="col-sm-4">
+    				<div class="widget-box">
+    					<div class="widget-header">
+    						<h4 class="widget-title">
+                                <i class="ace-icon fa fa-book"></i>
+                                รายงานแบบรายเดือน
+                            </h4>
 
-						<div class="widget-toolbar">
-							<a href="#" data-action="collapse">
-								<i class="ace-icon fa fa-chevron-up"></i>
-							</a>
+    						<div class="widget-toolbar">
+    							<a href="#" data-action="collapse">
+    								<i class="ace-icon fa fa-chevron-up"></i>
+    							</a>
 
-							<a href="#" data-action="close">
-								<i class="ace-icon fa fa-times"></i>
-							</a>
-						</div>
-					</div>
+    							<a href="#" data-action="close">
+    								<i class="ace-icon fa fa-times"></i>
+    							</a>
+    						</div>
+    					</div>
 
-					<div class="widget-body" style="display: block;">
-						<div class="widget-main">
-							<div>
-								<label for="form-field-8">เดือน (Month)</label>
+    					<div class="widget-body" style="display: block;">
+    						<div class="widget-main">
+    							<div>
+    								<label for="form-field-8">เดือน (Month)</label>
 
-                                <select class="form-control" id="">
-									<option value="">กรุณาเลือกเดือน</option>
-                                    <option value="01">มกราคม</option>
-									<option value="02">กุมภาพันธ์</option>
-                                    <option value="03">มีนาคม</option>
-                                    <option value="04">เมษายน</option>
-                                    <option value="05">พฤษภาคม</option>
-                                    <option value="06">มิถุนายน</option>
-                                    <option value="07">กรกฎาคม</option>
-                                    <option value="08">สิงหาคม</option>
-                                    <option value="09">กันยายน</option>
-                                    <option value="10">ตุลาคม</option>
-                                    <option value="11">พฤศจิกายน</option>
-                                    <option value="12">ธันวาคม</option>
-								</select>
-							</div>
+                                    <select class="form-control" name="month_report" id="month_report" required>
+    									<option value="">กรุณาเลือกเดือน</option>
+                                        <option value="01">มกราคม</option>
+    									<option value="02">กุมภาพันธ์</option>
+                                        <option value="03">มีนาคม</option>
+                                        <option value="04">เมษายน</option>
+                                        <option value="05">พฤษภาคม</option>
+                                        <option value="06">มิถุนายน</option>
+                                        <option value="07">กรกฎาคม</option>
+                                        <option value="08">สิงหาคม</option>
+                                        <option value="09">กันยายน</option>
+                                        <option value="10">ตุลาคม</option>
+                                        <option value="11">พฤศจิกายน</option>
+                                        <option value="12">ธันวาคม</option>
+    								</select>
+    							</div>
 
-							<hr>
+    							<hr>
 
-							<div>
-								<label for="form-field-9">ปีที่ (Year)</label>
+    							<div>
+    								<label for="form-field-9">ปีที่ (Year)</label>
 
-                                <select class="form-control" id="">
-									<option value="">กรุณาเลือกปี</option>
-                                    <?php for($i = 2016 ; $i <= 2022 ; $i++){ ?>
-									<option value="{{ $i }}">{{ $i }}</option>
-                                    <?php } ?>
-								</select>
-							</div>
+                                    <select class="form-control" name="year_report" id="year_report" required>
+    									<option value="">กรุณาเลือกปี</option>
+                                        <?php for($i = 2016 ; $i <= 2022 ; $i++){ ?>
+    									<option value="{{ $i }}">{{ $i }}</option>
+                                        <?php } ?>
+    								</select>
+    							</div>
 
-							<hr>
+    							<hr>
 
-							<div>
-                                <span class="input-group-btn">
-									<button type="button" class="btn btn-purple btn-sm">
-										<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
-										Search
-									</button>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!-- /.col -->
+                                <div>
+    								<label for="form-field-9">ประเภทรายงาน</label>
+
+                                    <div class="radio" style="margin-top: 0px;">
+    									<label>
+    										<input name="type_report" value="credit" type="radio" class="ace">
+    										<span class="lbl"> แบบวงเงิน</span>
+    									</label>
+    								</div>
+                                    <div class="radio" style="margin-top: 0px;">
+    									<label>
+    										<input name="type_report" value="debit" type="radio" class="ace" checked>
+    										<span class="lbl"> แบบรายคอร์ส</span>
+    									</label>
+    								</div>
+    							</div>
+
+    							<div>
+                                    <span class="input-group-btn">
+    									<button type="submit" class="btn btn-purple btn-sm">
+    										<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+    										Download
+    									</button>
+    								</span>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div><!-- /.col -->
+            </form>
 
             <div class="col-sm-4">
 				<div class="widget-box">
@@ -232,7 +252,7 @@
 				</div>
 			</div><!-- /.col -->
 
-            
+
 
 		</div>
 

@@ -67,7 +67,12 @@
                             <div>
 								<label for="form-field-9">เลือกลูกค้า</label>
 
-								<input type="text" class="form-control limited" id="form-field-9" maxlength="50"></textarea>
+								<select class="chosen-select form-control" name="customer_id" id="form-field-select-3" data-placeholder="กรุณาเลือกลูกค้า">
+                                    <option value="">กรุณาเลือกลูกค้า</option>
+                                    @foreach($view_data['customers'] as $k => $v)
+                                        <option value="{{ $v->id }}">{{ $v->full_name }}</option>
+                                    @endforeach
+                                </select>
 							</div>
 
 							<hr>
@@ -80,7 +85,7 @@
 										<i class="fa fa-calendar bigger-110"></i>
 									</span>
 
-									<input class="form-control active" type="text" name="date-range-picker" id="id-date-range-picker-1">
+									<input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1">
 								</div>
 							</div>
 
@@ -164,13 +169,13 @@
 
                                     <div class="radio" style="margin-top: 0px;">
     									<label>
-    										<input name="type_report" value="credit" type="radio" class="ace">
+    										<input name="type_report" value="credit" type="radio" class="ace" checked>
     										<span class="lbl"> แบบวงเงิน</span>
     									</label>
     								</div>
                                     <div class="radio" style="margin-top: 0px;">
     									<label>
-    										<input name="type_report" value="debit" type="radio" class="ace" checked>
+    										<input name="type_report" value="debit" type="radio" class="ace" >
     										<span class="lbl"> แบบรายคอร์ส</span>
     									</label>
     								</div>
@@ -258,4 +263,5 @@
 
     </div><!-- /.page-content -->
 </div>
+
 @endsection

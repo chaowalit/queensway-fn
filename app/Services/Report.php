@@ -4,8 +4,10 @@ use App\Models\Customers;
 use App\Models\CategoryItem;
 use App\Models\ItemOfCourse;
 use App\Models\BuyCourse;
+use App\Models\UsageCourse;
 
 class Report {
+
 	public function get_report_for_month_by_debit($month_report, $year_report){
 		$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
 		$a_date = $year_report.'-'.$month_report.'-01';
@@ -121,163 +123,152 @@ class Report {
 		return $arr_report;
 	}
 
-	public function get_month_report(array $ban) {
-		$url = \Config::get('call_api.url') . 'overview/get_summary_usage';
-		$param = [
-			'limit' => '6',
-			'offset' => '0',
-			'order_by' => 'ban',
-			'sort_by' => 'desc',
-			'ban' => $ban,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function get_out_of_package(array $ban, $order_by, $bill_cyc_month, $bill_cyc_year) {
-		$url = \Config::get('call_api.url') . 'overview/get_out_of_package';
-		$param = [
-			'limit' => '10',
-			'offset' => '0',
-			'order_by' => $order_by,
-			'sort_by' => 'desc',
-			'ban' => $ban,
-			'month' => $bill_cyc_month,
-			'year' => $bill_cyc_year,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		// dump($param);
-		return $arr;
-	}
-	public function get_out_of_package_with_all_account($ban = array(), $bill_cyc_month, $bill_cyc_year, $order_by, $sort_by, $offset, $limit) {
-		$url = \Config::get('call_api.url') . 'overview/get_out_of_package';
-		$param = [
-			'limit' => $limit,
-			'offset' => $offset,
-			'order_by' => $order_by,
-			'sort_by' => $sort_by,
-			'ban' => $ban,
-			'month' => $bill_cyc_month,
-			'year' => $bill_cyc_year,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		// dump($arr, $param);
-		return $arr;
-	}
-	public function getReport($ban) {
-		$url = \Config::get('call_api.url') . 'overview/get_summary_usage';
-		$param = [
-			'limit' => '6',
-			'offset' => '0',
-			'order_by' => 'ban',
-			'ban' => array($ban),
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function get_sub_top_spending($year = 2015, $month = 10, $ban = array(22363646), $order_by = 'eb_total_bht', $sort_by = 'desc') {
-		$url = \Config::get('call_api.url') . 'overview/get_sub_top_spending';
-		$param = [
-			'limit' => '10',
-			'offset' => '0',
-			'order_by' => $order_by,
-			'sort_by' => $sort_by,
-			'year' => $year,
-			'month' => $month,
-			'ban' => $ban,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
+	public function get_report_for_month_by_credit($month_report, $year_report){
+		$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
+		$a_date = $year_report.'-'.$month_report.'-01';
+		$time_end = date("Y-m-t", strtotime($a_date)).' 23:59:59';
+
+		$arr_report = array();
+		$arr_category = array();
+
+		$BuyCourse = new BuyCourse;
+		$result = \DB::table($BuyCourse->getTableName())
+                    ->whereBetween('created_at', [$time_start, $time_end])
+					->where('type_course', 'credit')
+					->where('deleted_at', NULL)
+					->get();
+
+		foreach($result as $key => $val){
+			$UsageCourse = new UsageCourse;
+			$usage_course = \DB::table($UsageCourse->getTableName())
+							->where('buy_course_id', $val->id)
+							->where('deleted_at', NULL)
+							->get();
+			foreach($usage_course as $k => $v){
+				if(!isset($arr_category[$v->category_item_name])){
+					$arr_category[$v->category_item_name] = array();
+				}
+
+				if(array_search($v->item_name, $arr_category[$v->category_item_name]) === false){
+					$temp_val = $arr_category[$v->category_item_name];
+					$temp_val[] = $v->item_name;
+					$arr_category[$v->category_item_name] = $temp_val;
+				}
+			}
+		}
+
+		$array_data = array();
+		$count = 0;
+		$total_price = 0;
+		$total_credit = 0;
+		$total_use = 0;
+		$usage_credit = 0;
+		$balance = 0;
+		$balance_credit = 0;
+
+		foreach($result as $key => $val){
+			$total_price = $total_price + $val->total_price;
+			$total_credit = $total_credit + $val->total_credit;
+			if($val->usage_credit > 0){
+				$total_use = $total_use + ($val->usage_credit / $val->multiplier_price);
+			}
+			$usage_credit = $usage_credit + $val->usage_credit;
+			$balance = $balance + ($val->total_price - ($val->usage_credit / $val->multiplier_price));
+			$balance_credit = $balance_credit + ($val->total_credit - $val->usage_credit);
+			
+		}
+
+		$corse_2_total = 0;
+		foreach($arr_category as $key_ctg => $val_ctg){
+			$array_data[] = '';
+			$array_data[] = $key_ctg;
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$arr_report[] = $array_data;
+			$array_data = array();
+
+			foreach($val_ctg as $k => $v){
+				$name = $v;
+				$mpl = 0;
+				$unit = "ครั้ง";
+				$corse_1 = 0;
+				$corse_2 = 0;
+				$corse_3 = 0;
+				$corse_4 = 0;
+				$corse_5 = 0;
+				$corse_6 = 0;
+				$corse_7 = 0;
+				$corse_8 = 0;
+				$corse_9 = 0;
+
+				foreach($result as $key => $val){
+					$UsageCourse = new UsageCourse;
+					$usage_course = \DB::table($UsageCourse->getTableName())
+									->where('buy_course_id', $val->id)
+									->where('deleted_at', NULL)
+									->get();
+					foreach($usage_course as $k_use => $v_use){
+						if($v == $v_use->item_name){
+							$corse_2 = $corse_2 + $v_use->amount;
+							$corse_6 = $corse_6 + ($v_use->total_per_item / $val->multiplier_price);
+							$corse_7 = $corse_7 + $v_use->total_per_item;
+
+							if($mpl == 0){
+								$ItemOfCourse = new ItemOfCourse;
+								$item_ = \DB::table($ItemOfCourse->getTableName())
+											->where('id', $v_use->item_of_course_id)
+											->get();
+								$mpl = $item_[0]->price;
+							}
+						}
+					}
+				}
+
+				$array_data[] = ++$count;
+				$array_data[] = $name;
+				$array_data[] = $mpl;
+				$array_data[] = $unit;
+				$array_data[] = $corse_1;
+				$array_data[] = $corse_2;
+				$array_data[] = $corse_3;
+				$array_data[] = $corse_4;
+				$array_data[] = $corse_5;
+				$array_data[] = $corse_6;
+				$array_data[] = $corse_7;
+				$array_data[] = $corse_8;
+				$array_data[] = $corse_9;
+				$arr_report[] = $array_data;
+				$array_data = array();
+
+				$corse_2_total = $corse_2_total + $corse_2;
+			}
+		}
+
+		$temp_total_1 = array(
+				array('', 'วงเงินคงเหลือ ณ ต้นงวด', '', '', '', '', '', $total_price, $total_credit, '', '', $balance, $balance_credit)
+			);
+		$data_total_temp_1 = array_merge($temp_total_1, $arr_report);
+
+		$balance_final = ($total_price - $total_use);
+		$balance_credit_final = ($total_credit - $usage_credit);
+		$temp_total_2 = array(
+				array('', 'วงเงินคงเหลือ ณ สิ้นงวด', '', '', '', $corse_2_total, '', $total_price, $total_credit, $total_use, $usage_credit, $balance_final, $balance_credit_final)
+			);
+
+		$data_total_temp_2 = array_merge($data_total_temp_1, $temp_total_2);
+		//dd($data_total_temp_2);
+		//dd($result);
+
+		return $data_total_temp_2;
 	}
 
-	public function checkStatusCD($tax_id = '') {
-		$url = \Config::get('call_api.url') . 'status_cd';
-		$param = [
-			'business_id' => trim($tax_id),
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function check_subscribe_report($ban = '', $email = '') {
-		$url = \Config::get('call_api.url') . 'report/check_subscribe_report';
-		$param = [
-			'ban' => $ban,
-			'email' => $email,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function create_order_cancel_cd($business_id, $company_name) {
-		$url = \Config::get('call_api.url') . 'dwh/create_order';
-		$param = [
-			'business_id' => $business_id,
-			'name' => $company_name,
-			'type' => 'C',
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function request_cdr_by_business_id($email = '', $tax_id = '', $year, $month) {
-		$url = \Config::get('call_api.url') . 'report/request_cdr_by_business_id';
-		$param = [
-			'business_id' => $tax_id,
-			'email' => $email,
-			'month' => $month,
-			'year' => $year,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function request_cdr_by_ban($email = '', $ban_no = array(), $year, $month) {
-		$url = \Config::get('call_api.url') . 'report/request_cdr_by_ban';
-		$param = [
-			'email' => $email,
-			'ban' => $ban_no,
-			'month' => $month,
-			'year' => $year,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function request_cdr_by_sub($email = '', $phone_no = array(), $year, $month) {
-		$url = \Config::get('call_api.url') . 'report/request_cdr_by_sub';
-		$param = [
-			'email' => $email,
-			'subscribe' => $phone_no,
-			'month' => $month,
-			'year' => $year,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function list_month_report_by_ban($ban = array(), $type) {
-		$url = \Config::get('call_api.url') . 'check_report/list_month_report';
-		$param = [
-			'ban' => $ban,
-			'type' => $type,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
-	public function list_month_report_by_sub($phone_no = array(), $type) {
-		$url = \Config::get('call_api.url') . 'check_report/list_month_report';
-		$param = [
-			'service_number' => $phone_no,
-			'type' => $type,
-		];
-		$res = curlPost($url, $param);
-		$arr = json_decode($res, true);
-		return $arr;
-	}
 }

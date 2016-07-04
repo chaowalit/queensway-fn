@@ -16,8 +16,10 @@ class ReportController extends QwcController{
     }
 
 	public function index(){
+		$Customers = new Customers;
+		$customers = $Customers->get_list_customers(0, 9000, '', '');
 		$data = array(
-
+			'customers' => $customers,
 		);
 
 		//dump(app()->make("App\Services\Report")->get_report_for_month(0, 0));
@@ -238,10 +240,10 @@ class ReportController extends QwcController{
 						array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ยอดวงเงิน', 'ใช้ไป', 'วงเงินใช้ไป', 'คงเหลือ', 'วงเงินคงเหลือ')
 					);
 					//-------------------------------------------------------------------------------------------------
-					//$res = app()->make("App\Services\Report")->get_report_for_month_by_credit($month_report, $year_report);
-					//$data_total = array_merge($data, $res);
+					$res = app()->make("App\Services\Report")->get_report_for_month_by_credit($month_report, $year_report);
+					$data_total = array_merge($data, $res);
 
-					$sheet->fromArray($data, null, 'B3', false, false);
+					$sheet->fromArray($data_total, null, 'B3', false, false);
 
 					$sheet->mergeCells('F3:H3');
 					$sheet->mergeCells('I3:N3');
@@ -365,16 +367,30 @@ class ReportController extends QwcController{
 					$sheet->cells('L3:L4', function($cells) {
 						$cells->setBackground('#9585bf');
 					});
+					$sheet->cells('L5:L100', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
 					$sheet->cells('M3:M4', function($cells) {
 						$cells->setBackground('#9585bf');
 					});
+					$sheet->cells('M5:M100', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
 					$sheet->cells('N3:N4', function($cells) {
 						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('N5:N100', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
 					});
 
 					// Set border for range
 					$sheet->setBorder('B3:N4', 'thin');
-					//$sheet->setBorder('B5:K'.(2 + count($data_total)), 'thin');
+					$sheet->setBorder('B5:N'.(2 + count($data_total)), 'thin');
 				});
 			})->download('xls');
 		}

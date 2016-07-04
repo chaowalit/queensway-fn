@@ -9,9 +9,16 @@ use App\Models\UsageCourse;
 class Report {
 
 	public function get_report_for_month_by_debit($month_report, $year_report){
-		$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
-		$a_date = $year_report.'-'.$month_report.'-01';
-		$time_end = date("Y-m-t", strtotime($a_date)).' 23:59:59';
+		if($month_report != ''){
+			$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
+			$a_date = $year_report.'-'.$month_report.'-01';
+			$time_end = date("Y-m-t", strtotime($a_date)).' 23:59:59';
+		}else if($month_report == ''){
+			$time_start = $year_report. '-01-01 '.'00:00:00';
+			$time_end = $year_report. '-12-31 '.'23:59:59';
+		}else{
+			exit;
+		}
 
 		$arr_report = array();
 		$arr_category = array();
@@ -124,9 +131,16 @@ class Report {
 	}
 
 	public function get_report_for_month_by_credit($month_report, $year_report){
-		$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
-		$a_date = $year_report.'-'.$month_report.'-01';
-		$time_end = date("Y-m-t", strtotime($a_date)).' 23:59:59';
+		if($month_report != ''){
+			$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
+			$a_date = $year_report.'-'.$month_report.'-01';
+			$time_end = date("Y-m-t", strtotime($a_date)).' 23:59:59';
+		}else if($month_report == ''){
+			$time_start = $year_report. '-01-01 '.'00:00:00';
+			$time_end = $year_report. '-12-31 '.'23:59:59';
+		}else{
+			exit;
+		}
 
 		$arr_report = array();
 		$arr_category = array();

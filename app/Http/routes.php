@@ -90,4 +90,5 @@ Route::group(['middleware' => 'web'], function () {
     //------------------------------- Report -----------------------------------//
     Route::get('report', 'ReportController@index');
     Route::post('gen_report_for_month', 'ReportController@gen_report_for_month');
+    Route::post('gen_report_for_year', 'ReportController@gen_report_for_year');
 });

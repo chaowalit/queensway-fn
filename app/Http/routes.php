@@ -22,6 +22,11 @@ Route::post('api/v1/changePasswordCompany', 'api\v1\CompanyController@changePass
 Route::get('api/v1/search_customer', 'api\v1\CustomerController@search_customer');
 Route::get('api/v1/list_customer', 'api\v1\CustomerController@list_customer');
 
+Route::get('api/v1/req_report_for_month_by_credit', 'api\v1\ReportAdminController@req_report_for_month_by_credit');
+Route::get('api/v1/req_report_for_month_by_debit', 'api\v1\ReportAdminController@req_report_for_month_by_debit');
+Route::get('api/v1/req_report_for_year_by_credit', 'api\v1\ReportAdminController@req_report_for_year_by_credit');
+Route::get('api/v1/req_report_for_year_by_debit', 'api\v1\ReportAdminController@req_report_for_year_by_debit');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

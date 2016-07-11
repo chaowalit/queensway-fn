@@ -285,4 +285,194 @@ class Report {
 		return $data_total_temp_2;
 	}
 
+	public function get_report_for_person_all_by_credit($customer_id, $date_range, $course_id){
+		$arr_report = array();
+		$arr_category = array();
+		if($date_range){
+			$temp = explode(' - ', $date_range);
+			$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
+			$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
+
+			$BuyCourse = new BuyCourse;
+			if($course_id){
+				$result = \DB::table($BuyCourse->getTableName())
+	                    ->whereBetween('created_at', [$start_date, $end_date])
+	                    ->where('id', $course_id)
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'credit')
+						->where('deleted_at', NULL)
+						->get();
+			}else{
+				$result = \DB::table($BuyCourse->getTableName())
+	                    ->whereBetween('created_at', [$start_date, $end_date])
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'credit')
+						->where('deleted_at', NULL)
+						->get();
+			}
+			
+		}else{
+			$BuyCourse = new BuyCourse;
+			if($course_id){
+				$result = \DB::table($BuyCourse->getTableName())
+						->where('id', $course_id)
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'credit')
+						->where('deleted_at', NULL)
+						->get();
+			}else{
+				$result = \DB::table($BuyCourse->getTableName())
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'credit')
+						->where('deleted_at', NULL)
+						->get();
+			}
+			
+		}
+		
+		foreach($result as $key => $val){
+			$UsageCourse = new UsageCourse;
+			$usage_course = \DB::table($UsageCourse->getTableName())
+							->where('buy_course_id', $val->id)
+							->where('deleted_at', NULL)
+							->get();
+			foreach($usage_course as $k => $v){
+				if(!isset($arr_category[$v->category_item_name])){
+					$arr_category[$v->category_item_name] = array();
+				}
+
+				if(array_search($v->item_name, $arr_category[$v->category_item_name]) === false){
+					$temp_val = $arr_category[$v->category_item_name];
+					$temp_val[] = $v->item_name;
+					$arr_category[$v->category_item_name] = $temp_val;
+				}
+			}
+		}
+		//dd($arr_category);
+		$array_data = array();
+		$count = 0;
+		$total_price = 0;
+		$total_credit = 0;
+		$total_use = 0;
+		$usage_credit = 0;
+		$balance = 0;
+		$balance_credit = 0;
+
+		foreach($result as $key => $val){
+			$total_price = $total_price + $val->total_price;
+			$total_credit = $total_credit + $val->total_credit;
+			if($val->usage_credit > 0){
+				$total_use = $total_use + ($val->usage_credit / $val->multiplier_price);
+			}
+			$usage_credit = $usage_credit + $val->usage_credit;
+			$balance = $balance + ($val->total_price - ($val->usage_credit / $val->multiplier_price));
+			$balance_credit = $balance_credit + ($val->total_credit - $val->usage_credit);
+			
+		}
+
+		$corse_6_total = 0;
+		foreach($arr_category as $key_ctg => $val_ctg){
+			$array_data[] = '';
+			$array_data[] = $key_ctg;
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$arr_report[] = $array_data;
+			$array_data = array();
+
+			foreach($val_ctg as $k => $v){
+				$name = $v;
+				$mpl = 0;
+				$unit = "ครั้ง";
+				$corse_1 = 0;
+				$corse_2 = 0;
+				$corse_3 = 0;
+				$corse_4 = 0;
+				$corse_5 = 0;
+				$corse_6 = 0;
+				$corse_7 = 0;
+				$corse_8 = 0;
+				$corse_9 = 0;
+				$corse_10 = 0;
+				$corse_11 = 0;
+				$corse_12 = 0;
+				$corse_13 = 0;
+
+				foreach($result as $key => $val){
+					$UsageCourse = new UsageCourse;
+					$usage_course = \DB::table($UsageCourse->getTableName())
+									->where('buy_course_id', $val->id)
+									->where('deleted_at', NULL)
+									->get();
+					foreach($usage_course as $k_use => $v_use){
+						if($v == $v_use->item_name){
+							$corse_6 = $corse_6 + $v_use->amount;
+							$corse_7 = $corse_7 + ($v_use->total_per_item / $val->multiplier_price);
+							$corse_8 = $corse_8 + $v_use->total_per_item;
+
+							if($mpl == 0){
+								$ItemOfCourse = new ItemOfCourse;
+								$item_ = \DB::table($ItemOfCourse->getTableName())
+											->where('id', $v_use->item_of_course_id)
+											->get();
+								$mpl = $item_[0]->price;
+							}
+						}
+					}
+				}
+
+				$array_data[] = ++$count;
+				$array_data[] = $name;
+				$array_data[] = $mpl;
+				$array_data[] = $unit;
+				$array_data[] = $corse_1;
+				$array_data[] = $corse_2;
+				$array_data[] = $corse_3;
+				$array_data[] = $corse_4;
+				$array_data[] = $corse_5;
+				$array_data[] = $corse_6;
+				$array_data[] = $corse_7;
+				$array_data[] = $corse_8;
+				$array_data[] = $corse_9;
+				$array_data[] = $corse_10;
+				$array_data[] = $corse_11;
+				$array_data[] = $corse_12;
+				$array_data[] = $corse_13;
+				$arr_report[] = $array_data;
+				$array_data = array();
+
+				$corse_6_total = $corse_6_total + $corse_6;
+			}
+		}
+
+		$temp_total_1 = array(
+				array('', 'วงเงินคงเหลือ ณ ต้นงวด', '', '', '', $total_price, $total_credit, '', '', '', '', '', '', '', '', $balance, $balance_credit)
+			);
+		$data_total_temp_1 = array_merge($temp_total_1, $arr_report);
+		//dd($data_total_temp_1);
+		$balance_final = ($total_price - $total_use);
+		$balance_credit_final = ($total_credit - $usage_credit);
+		$temp_total_2 = array(
+				array('', 'วงเงินคงเหลือ ณ สิ้นงวด', '', '', '', $total_price, $total_credit, '', '', $corse_6_total, $total_use, $usage_credit, '', '', '', $balance_final, $balance_credit_final)
+			);
+
+		$data_total_temp_2 = array_merge($data_total_temp_1, $temp_total_2);
+		//dd($data_total_temp_2);
+		//dd($result);
+
+		return $data_total_temp_2;
+	}
+
 }

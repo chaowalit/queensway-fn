@@ -751,6 +751,292 @@ class ReportController extends QwcController{
 
 		//dd($request->all());
 	}
+
+	public function list_report_for_person(Request $request){
+		$customer_id = $request->get("customer_id", null);
+		$date_range = $request->get("date-range-picker", null);
+		$type_report = $request->get('type_report', 'credit');
+		//dump($request->all());
+		if($date_range){
+			$temp = explode(' - ', $date_range);
+			$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
+			$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
+		}
+
+		$BuyCourse = new BuyCourse;
+		$course_all = $BuyCourse->show_all_course_for_customer($customer_id);
+		//dd($course_all);
+		$Customers = new Customers;
+		$customer = $Customers->getDataCustomerById($customer_id);
+		//dd($customer);
+		$data = array(
+			'customer_id' => $customer_id,
+			'date_range' => $date_range,
+			'course_all' => $course_all,
+			'customer' => $customer,
+			'type_report' => $type_report,
+		);
+
+		$this->render_view('report/list_report_for_person', $data, 'report', 1, 1);
+	}
+
+	public function gen_report_for_person_all(Request $request){
+		//dump($request->all());
+		$type_report = $request->get('type_report', 'credit');
+		$customer_id = $request->get('customer_id', null);
+		$date_range = $request->get('date_range', null);
+		$course_id = $request->get('course_id', null);
+		$branch_name = \Auth::user()->branch_name;
+
+		if($type_report == "credit"){
+			$file_name = ($course_id)? "รายงานรายคน (1 คอร์ส)":"รายงานรายคน (ทั้งหมด)";
+			return \Excel::create($file_name, function($excel) use ($customer_id, $date_range, $branch_name, $course_id) {
+
+				$excel->sheet('แบบวงเงิน', function($sheet) use ( $customer_id, $date_range, $branch_name, $course_id)
+				{
+					$sheet->setWidth(array(
+					    'A'     =>  3,
+					    'B'     =>  5,
+						'C'		=>  35,
+						'D'		=>	13,
+						'E'		=>	8,
+						'F'		=>  10,
+						'G'		=>  10,
+						'H' 	=> 	13,
+						'L'		=>  12,
+						'N'		=>  10,
+						'M'		=>  13,
+						'R' 	=>	13,
+					));
+
+					$sheet->mergeCells('A1:M1');
+					$sheet->row(1, function ($row) {
+	            		// call cell manipulation methods
+			            $row->setFontFamily('Calibri');
+			            $row->setFontSize(14);
+			            //$row->setFontWeight('bold');
+			        });
+			        
+			        $Customers = new Customers;
+					$customer = $Customers->getDataCustomerById($customer_id);
+					$temp_1 = "ชื่อลูกค้า : ".$customer[0]->prefix.$customer[0]->full_name . ' '.' รหัสลูกค้า : '.$customer[0]->customer_number;
+					$temp_2 = "เบอร์โทรศัพท์ : ".$customer[0]->tel;
+
+					$sheet->row(1, array('รายงานลูกค้ารายตัวแบบวงเงิน'.' สาขา'.$branch_name));
+					if($course_id){
+						$BuyCourse = new BuyCourse;
+						$res_c = $BuyCourse->getDataBuyCourseById($course_id);
+
+						$rows_2 = 'ระหว่างวันที่ : '. $date_range ."  "." สถานะคอร์ส : ".$res_c[0]->status_course;
+						$sheet->row(2, array($rows_2));
+					}else{
+						$sheet->row(2, array('ระหว่างวันที่ : '. $date_range));
+					}
+					
+					$sheet->row(3, array($temp_1));
+					$sheet->row(4, array($temp_2));
+					//------------------------------------------- header column --------------------------------------//
+					$data = array(
+					    array('ลำดับ', 'รายการ', 'ราคา MPL (บาทต่อหน่วย)', 'หน่วย', 'ยอดที่ซื้อ', '', '', '', 'ยอดที่ใช้', '', '', '', '', '', '', 'คงเหลือ', ''),
+						array('', '', '', '', 'วันที่ซื้อ', 'ยอดเงินที่ซื้อ', 'ยอดวงเงินที่ซื้อ', 'ชื่อ consult', 'วันที่ใช้', 'จำนวนที่ใช้', 'ยอดเงินที่ใช้', 'ยอดวงเงินที่ใช้', 'ชื่อหมอ', 'ชื่อ consult', 'ชื่อ BT/TT', 'คงเหลือ', 'วงเงินคงเหลือ')
+					);
+					//-------------------------------------------------------------------------------------------------
+					$res = app()->make("App\Services\Report")->get_report_for_person_all_by_credit($customer_id, $date_range, $course_id);
+					$data_total = array_merge($data, $res);
+
+					$sheet->fromArray($data_total, null, 'B6', false, false);
+
+					$sheet->mergeCells('F6:I6');
+					$sheet->mergeCells('J6:P6');
+					$sheet->mergeCells('Q6:R6');
+					$sheet->setMergeColumn(array(
+					    'columns' => array('B'),
+					    'rows' => array(
+					        array(6,7)
+					    )
+					));
+					$sheet->setMergeColumn(array(
+					    'columns' => array('C'),
+					    'rows' => array(
+					        array(6,7)
+					    )
+					));
+					$sheet->setMergeColumn(array(
+					    'columns' => array('D'),
+					    'rows' => array(
+					        array(6,7)
+					    )
+					));
+					$sheet->setMergeColumn(array(
+					    'columns' => array('E'),
+					    'rows' => array(
+					        array(6,7)
+					    )
+					));
+
+					$sheet->row(6, function ($row) {
+	            		// call cell manipulation methods
+			            $row->setFontFamily('Calibri');
+			            $row->setFontSize(10);
+			            $row->setFontWeight('bold');
+						$row->setAlignment('center');
+						$row->setValignment('center');
+			        });
+					$sheet->row(7, function ($row) {
+	            		// call cell manipulation methods
+			            $row->setFontFamily('Calibri');
+			            $row->setFontSize(10);
+			            $row->setFontWeight('bold');
+						$row->setAlignment('center');
+						$row->setValignment('center');
+			        });
+
+					$sheet->cells('B6:B7', function($cells) {
+						$cells->setBackground('#99ccff');
+					});
+					$sheet->cells('B8:B103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('C6:C7', function($cells) {
+						$cells->setBackground('#99ccff');
+					});
+					$sheet->cells('D6:D7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('D8:D103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('E6:E7', function($cells) {
+						$cells->setBackground('#99ccff');
+					});
+					$sheet->cells('E8:E103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('F6:F7', function($cells) {
+						$cells->setBackground('#99ccff');
+					});
+					$sheet->cells('F8:F103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('G6:G7', function($cells) {
+						$cells->setBackground('#99ccff');
+					});
+					$sheet->cells('G8:G103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('H6:H7', function($cells) {
+						$cells->setBackground('#99ccff');
+					});
+					$sheet->cells('H8:H103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('I6:I7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('I8:I103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('J6:J7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('J8:J103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('K6:K7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('K8:K103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('L6:L7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('L8:L103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('M6:M7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('M8:M103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('N6:N7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('N8:N103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('O6:O7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('O8:O103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('P6:P7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('P8:P103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('Q6:Q7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('Q8:Q103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					$sheet->cells('R6:R7', function($cells) {
+						$cells->setBackground('#9585bf');
+					});
+					$sheet->cells('R8:R103', function($cells) {
+						$cells->setAlignment('center');
+						$cells->setValignment('center');
+					});
+
+					// Set border for range
+					$sheet->setBorder('B6:R7', 'thin');
+					$sheet->setBorder('B8:R'.(5 + count($data_total)), 'thin');
+				});
+			})->download('xls');
+
+		}else if($type_report == "debit"){
+
+
+
+		}else{
+			echo "error type report";
+			exit;
+		}
+	}
 }
 
 /*

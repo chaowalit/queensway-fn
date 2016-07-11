@@ -42,69 +42,88 @@
 
 
 		<div class="row">
+            <form action="{{ url('list_report_for_person') }}" method="post" id="form_list_report_for_person">
+                <?php echo csrf_field(); ?>
+    			<div class="col-sm-4">
+    				<div class="widget-box">
+    					<div class="widget-header">
+    						<h4 class="widget-title">
+                                <i class="ace-icon fa fa-book"></i>
+                                รายงานแบบกำหนดเอง
+                            </h4>
 
-			<div class="col-sm-4">
-				<div class="widget-box">
-					<div class="widget-header">
-						<h4 class="widget-title">
-                            <i class="ace-icon fa fa-book"></i>
-                            รายงานแบบกำหนดเอง
-                        </h4>
+    						<div class="widget-toolbar">
+    							<a href="#" data-action="collapse">
+    								<i class="ace-icon fa fa-chevron-up"></i>
+    							</a>
 
-						<div class="widget-toolbar">
-							<a href="#" data-action="collapse">
-								<i class="ace-icon fa fa-chevron-up"></i>
-							</a>
+    							<a href="#" data-action="close">
+    								<i class="ace-icon fa fa-times"></i>
+    							</a>
+    						</div>
+    					</div>
 
-							<a href="#" data-action="close">
-								<i class="ace-icon fa fa-times"></i>
-							</a>
-						</div>
-					</div>
+    					<div class="widget-body" style="display: block;">
+    						<div class="widget-main">
+                                <div>
+    								<label for="form-field-9">เลือกลูกค้า</label>
 
-					<div class="widget-body" style="display: block;">
-						<div class="widget-main">
-                            <div>
-								<label for="form-field-9">เลือกลูกค้า</label>
+    								<select class="chosen-select form-control" name="customer_id" id="form-field-select-3" data-placeholder="กรุณาเลือกลูกค้า">
+                                        <option value="">กรุณาเลือกลูกค้า</option>
+                                        @foreach($view_data['customers'] as $k => $v)
+                                            <option value="{{ $v->id }}">{{ $v->full_name }}</option>
+                                        @endforeach
+                                    </select>
+    							</div>
 
-								<select class="chosen-select form-control" name="customer_id" id="form-field-select-3" data-placeholder="กรุณาเลือกลูกค้า">
-                                    <option value="">กรุณาเลือกลูกค้า</option>
-                                    @foreach($view_data['customers'] as $k => $v)
-                                        <option value="{{ $v->id }}">{{ $v->full_name }}</option>
-                                    @endforeach
-                                </select>
-							</div>
+    							<hr>
 
-							<hr>
+                                <div>
+    								<label for="form-field-8">เลือกช่วงเวลา</label>
 
-                            <div>
-								<label for="form-field-8">เลือกช่วงเวลา</label>
+                                    <div class="input-group">
+    									<span class="input-group-addon">
+    										<i class="fa fa-calendar bigger-110"></i>
+    									</span>
 
-                                <div class="input-group">
-									<span class="input-group-addon">
-										<i class="fa fa-calendar bigger-110"></i>
-									</span>
+    									<input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1">
+    								</div>
+    							</div>
 
-									<input class="form-control" type="text" name="date-range-picker" id="id-date-range-picker-1">
-								</div>
-							</div>
+    							<hr>
+                                
+                                <div>
+                                    <label for="form-field-9">ประเภทรายงาน</label>
 
-							<hr>
+                                    <div class="radio" style="margin-top: 0px;">
+                                        <label>
+                                            <input name="type_report" value="credit" type="radio" class="ace" checked>
+                                            <span class="lbl"> แบบวงเงิน</span>
+                                        </label>
+                                    </div>
+                                    <div class="radio" style="margin-top: 0px;">
+                                        <label>
+                                            <input name="type_report" value="debit" type="radio" class="ace" >
+                                            <span class="lbl"> แบบรายคอร์ส</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+    							<div>
+                                    <span class="input-group-btn">
+    									<button type="button" class="btn btn-purple btn-sm" id="btn_list_report_for_person">
+    										<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
+    										Search
+    									</button>
+    								</span>
+    							</div>
+    						</div>
 
-							<div>
-                                <span class="input-group-btn">
-									<button type="button" class="btn btn-purple btn-sm">
-										<span class="ace-icon fa fa-search icon-on-right bigger-110"></span>
-										Search
-									</button>
-								</span>
-							</div>
-						</div>
 
-
-					</div>
-				</div>
-			</div><!-- /.col -->
+    					</div>
+    				</div>
+    			</div><!-- /.col -->
+            </form>
 
             <form action="{{ url('gen_report_for_month') }}" method="post" id="form_gen_report_for_month">
                 <?php echo csrf_field(); ?>

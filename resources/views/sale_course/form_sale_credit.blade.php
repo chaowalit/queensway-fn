@@ -242,9 +242,16 @@
 													&nbsp; จำนวนเท่า &nbsp;
 													<select name="multiplier_price" id="multiplier_price" style="width: 120px;">
 														<option value="2">2 เท่า</option>
+														<option value="2.1">2.1 เท่า</option>
+														<option value="2.2">2.2 เท่า</option>
+														<option value="2.3">2.3 เท่า</option>
+														<option value="2.4">2.4 เท่า</option>
 														<option value="2.5">2.5 เท่า</option>
+														<option value="2.8">2.8 เท่า</option>
 														<option value="3">3 เท่า</option>
+														<option value="3.2">3.2 เท่า</option>
 														<option value="3.5">3.5 เท่า</option>
+														<option value="3.8">3.8 เท่า</option>
 														<option value="4">4 เท่า</option>
 													</select> ,
 													&nbsp; ได้วงเงินทั้งหมด &nbsp;

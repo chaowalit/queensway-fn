@@ -327,7 +327,7 @@ jQuery(function($) {
     }
     //----------------------------------------------------------------------------------
 
-    var oTable1 =
+    var oTable2 =
         $('#dynamic-table-2')
         //.wrap("<div class='dataTables_borderWrap' />")   //if you are applying horizontal scrolling (sScrollX)
         .dataTable({
@@ -353,7 +353,7 @@ jQuery(function($) {
 
             //"iDisplayLength": 50
         });
-    //oTable1.fnAdjustColumnSizing();
+    //oTable2.fnAdjustColumnSizing();
 
 
     //TableTools settings
@@ -365,7 +365,7 @@ jQuery(function($) {
     }
 
     //initiate TableTools extension
-    var tableTools_obj = new $.fn.dataTable.TableTools(oTable1, {
+    var tableTools_obj = new $.fn.dataTable.TableTools(oTable2, {
         "sSwfPath": "assets/swf/copy_csv_xls_pdf.swf",
 
         "sRowSelector": "td:not(:last-child)",
@@ -392,7 +392,7 @@ jQuery(function($) {
             //  "sButtonText": "<i class='fa fa-copy bigger-110 pink'></i>",
             //  "fnComplete": function() {
             //      this.fnInfo( '<h3 class="no-margin-top smaller">Table copied</h3>\
-            //          <p>Copied '+(oTable1.fnSettings().fnRecordsTotal())+' row(s) to the clipboard.</p>',
+            //          <p>Copied '+(oTable2.fnSettings().fnRecordsTotal())+' row(s) to the clipboard.</p>',
             //          1500
             //      );
             //  }
@@ -449,7 +449,7 @@ jQuery(function($) {
 
 
     //ColVis extension
-    var colvis = new $.fn.dataTable.ColVis(oTable1, {
+    var colvis = new $.fn.dataTable.ColVis(oTable2, {
         "buttonText": "<i class='fa fa-search'></i>",
         "aiExclude": [0, 5],
         "bShowAll": true,

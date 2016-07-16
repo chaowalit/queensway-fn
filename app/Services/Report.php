@@ -475,4 +475,151 @@ class Report {
 		return $data_total_temp_2;
 	}
 
+	public function get_report_for_person_all_by_debit($customer_id, $date_range, $course_id){
+		$arr_report = array();
+		$arr_category = array();
+		if($date_range){
+			$temp = explode(' - ', $date_range);
+			$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
+			$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
+
+			$BuyCourse = new BuyCourse;
+			if($course_id){
+				$result = \DB::table($BuyCourse->getTableName())
+	                    ->whereBetween('created_at', [$start_date, $end_date])
+	                    ->where('id', $course_id)
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'debit')
+						->where('deleted_at', NULL)
+						->get();
+			}else{
+				$result = \DB::table($BuyCourse->getTableName())
+	                    ->whereBetween('created_at', [$start_date, $end_date])
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'debit')
+						->where('deleted_at', NULL)
+						->get();
+			}
+			
+		}else{
+			$BuyCourse = new BuyCourse;
+			if($course_id){
+				$result = \DB::table($BuyCourse->getTableName())
+						->where('id', $course_id)
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'debit')
+						->where('deleted_at', NULL)
+						->get();
+			}else{
+				$result = \DB::table($BuyCourse->getTableName())
+	                    ->where('customers_id', $customer_id)
+						->where('type_course', 'debit')
+						->where('deleted_at', NULL)
+						->get();
+			}
+			
+		}
+
+		foreach($result as $key => $val){
+			$temp_1 = unserialize($val->item_of_course);
+			foreach($temp_1 as $ctg_1){
+				if(!isset($arr_category[$ctg_1['category_item_name']])){
+					$arr_category[$ctg_1['category_item_name']] = array();
+				}
+			}
+		}
+		foreach($result as $key => $val){
+			$temp_1 = unserialize($val->item_of_course);
+			foreach($temp_1 as $ctg_1){
+				if(array_search($ctg_1['item_name'], $arr_category[$ctg_1['category_item_name']]) === false){
+					$temp_val = $arr_category[$ctg_1['category_item_name']];
+					$temp_val[] = $ctg_1['item_name'];
+					$arr_category[$ctg_1['category_item_name']] = $temp_val;
+				}
+			}
+		}
+		$array_data = array();
+		$count = 0;
+		foreach($arr_category as $key => $val){
+			$array_data[] = '';
+			$array_data[] = $key;
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$array_data[] = '';
+			$arr_report[] = $array_data;
+			$array_data = array();
+			foreach ($val as $k => $v) {
+				$name = $v;
+				$mpl = 0;
+				$unit = "ครั้ง";
+				$corse_1 = 0;
+				$corse_2 = 0;
+				$corse_3 = 0;
+				$corse_4 = 0;
+				$corse_5 = 0;
+				$corse_6 = 0;
+				$corse_7 = 0;
+				$corse_8 = 0;
+				$corse_9 = 0;
+				$corse_10 = 0;
+				$corse_11 = 0;
+				$corse_12 = 0;
+				foreach($result as $s_key => $s_val){
+					$temp_1 = unserialize($s_val->item_of_course);
+					foreach($temp_1 as $ctg_1){
+						if($v == $ctg_1['item_name']){
+							$corse_2 = $corse_2 + $ctg_1['amount_total'];
+							$corse_3 = $corse_3 + $ctg_1['total_per_item'];
+							$corse_6 = $corse_6 + $ctg_1['amount_usage'];
+							$corse_7 = $corse_7 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']);
+							$corse_11 = $corse_11 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']);
+							$corse_12 = $corse_12 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']));
+
+							if($mpl == 0){
+								$ItemOfCourse = new ItemOfCourse;
+								$item_ = \DB::table($ItemOfCourse->getTableName())
+											->where('id', $ctg_1['item_of_course_id'])
+											->get();
+								$mpl = $item_[0]->price;
+							}
+						}
+					}
+				}
+
+				$array_data[] = ++$count;
+				$array_data[] = $name;
+				$array_data[] = $mpl;
+				$array_data[] = $unit;
+				$array_data[] = $corse_1;
+				$array_data[] = $corse_2;
+				$array_data[] = $corse_3;
+				$array_data[] = $corse_4;
+				$array_data[] = $corse_5;
+				$array_data[] = $corse_6;
+				$array_data[] = $corse_7;
+				$array_data[] = $corse_8;
+				$array_data[] = $corse_9;
+				$array_data[] = $corse_10;
+				$array_data[] = $corse_11;
+				$array_data[] = $corse_12;
+				$arr_report[] = $array_data;
+				$array_data = array();
+			}
+		}
+
+		//dd($arr_report);
+		return $arr_report;
+	}
+
 }

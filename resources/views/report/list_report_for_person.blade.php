@@ -117,6 +117,37 @@
 						@endforeach
 					</tbody>
 				</table>
+
+				@else
+					<h4 class="header blue bolder smaller" style="display: none;">แบบวงเงิน</h4>
+					<table id="dynamic-table-1" class="table table-striped table-bordered table-hover" style="display: none;">
+						<thead>
+							<tr>
+
+								<th class="">
+									สถานะ
+								</th>
+								<th>เล่มที่/เลขที่ใบเสร็จ</th>
+								<th>ราคาทั้งหมด</th>
+
+								<th class="hidden-480">ยอดชำระ</th>
+								<th>ยอดค้างชำระ</th>
+								<th>วงเงินขณะนี้</th>
+								<th>วงเงินที่ใช้ไป</th>
+								<th>Consultant</th>
+								<th style="width: 12%;"></th>
+							</tr>
+						</thead>
+
+						<tbody>
+						</tbody>
+					</table>
+
+					<style type="text/css">
+						#dynamic-table-1_wrapper {
+							display: none;
+						}
+					</style>
 				@endif
 
 				@if($view_data['type_report'] == 'debit')
@@ -153,10 +184,18 @@
 								<td>{{ $val->consultant }}</td>
 								<td>
 									<div class="btn-group">
-                                       <button type="button" class="btn btn-purple btn-sm" id="">
-    										<span class="ace-icon fa fa-download icon-on-right bigger-110"></span>
-    										Download
-    									</button>
+                                       <form action="{{ url('gen_report_for_person_all') }}" method="get" 
+										id="form_gen_report_for_person_all">
+											<input type="hidden" name="date_range" value="{{ $view_data['date_range'] }}">
+											<input type="hidden" name="customer_id" value="{{ $view_data['customer_id'] }}">
+											<input type="hidden" name="type_report" value="{{ $view_data['type_report'] }}">
+											<input type="hidden" name="course_id" value="{{ $val->id }}">
+
+											<button type="submit" class="btn btn-purple btn-sm" id="">
+	    										<span class="ace-icon fa fa-download icon-on-right bigger-110"></span>
+	    										Download
+	    									</button>
+										</form>
 									</div>
 								</td>
 

@@ -1,3 +1,24 @@
+jQuery(function($) {
+	//datepicker plugin
+	//link
+	$('.date-picker').datepicker({
+			autoclose: true,
+			todayHighlight: true
+		})
+		//show datepicker when clicking on the icon
+		.next().on(ace.click_event, function() {
+			$(this).prev().focus();
+		});
+
+	$('#time_usage_course').timepicker({
+		minuteStep: 1,
+		showSeconds: true,
+		showMeridian: false
+	}).next().on(ace.click_event, function() {
+		$(this).prev().focus();
+	});
+});
+
 function checked_usage_course(item_of_course_id) {
 	//alert(item_of_course_id);
 	if ($("#check_usage_course_" + item_of_course_id).is(':checked')) {

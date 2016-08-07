@@ -41,6 +41,7 @@ class HistoryPaymentController extends QwcController{
 				return redirect('history_payment/invoice/'.base64_encode($buy_course[0]->id));
 			}else{
 				//error case
+				echo "Error";
 			}
 		}else{
 			echo "error";

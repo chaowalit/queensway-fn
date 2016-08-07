@@ -112,6 +112,31 @@
 												<form action="{{ url('usage_course/save_form_usage_course') }}" id="send_form_usage_course" method="post">
 												<input type="hidden" name="buy_course_id" value="{{ $view_data['course']['id'] }}">
 												<input type="hidden" name="type_course" value="{{ $view_data['course']['type_course'] }}">
+												
+												<table id="" class="table table-striped table-bordered table-hover">
+													<tr>
+														<th colspan="4" class="center" style="vertical-align: middle;">
+															วันที่ใช้คอร์ส
+														</th>
+
+														<th class="center" style="width:20%;">
+															<span class="block input-icon input-icon-right">
+																<input type="text" name="date_usage_course" id="date_usage_course" class="width-100 form-control date-picker" data-date-format="dd-mm-yyyy" value="{{ date("d-m-Y") }}">
+																<i class="ace-icon fa fa-info-circle"></i>
+															</span>
+														</th>
+														<th class="center" style="width:20%;">
+															<span class="block input-icon input-icon-right">
+																<input type="text" name="time_usage_course" id="time_usage_course" class="width-100" value="{{ date("H:i:s") }}">
+																<i class="ace-icon fa fa-info-circle"></i>
+															</span>
+														</th>
+														
+													</tr>
+													<tr>
+														
+													</tr>
+												</table>
 
 												<table id="simple-table" class="table table-striped table-bordered table-hover">
 													<thead>
@@ -161,7 +186,7 @@
 															<td>
 																<span class="block input-icon input-icon-right">
 																	<select class="form-control" onchange="selected_amount_usage_course('{{ $val->item_of_course_id }}')" name="amount_{{ $val->item_of_course_id }}" id="amount_{{ $val->item_of_course_id }}" >
-																		<?php for($i = 1;$i <= 5;$i++){ ?>
+																		<?php for($i = 1;$i <= 20;$i++){ ?>
 																		<option value="{{ $i }}">{{ $i }}</option>
 																		<?php } ?>
 																	</select>

@@ -47,7 +47,7 @@ class UsageCourse extends Model
 				"amount" => $data['amount_'.$v],
 				"price_per_unit" => $data['price_per_unit_'.$v],
 				"total_per_item" => $data['total_per_item_'.$v],
-				"created_at" => date("Y-m-d H:i:s"),
+				"created_at" => date("Y-m-d", strtotime($data['date_usage_course'])).' '.$data['time_usage_course'], //date("Y-m-d H:i:s"),
 				"updated_at" => date("Y-m-d H:i:s"),
 			);
 			\DB::table($this->table)->insert($info);
@@ -75,7 +75,7 @@ class UsageCourse extends Model
 				"amount" => $data['amount_'.$v],
 				"price_per_unit" => $data['price_per_unit_'.$v],
 				"total_per_item" => $data['total_per_item_'.$v],
-				"created_at" => date("Y-m-d H:i:s"),
+				"created_at" => date("Y-m-d", strtotime($data['date_usage_course'])).' '.$data['time_usage_course'], //date("Y-m-d H:i:s"),
 				"updated_at" => date("Y-m-d H:i:s"),
 			);
 			\DB::table($this->table)->insert($info);

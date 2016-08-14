@@ -53,7 +53,7 @@ class HistoryPayment extends Model
 			"TID" => $data['TID'],
 			"MID" => $data['MID'],
 			"comment" => $data['comment_history_payment'],
-			"created_at" => date("Y-m-d H:i:s"),
+			"created_at" => date("Y-m-d", strtotime($data['date_payment_course'])).' '.$data['time_payment_course'], //date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
@@ -76,7 +76,7 @@ class HistoryPayment extends Model
 			"TID" => $data['TID'],
 			"MID" => $data['MID'],
 			"comment" => $data['comment_history_payment'],
-			"created_at" => date("Y-m-d H:i:s"),
+			"created_at" => date("Y-m-d", strtotime($data['date_payment_course'])).' '.$data['time_payment_course'], //date("Y-m-d H:i:s"),
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
@@ -86,7 +86,7 @@ class HistoryPayment extends Model
 	}
 
 	public function save_history_payment($data, $buy_course){
-		//dump($data);
+		//dd($data);
 		//----------- save history payment -------------------------------//
 		$res = $this->set_fillable_credit($buy_course[0]->id, $data);
 		\DB::table($this->table)->insert($res);

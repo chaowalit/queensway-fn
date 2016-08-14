@@ -237,7 +237,8 @@
 
 											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right" for="">เลือกรายการคอร์ส</label>
-<?php //dump($view_data['item_of_course']); ?>
+<?php //dump($view_data['item_of_course']); 
+?>
 												<div class="col-sm-9">
 													<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 														<thead>
@@ -374,6 +375,19 @@
 											</div>
 											@endif
 
+											<div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right" for="">วันที่ชำระ</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="date_payment_course" id="date_payment_course" class="date-picker" data-date-format="dd-mm-yyyy" value="{{ date("d-m-Y") }}">
+                                                    <i class="ace-icon fa fa-calendar"></i> ,
+                                                    &nbsp; เวลาที่ชำระ &nbsp;
+                                                    <input type="text" name="time_payment_course" id="time_payment_course" class="" value="{{ date("H:i:s") }}">
+                                                    <i class="ace-icon fa fa-clock-o"></i>
+
+												</div>
+                                            </div>
+                                            <div class="space-4"></div>
+                                            
 											<div class="form-group">
 												<label class="col-sm-3 control-label no-padding-right" for="">ยอดชำระ</label>
 

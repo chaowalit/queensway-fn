@@ -18,6 +18,14 @@ jQuery(function($) {
 		$(this).prev().focus();
 	});
 
+	$('#time_payment_course').timepicker({
+		minuteStep: 1,
+		showSeconds: true,
+		showMeridian: false
+	}).next().on(ace.click_event, function() {
+		$(this).prev().focus();
+	});
+
 	//initiate dataTables plugin
 	if ($("#user-profile-3").length) {
 		var oTable1 =

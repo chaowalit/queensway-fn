@@ -1,4 +1,5 @@
-<?php //dump($view_data['buy_course']); ?>
+<?php //dump($view_data['buy_course']); 
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -39,7 +40,8 @@
                 </small>
             </h1>
         </div><!-- /.page-header -->
-        <?php echo csrf_field(); //dump($view_data['buy_course']); ?>
+        <?php echo csrf_field(); //dump($view_data['buy_course']); 
+        ?>
 
 
 		<div class="row">
@@ -174,7 +176,8 @@
 										</div>
 
 										<div id="edit-settings" class="tab-pane">
-                                            <?php //dump($view_data['buy_course']); ?>
+                                            <?php //dump($view_data['buy_course']); 
+                                            ?>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="timeline-container timeline-style2">

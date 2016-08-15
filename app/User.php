@@ -24,6 +24,7 @@ class User extends Authenticatable
         'comment',
         'email',
         'password',
+        'set_password_transection',
     ];
 
     /**

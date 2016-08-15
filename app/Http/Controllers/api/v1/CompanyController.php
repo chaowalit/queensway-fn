@@ -80,6 +80,7 @@ class CompanyController extends QwcController{
 		$validator = \Validator::make($request->all(), [
             'email' => 'required',
             'new_password' => 'required',
+            'set_password_transection' => 'numeric',
 
 			'id' => 'required|numeric',
 			'password' => 'required',
@@ -95,6 +96,7 @@ class CompanyController extends QwcController{
 			$data = array(
 				"email" => $request->get('email', ''),
 				"password" => bcrypt($request->get('new_password', '')),
+				"set_password_transection" => $request->get('set_password_transection', '0'),
 			);
 
 			\DB::table($User->getTableName())

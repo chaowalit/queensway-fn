@@ -241,7 +241,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datetimepicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('assets/css/colorpicker.min.css') }}" />
-
+<link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.min.css') }}" />
 <!-- text fonts -->
 <link rel="stylesheet" href="{{ asset('assets/fonts/fonts.googleapis.com.css') }}" />
 

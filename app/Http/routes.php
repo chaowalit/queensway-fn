@@ -75,6 +75,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('course/ajax_search_customer_use_course', 'CourseController@ajax_search_customer_use_course');
 
     Route::get('course/show_all_course_for_customer', 'CourseController@show_all_course_for_customer');
+    Route::post('history_payment/invoice/course/delete_course', 'CourseController@delete_course');
     Route::post('course/delete_course', 'CourseController@delete_course');
     Route::get('course/transfer_buy_course_of_credit', 'CourseController@transfer_buy_course_of_credit');
     Route::get('course/transfer_buy_course_of_debit', 'CourseController@transfer_buy_course_of_debit');

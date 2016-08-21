@@ -353,6 +353,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
 <script src="{{ asset('assets/js/jquery.inputlimiter.1.3.1.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.maskedinput.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-tag.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-ui.min.js') }}"></script>
 <!--<script src="{{ asset('assets/js/jquery.ui.touch-punch.min.js') }}"></script>-->
 
 <!-- ace scripts -->
@@ -436,29 +437,56 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
     });
 
     function delete_soft_buy_course(buy_course_id){
-        if(confirm('คุณต้องการ "ลบ" คอร์สนี้ ใช้หรือไม่')){
-            $.ajax({
-                url:'course/delete_course',
-                data: {'buy_course_id': buy_course_id, '_token': $( "input[name='_token']" ).val()},
-                dataType: 'html',
+        $( "#dialog-confirm-remove-course" ).removeClass('hide').dialog({
+            resizable: false,
+            width: '350',
+            modal: true,
+            title: "",
+            title_html: true,
+            buttons: [
+                {
+                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; ลบคอร์ส",
+                    "class" : "btn btn-danger btn-minier",
+                    click: function() {
+                        $.ajax({
+                            url:'course/delete_course',
+                            data: {'buy_course_id': buy_course_id, '_token': $( "input[name='_token']" ).val()},
+                            dataType: 'html',
 
-                type: 'POST',
+                            type: 'POST',
 
-                success: function(response){
-                    if($.trim(response) != '200'){
-                        alert(response);
+                            success: function(response){
+                                if($.trim(response) == '200'){
+                                    alert("ทำรายการสำเร็จ ระบบจะกลับสู่หน้าดูประวัติใบเสร็จการสั่งซื้อ");
+                                    window.location.href = '/course/search_customer_use_course?sub_menu=2'; 
+                                }else{
+                                    alert("ไม่สามารถทำรายการได้ กรุณาตรวจสอบความถูกต้องของข้อมูล");
+                                    window.setTimeout('location.reload()', 1000);
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
 
-                    }else{
-
+                                window.setTimeout('location.reload()', 2000); //Reloads after three seconds
+                            }
+                        });
+                        $( this ).dialog( "close" );
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert('An error occurred... Look at the console (F12 or Ctrl+Shift+I, Console tab) for more information!');
-
-                    window.setTimeout('location.reload()', 2000); //Reloads after three seconds
                 }
-            });
-        }
+                ,
+                {
+                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; ยกเลิก",
+                    "class" : "btn btn-minier",
+                    click: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ]
+        });
+
+        $(".ui-dialog-title").each(function(){
+            $(this).html("<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> แจ้งเตือน</h4></div>");
+        });
     }
 
     function delete_history_payment(history_payment_id){
@@ -468,6 +496,23 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
     }
 </script>
 
-<script type="text/javascript">
-    
-</script>
+<div id="dialog-confirm-remove-course" class="hide">
+    <div class="alert alert-info bigger-110">
+        กรุณาตรวจสอบความถูกต้อง ก่อนลบข้อมูลคอร์สนี้
+    </div>
+
+    <div class="space-6"></div>
+
+    <p class="bigger-110 bolder center grey">
+        <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+        คุณแน่ใจหรือไม่ ที่จะลบข้อมูลคอร์สนี้ ?
+    </p>
+</div><!-- #dialog-confirm -->
+<style type="text/css">
+    @media (min-width: 768px){
+        .modal-dialog {
+            width: 1000px;
+            margin: 30px auto;
+        }
+    }
+</style>

@@ -367,6 +367,32 @@ class BuyCourse extends Model
 			"updated_at" => date("Y-m-d H:i:s"),
 		];
 	}
+
+	public function delete_soft_course($buy_course_id){
+		try{
+			\DB::beginTransaction();
+			// delete data buyCourse
+			\DB::table($this->table)
+            ->where('id', $buy_course_id)
+            ->update(['deleted_at' => date("Y-m-d H:i:s")]);
+            // delete data history payments
+            $HistoryPayment = new HistoryPayment;
+            \DB::table($HistoryPayment->getTableName())
+            ->where('buy_course_id', $buy_course_id)
+            ->update(['deleted_at' => date("Y-m-d H:i:s")]);
+            //delete data usageCourse
+            $UsageCourse = new UsageCourse;
+            \DB::table($UsageCourse->getTableName())
+            ->where('buy_course_id', $buy_course_id)
+            ->update(['deleted_at' => date("Y-m-d H:i:s")]);
+
+            \DB::commit();
+            return 200;
+		}catch(\Exception $e){
+			\DB::rollBack();
+			return 400;
+		}
+	}
 }
 
 ?>

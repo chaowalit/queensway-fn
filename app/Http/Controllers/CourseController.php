@@ -93,7 +93,13 @@ class CourseController extends QwcController{
 	public function delete_course(Request $request){
 		$buy_course_id = $request->input('buy_course_id', '');
 		$BuyCourse = new BuyCourse;
-		$res = $BuyCourse->delete_course($buy_course_id);
+		$res = $BuyCourse->delete_soft_course($buy_course_id);
+		if($res == 200){
+			return 200;
+		}else{
+			return 400;
+		}
+		
 	}
 
 	public function transfer_buy_course_of_credit(Request $request){

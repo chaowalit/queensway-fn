@@ -51,7 +51,8 @@
 
 				<!--<div class="hr dotted"></div>-->
 
-				<?php //dump($view_data); ?>
+				<?php //dump($view_data); 
+				?>
 				<div class="tabbable tabs-left">
 					<ul class="nav nav-tabs" id="myTab3">
 						<li class="active">
@@ -261,7 +262,8 @@
 
 												<tbody>
 													<?php
-													$item_of_course = ($view_data['type_course'] == 'debit')? unserialize($view_data['item_of_course']) : []; //dump($item_of_course); ?>
+													$item_of_course = ($view_data['type_course'] == 'debit')? unserialize($view_data['item_of_course']) : []; //dump($item_of_course); 
+													?>
 													@foreach($item_of_course as $key => $val)
 													<tr>
 														<td class="center">{{ $key+1 }}</td>
@@ -309,7 +311,7 @@
 										@endif
 
 										<div class="well">
-											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
+											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
 										</div>
 									</div>
 								</div>
@@ -354,7 +356,8 @@
 										</div><!-- /.row -->
 
 										<div class="space"></div>
-										<?php //dump($view_data['history_payment']); ?>
+										<?php //dump($view_data['history_payment']); 
+										?>
 										<div>
 											<table class="table table-striped table-bordered">
 												<thead>
@@ -412,7 +415,7 @@
 
 										<div class="space-6"></div>
 										<div class="well">
-											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
+											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
 										</div>
 									</div>
 								</div>
@@ -503,7 +506,7 @@
 
 										<div class="space-6"></div>
 										<div class="well">
-											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a href="#" onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
+											ถ้าหากคุณไม่ต้องการใบเสร็จการสั่งซื้อคอร์สนี้ คุณสามารถทำการลบคอร์สได้จาก (<a onclick="delete_soft_buy_course('{{ $view_data['id'] }}')">ลบคอร์สนี้</a>)
 										</div>
 									</div>
 								</div>

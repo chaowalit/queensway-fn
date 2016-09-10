@@ -478,6 +478,8 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; ยกเลิก",
                     "class" : "btn btn-minier",
                     click: function() {
+                        //var password_transection = $("#password_transection").val();
+                        //alert(password_transection);
                         $( this ).dialog( "close" );
                     }
                 }
@@ -500,7 +502,11 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
     <div class="alert alert-info bigger-110">
         กรุณาตรวจสอบความถูกต้อง ก่อนลบข้อมูลคอร์สนี้
     </div>
-
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input type="text" name="password_transection" id="password_transection" class="col-xs-12 col-sm-12" placeholder="รหัสยืนยันการทำรายการ">
+        </div>
+    </div><br><br>
     <div class="space-6"></div>
 
     <p class="bigger-110 bolder center grey">

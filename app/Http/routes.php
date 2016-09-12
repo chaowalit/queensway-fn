@@ -100,4 +100,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('list_report_for_person', 'ReportController@list_report_for_person');
 
     Route::get('gen_report_for_person_all', 'ReportController@gen_report_for_person_all');
+
+    //-------------------------------- manual ------------------------------------//
+    Route::get('manual', 'ManualController@get_manual');
 });

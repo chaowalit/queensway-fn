@@ -182,14 +182,14 @@
                                 <b class="arrow"></b>
                             </li>
 
-                            <li class="<?php echo ($menu_nav == 'mng_course' && $menu_level == '3')? "active":" "; ?>">
+                            <!-- <li class="<?php echo ($menu_nav == 'mng_course' && $menu_level == '3')? "active":" "; ?>">
                                 <a href="{{ url('mng_course/doo_course') }}">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     ดูคอร์สที่เปิดขาย
                                 </a>
 
                                 <b class="arrow"></b>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
 
@@ -227,8 +227,17 @@
 
                     <li class="<?php echo ($menu_nav == 'report')? "active":" "; ?>">
                         <a href="{{ url('report') }}">
-                            <i class="menu-icon fa fa-book"></i>
+                            <i class="menu-icon fa fa-file-excel-o"></i>
                             <span class="menu-text"> รายงาน </span>
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="">
+                        <a href="{{ url('manual') }}">
+                            <i class="menu-icon fa fa-book"></i>
+                            <span class="menu-text"> คู่มือการใช้งาน </span>
                         </a>
 
                         <b class="arrow"></b>

@@ -301,3 +301,9 @@ function require_del_item_of_course(id) {
 		}
 	});
 }
+setTimeout(function(){
+	$("select[name=dynamic-table_length] option").filter(function() {
+	    return $(this).text() == '100';
+	}).prop('selected', true);
+	$("select[name=dynamic-table_length] option").change();
+}, 1500);

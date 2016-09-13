@@ -677,3 +677,9 @@ $("#btn_cal_total_price_item").click(function(e) {
 	}
 
 });
+setTimeout(function(){
+	$("select[name=dynamic-table_length] option").filter(function() {
+	    return $(this).text() == '100';
+	}).prop('selected', true);
+	$("select[name=dynamic-table_length] option").change();
+}, 1500);

@@ -56,7 +56,7 @@ class Customers extends Model
     public function get_list_search_customers($keyword, $column_name){
         return \DB::table($this->table)->where($column_name, 'like', '%'.$keyword.'%')
                                         ->where('deleted_at', NULL)->orderBy('updated_at', 'desc')
-                                        ->take(15)->get();
+                                        ->take(50)->get();
     }
 
     public function data_edit_customer($id){

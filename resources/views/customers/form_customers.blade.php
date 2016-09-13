@@ -44,6 +44,10 @@
 					<i class="ace-icon fa fa-angle-double-right"></i>
 					คุณสามารถสมัครสมาชิกให้กับลูกค้า ได้ที่นี้
 				</small>
+				<a href="{{ url('sale_course/search_customer') }}" class="btn btn-xs btn-warning pull-right">
+	                <i class="ace-icon fa fa-level-down"></i>
+	                ซื้อคอร์สที่เปิดขาย
+	            </a>
 			</h1>
 		</div><!-- /.page-header -->
 

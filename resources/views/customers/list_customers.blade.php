@@ -207,10 +207,18 @@
             </div>
 
             <div class="modal-footer no-margin-top">
-                <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                     <i class="ace-icon fa fa-times"></i>
                     ปิด
                 </button>
+                <a href="{{ url('sale_course/form_sale_credit') }}/<?php echo base64_encode($val->id); ?>" class="btn btn-sm btn-success pull-left">
+                    <i class="ace-icon fa fa-credit-card"></i>
+                    ซื้อคอร์สแบบวงเงิน
+                </a>
+                <a href="{{ url('sale_course/form_sale_debit') }}/<?php echo base64_encode($val->id); ?>" class="btn btn-sm btn-info pull-left">
+                    <i class="ace-icon fa fa-filter"></i>
+                    ซื้อคอร์สแบบรายคอร์ส
+                </a>
                 <!--
                 <ul class="pagination pull-right no-margin">
                     <li class="prev disabled">

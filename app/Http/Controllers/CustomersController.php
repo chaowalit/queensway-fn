@@ -29,7 +29,7 @@ class CustomersController extends QwcController
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $limit = 15;
+        $limit = 50;
         $total_page = $this->customers->count_customers();
         $total_page = ceil($total_page / $limit);
         $data = array(

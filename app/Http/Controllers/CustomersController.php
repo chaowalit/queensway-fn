@@ -40,7 +40,7 @@ class CustomersController extends QwcController
     }
 
     public function get_customers(Request $request){
-        $limit = $request->input('limit', 15);
+        $limit = $request->input('limit', 50);
         $current_page = $request->input('current_page', 1);
         $keyword = $request->input('keyword', '');
         $type_search = $request->input('type_search', '');

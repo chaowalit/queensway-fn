@@ -147,7 +147,7 @@ class BuyCourse extends Model
 										->where($this->table.'.deleted_at', NULL)
 										->groupBy($Customers->getTableName().'.id')
 										->orderBy($this->table.'.updated_at', 'desc')
-										->take(15)
+										->take(50)
 							            ->get();
 		}else{
 			return \DB::table($this->table)->select($Customers->getTableName().'.*')
@@ -156,7 +156,7 @@ class BuyCourse extends Model
 										->where($this->table.'.deleted_at', NULL)
 										->groupBy($Customers->getTableName().'.id')
 										->orderBy($this->table.'.updated_at', 'desc')
-										->take(15)
+										->take(50)
 							            ->get();
 		}
 

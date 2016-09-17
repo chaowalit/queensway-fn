@@ -235,7 +235,7 @@
 										@if($val->type_course == 'credit' && $val->status_course == "active")
 										<tr>
 											<td>{{ $val->status_course }}</td>
-											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ $val->book_no }}/{{ $val->number_no }}</td>
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
@@ -307,7 +307,7 @@
 										@if($val->type_course == 'debit' && $val->status_course == "active")
 										<tr>
 											<td>{{ $val->status_course }}</td>
-											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ $val->book_no }}/{{ $val->number_no }}</td>
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
@@ -360,7 +360,7 @@
                             <label style="font-size: 20px;font-weight: 400;font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }} ({{ $view_data['data_customer']['nickname'] }})</label>
 
 							<h4 class="header blue bolder smaller">แบบวงเงิน</h4>
-							<table id="dynamic-table-1" class="table table-striped table-bordered table-hover">
+							<table id="dynamic-table-3" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
 
@@ -384,7 +384,7 @@
 										@if($val->type_course == 'credit' && $val->status_course == "transfer")
 										<tr>
 											<td>{{ $val->status_course }}</td>
-											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ $val->book_no }}/{{ $val->number_no }}</td>
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
@@ -405,7 +405,7 @@
 							</table>
 
 							<h4 class="header blue bolder smaller">แบบรายคอร์ส</h4>
-							<table id="dynamic-table-2" class="table table-striped table-bordered table-hover">
+							<table id="dynamic-table-4" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
 
@@ -428,7 +428,7 @@
 										@if($val->type_course == 'debit' && $val->status_course == "transfer")
 										<tr>
 											<td>{{ $val->status_course }}</td>
-											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ $val->book_no }}/{{ $val->number_no }}</td>
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
@@ -453,7 +453,7 @@
                             <label style="font-size: 20px;font-weight: 400;font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">{{ $view_data['data_customer']['prefix'] }} {{ $view_data['data_customer']['full_name'] }} ({{ $view_data['data_customer']['nickname'] }})</label>
 
 							<h4 class="header blue bolder smaller">แบบวงเงิน</h4>
-							<table id="dynamic-table-1" class="table table-striped table-bordered table-hover">
+							<table id="dynamic-table-5" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
 
@@ -477,7 +477,7 @@
 										@if($val->type_course == 'credit' && $val->status_course == "cancel")
 										<tr>
 											<td>{{ $val->status_course }}</td>
-											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ $val->book_no }}/{{ $val->number_no }}</td>
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>
@@ -498,7 +498,7 @@
 							</table>
 
 							<h4 class="header blue bolder smaller">แบบรายคอร์ส</h4>
-							<table id="dynamic-table-2" class="table table-striped table-bordered table-hover">
+							<table id="dynamic-table-6" class="table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
 
@@ -521,7 +521,7 @@
 										@if($val->type_course == 'debit' && $val->status_course == "cancel")
 										<tr>
 											<td>{{ $val->status_course }}</td>
-											<td>{{ $val->book_no }}<br>{{ $val->number_no }}</td>
+											<td>{{ $val->book_no }}/{{ $val->number_no }}</td>
 											<td>{{ number_format($val->total_price, 2) }}</td>
 
 											<td>{{ number_format($val->payment_amount_total, 2) }}</td>

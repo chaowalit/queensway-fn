@@ -41,10 +41,10 @@ class HistoryPaymentController extends QwcController{
 				return redirect('history_payment/invoice/'.base64_encode($buy_course[0]->id));
 			}else{
 				//error case
-				echo "Error";
+				echo "Error save_history_payment กรุณาติดต่อ Dev";
 			}
 		}else{
-			echo "error";
+			echo "error save_history_payment ยอดชำระมากกว่า หนี้จริงในระบบ กรุณาติดต่อ Dev";
 		}
 
 	}

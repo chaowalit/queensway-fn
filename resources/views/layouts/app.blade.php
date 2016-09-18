@@ -235,7 +235,7 @@
                     </li>
 
                     <li class="">
-                        <a href="{{ url('manual') }}">
+                        <a href="{{ asset('manual/User-Manual-Queensway-Mng-Course.pdf') }}" target="_blank">
                             <i class="menu-icon fa fa-book"></i>
                             <span class="menu-text"> คู่มือการใช้งาน </span>
                         </a>

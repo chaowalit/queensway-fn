@@ -51,11 +51,13 @@ class UsageCourseController extends QwcController{
 				if($res == 200){
 					return redirect('history_payment/invoice/'.base64_encode($data_course[0]->id));
 				}else{
-					echo "Error";
+					echo "Error save_form_usage_course_by_credit";
 					exit;
 				}
 			}else{
-				echo "เกิดข้อผิดพลาดในการตัดคอร์ส เนื่องคุณได้สั่งซื้อคอร์สเกินราคาที่จ่ายจริง";
+				echo "<center>เกิดข้อผิดพลาดในการตัดคอร์สแบบวงเงิน เนื่องจากคุณได้สั่งซื้อคอร์สเกินราคาที่จ่ายจริง</center>";
+				echo "<center>ระบบจะทำการย้อนกลับหน้าก่อนหน้านี้ ภายใน 5 วินาที  หรือ กด <a href='".\URL::to('usage_course/form_usage_course').'/'.base64_encode($request->get('buy_course_id'))."'>ย้อนกลับ</a></center>";
+				header( "refresh:5;url=" . \URL::to('usage_course/form_usage_course').'/'.base64_encode($request->get('buy_course_id')));
 				exit;
 			}
 
@@ -76,11 +78,13 @@ class UsageCourseController extends QwcController{
 				if($res == 200){
 					return redirect('history_payment/invoice/'.base64_encode($data_course[0]->id));
 				}else{
-					echo "Error";
+					echo "Error save_form_usage_course_by_debit";
 					exit;
 				}
 			}else{
-				echo "เกิดข้อผิดพลาดในการตัดคอร์ส เนื่องคุณได้สั่งซื้อคอร์สเกินราคาที่จ่ายจริง";
+				echo "<center>เกิดข้อผิดพลาดในการตัดคอร์สแบบรายคอร์ส เนื่องจากคุณได้สั่งซื้อคอร์สเกินราคาที่จ่ายจริง</center>";
+				echo "<center>ระบบจะทำการย้อนกลับหน้าก่อนหน้านี้ ภายใน 5 วินาที  หรือ กด <a href='".\URL::to('usage_course/form_usage_course').'/'.base64_encode($request->get('buy_course_id'))."'>ย้อนกลับ</a></center>";
+				header( "refresh:5;url=" . \URL::to('usage_course/form_usage_course').'/'.base64_encode($request->get('buy_course_id')));
 				exit;
 			}
 

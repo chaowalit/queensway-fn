@@ -281,6 +281,7 @@ class BuyCourse extends Model
 		$data_update_old = array(
 			"status_course" => "transfer",
 			"referent_buy_course_id" => $buy_course_id,
+			"updated_at" => date("Y-m-d H:i:s"), //วันที่ทำการย้าย คอร์ส
 		);
 		\DB::table($this->table)
             ->where('id', $data['old_buy_course_id'])
@@ -322,6 +323,7 @@ class BuyCourse extends Model
 		$data_update_old = array(
 			"status_course" => "transfer",
 			"referent_buy_course_id" => $buy_course_id,
+			"updated_at" => date("Y-m-d H:i:s"), //วันที่ทำการย้าย คอร์ส
 		);
 		\DB::table($this->table)
             ->where('id', $data['old_buy_course_id'])

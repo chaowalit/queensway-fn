@@ -203,6 +203,7 @@ class CourseController extends QwcController{
 		$data = array(
 			"status_course" => "cancel",
 			"amount_price_cancel" => $price,
+			"updated_at" => date("Y-m-d H:i:s"), //วันที่ทำการ ยกเลิก คอร์ส
 		);
 		\DB::table('buy_course')
             ->where('id', $buy_course_id)

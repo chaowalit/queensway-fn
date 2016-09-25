@@ -7,6 +7,8 @@ use App\Http\Controllers\QwcController;
 use App\Models\Customers;
 use App\Models\ItemOfCourse;
 use App\Models\BuyCourse;
+use App\Models\UsageCourse;
+use App\Models\HistoryPayment;
 
 class ReportController extends QwcController{
 

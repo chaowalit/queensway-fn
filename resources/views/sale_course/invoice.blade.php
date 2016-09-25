@@ -373,7 +373,7 @@
 												<tbody>
 													@foreach($view_data['history_payment'] as $key => $val)
 														<tr>
-															<td><?php echo $val['book_no'].'<br>'.$val['number_no']; ?></td>
+															<td><?php echo $val['book_no'].'/'.$val['number_no']; ?></td>
 															<td>
 																<b>ธนาคาร:</b> {{ $val['bank_name'] }}<br>
 																<b>ประเภทการชำระ:</b> {{ $val['payment_type'] }}<br>

@@ -95,19 +95,19 @@
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                         <button class="btn btn-success">
-                            <!--<i class="ace-icon fa fa-signal"></i>-->&nbsp;
+                            <!--<i class="ace-icon fa fa-signal"></i>-->Ver.
                         </button>
 
                         <button class="btn btn-info">
-                            <!--<i class="ace-icon fa fa-pencil"></i>-->&nbsp;
+                            <!--<i class="ace-icon fa fa-pencil"></i>-->0
                         </button>
 
                         <button class="btn btn-warning">
-                            <!--<i class="ace-icon fa fa-users"></i>-->&nbsp;
+                            <!--<i class="ace-icon fa fa-users"></i>-->0
                         </button>
 
                         <button class="btn btn-danger">
-                            <!--<i class="ace-icon fa fa-cogs"></i>-->&nbsp;
+                            <!--<i class="ace-icon fa fa-cogs"></i>-->2
                         </button>
                     </div>
 

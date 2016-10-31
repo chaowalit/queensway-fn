@@ -149,7 +149,7 @@
 
 						<div class="col-sm-9">
 							<div class="clearfix">
-								<input class="col-xs-5" type="text" name="tel" id="tel" placeholder="โทรศัพท์" value="{{ old('tel')? old('tel') : $view_data['customers']['tel'] }}">
+								<input class="col-xs-5" type="text" name="tel" id="tel" placeholder="โทรศัพท์" value="{{ old('tel')? old('tel') : $view_data['customers']['tel'] }}" readonly>
 							</div>
 
 						</div>

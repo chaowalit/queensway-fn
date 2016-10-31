@@ -12,12 +12,42 @@ use App\Models\HistoryPayment;
 
 class ReportController extends QwcController{
 
+	private $text_month = array(
+			"01" => "มกราคม",
+			"02" => "กุมภาพันธ์",
+			"03" => "มีนาคม",
+			"04" => "เมษายน",
+			"05" => "พฤษภาคม",
+			"06" => "มิถุนายน",
+			"07" => "กรกฎาคม",
+			"08" => "สิงหาคม",
+			"09" => "กันยายน",
+			"10" => "ตุลาคม",
+			"11" => "พฤศจิกายน",
+			"12" => "ธันวาคม",
+	);
+	private $type_report = array(
+			"credit" => "แบบวงเงิน",
+			"debit" => "แบบรายคอร์ส",
+	);
+
 	public function __construct()
     {
         $this->middleware('auth');
+        ini_set('max_execution_time', 300); //timeout 5 minutes
     }
 
 	public function index(){
+		// return \Excel::create('รายงานแบบรายคอร์ส ประจำเดือน ตุลาคม 2016', function($excel) {
+		// 	    $excel->sheet('แบบรายคอร์ส', function($sheet) {
+		// 	    	$header = "รายงานการตัดคอร์สแบบรายคอร์ส ประจำเดือน ตุลาคม 2016";
+		// 	    	$data = array(
+		// 	    		"header" => $header,
+		//     		);
+		// 	        $sheet->loadView('report.test', $data);
+		// 	    })->download('xls');
+		// 	});
+
 		$Customers = new Customers;
 		$customers = $Customers->get_list_customers(0, 9000, '', '');
 		$data = array(
@@ -29,6 +59,32 @@ class ReportController extends QwcController{
 	}
 
 	public function gen_report_for_month(Request $request){
+		$branch_name = \Auth::user()->branch_name;
+		$month_report = $this->text_month[$request->get('month_report', '')];
+		$year_report = $request->get('year_report', '');
+		$type_report = $this->type_report[$request->get('type_report', '')];
+
+		$file_name = "รายงาน".$type_report. " ประจำเดือน ".$month_report ." ".$year_report;
+		if($request->get('type_report', '') == 'debit'){
+			return \Excel::create($file_name, function($excel)
+							use($branch_name, $month_report, $year_report, $type_report, $request){
+			    $excel->sheet($type_report, function($sheet)
+			    			use($branch_name, $month_report, $year_report, $type_report, $request){
+
+			    	$header = "รายงานการตัดคอร์สแบบรายคอร์ส ประจำเดือน ". $month_report ." ".$year_report;
+			       $res = app()->make("App\Services\Report")
+			       				->get_report_for_month_by_debit($request->get('month_report', ''), $year_report);
+			    	dd($res);
+			    	$data = array(
+			    		"header" => $header,
+		    		);
+			        $sheet->loadView('report.test', $data);
+			    })->download('xls');
+			});
+		}
+	}
+
+	public function gen_report_for_month_tmp(Request $request){
 		$text_month = array(
 			"01" => "มกราคม",
 			"02" => "กุมภาพันธ์",

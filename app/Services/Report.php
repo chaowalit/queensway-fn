@@ -81,20 +81,9 @@ class Report {
 					$temp_1 = unserialize($s_val->item_of_course);
 					foreach($temp_1 as $ctg_1){
 						if($v == $ctg_1['item_name']){
-							$temp = date("Y-m-d H:i:s", strtotime($s_val->created_at));
+							$temp_create = date("Y-m-d H:i:s", strtotime($s_val->created_at));
 							$start_temp = date("Y-m-d H:i:s", strtotime($time_start));
 							$end_temp = date("Y-m-d H:i:s", strtotime($time_end));
-							if($temp >= $start_temp && $temp <= $end_temp){
-								$corse_1 = $corse_1 + $ctg_1['amount_total']; //ยอดซื้อ(จำนวน)
-								$corse_4 = $corse_4 + $ctg_1['total_per_item']; //ยอดซื้อ(ยอดเงิน)
-							}
-
-							//$corse_2 = $corse_2 + $ctg_1['amount_usage']; //ใช้ไป(จำนวน)
-							$corse_3 = $corse_3 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']); //คงเหลือ(จำนวน)
-
-							//$corse_5 = $corse_5 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']); //ใช้ไป(ยอดเงิน)
-							$corse_6 = $corse_6 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit'])); //คงเหลือ(ยอดเงิน)
-
 
 							$UsageCourse = new UsageCourse;
 							$usage = \DB::table($UsageCourse->getTableName())
@@ -105,6 +94,28 @@ class Report {
 							foreach($usage as $usage_k => $usage_v){
 								$corse_2 = $corse_2 + $usage_v->amount; //ใช้ไป(จำนวน)
 								$corse_5 = $corse_5 + ($usage_v->total_per_item); //ใช้ไป(ยอดเงิน)
+							}
+
+							if($s_val->status_course == "cancel"){
+								if($temp_create >= $start_temp && $temp_create <= $end_temp){
+									$corse_1 = $corse_1 + $ctg_1['amount_usage']; //ยอดซื้อ(จำนวน)
+									$corse_4 = $corse_4 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']); //ยอดซื้อ(ยอดเงิน)
+								}
+							}else if($s_val->status_course == "transfer"){
+								if($temp_create >= $start_temp && $temp_create <= $end_temp){
+									$corse_1 = $corse_1 + $ctg_1['amount_usage']; //ยอดซื้อ(จำนวน)
+									$corse_4 = $corse_4 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']); //ยอดซื้อ(ยอดเงิน)
+								}
+							}else{
+								if($temp_create >= $start_temp && $temp_create <= $end_temp){
+									$corse_1 = $corse_1 + $ctg_1['amount_total']; //ยอดซื้อ(จำนวน)
+									$corse_4 = $corse_4 + $ctg_1['total_per_item']; //ยอดซื้อ(ยอดเงิน)
+								}
+
+
+								$corse_3 = $corse_3 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']); //คงเหลือ(จำนวน)
+
+								$corse_6 = $corse_6 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit'])); //คงเหลือ(ยอดเงิน)
 							}
 
 							$ItemOfCourse = new ItemOfCourse;

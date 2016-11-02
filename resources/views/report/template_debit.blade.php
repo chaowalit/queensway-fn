@@ -31,18 +31,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td align="center">1</td>
-                <td align="left">2</td>
-                <td align="center">3</td>
-                <td align="center">4</td>
-                <td align="center">5</td>
-                <td align="center">6</td>
-                <td align="center">7</td>
-                <td align="center">8</td>
-                <td align="center">9</td>
-                <td align="center">10</td>
-            </tr>
+            <?php foreach ($res as $key => $value) { ?>
+                <tr>
+                    <td align="center"><?php echo $value[0]; ?></td>
+                    <td align="left"><?php echo $value[1]; ?></td>
+                    <td align="center"><?php echo $value[2]; ?></td>
+                    <td align="center"><?php echo $value[3]; ?></td>
+                    <td align="center"><?php echo $value[4]; ?></td>
+                    <td align="center"><?php echo $value[5]; ?></td>
+                    <td align="center"><?php echo $value[6]; ?></td>
+                    <td align="center"><?php echo $value[7]; ?></td>
+                    <td align="center"><?php echo $value[8]; ?></td>
+                    <td align="center"><?php echo $value[9]; ?></td>
+                </tr>
+            <?php } ?>
         </tbody>
     </table>
 </body>

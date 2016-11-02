@@ -74,11 +74,39 @@ class ReportController extends QwcController{
 			    	$header = "รายงานการตัดคอร์สแบบรายคอร์ส ประจำเดือน ". $month_report ." ".$year_report;
 			       $res = app()->make("App\Services\Report")
 			       				->get_report_for_month_by_debit($request->get('month_report', ''), $year_report);
-			    	dd($res);
+			    	//dd($res);
 			    	$data = array(
 			    		"header" => $header,
+			    		"res" => $res,
 		    		);
-			        $sheet->loadView('report.test', $data);
+			        $sheet->loadView('report.template_debit', $data);
+			    })->download('xls');
+			});
+		}
+	}
+
+	public function gen_report_for_year(Request $request){
+		$branch_name = \Auth::user()->branch_name;
+
+		$year_report = $request->get('year_report', '');
+		$type_report = $this->type_report[$request->get('type_report', '')];
+
+		$file_name = "รายงาน".$type_report. " ประจำปี " . " ".$year_report;
+		if($request->get('type_report', '') == 'debit'){
+			return \Excel::create($file_name, function($excel)
+							use($branch_name, $year_report, $type_report, $request){
+			    $excel->sheet($type_report, function($sheet)
+			    			use($branch_name, $year_report, $type_report, $request){
+
+			    	$header = "รายงานการตัดคอร์สแบบรายคอร์ส ประจำปี " ." ".$year_report;
+			       $res = app()->make("App\Services\Report")
+			       				->get_report_for_month_by_debit($request->get('month_report', ''), $year_report);
+			    	//dd($res);
+			    	$data = array(
+			    		"header" => $header,
+			    		"res" => $res,
+		    		);
+			        $sheet->loadView('report.template_debit', $data);
 			    })->download('xls');
 			});
 		}
@@ -455,7 +483,7 @@ class ReportController extends QwcController{
 
 	}
 
-	public function gen_report_for_year(Request $request){
+	public function gen_report_for_year_tmp(Request $request){
 		$text_type_report = $request->get('type_report') == "credit"? "แบบวงเงิน":"แบบรายคอร์ส";
 		$year_report = $request->get('year_report');
 		$branch_name = \Auth::user()->branch_name;

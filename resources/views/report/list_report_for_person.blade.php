@@ -36,7 +36,9 @@
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     <!--ดูข้อมูล &amp; แก้ไขข้อมูล &amp; ลบข้อมูล ลูกค้าที่นี้-->
-                    ผลการค้นหารายคน => ตั้งแต่ {{ $view_data['date_range'] }}
+                    <label style="color: red;">
+                    ผลการค้นหารายคน (Person) => ตั้งแต่ {{ ($view_data['date_range'])? $view_data['date_range']:"(ทั้งหมด)" }}
+                    </label>
                 </small>
             </h1>
         </div><!-- /.page-header -->

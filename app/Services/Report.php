@@ -510,46 +510,63 @@ class Report {
 	public function get_report_for_person_all_by_debit($customer_id, $date_range, $course_id){
 		$arr_report = array();
 		$arr_category = array();
-		if($date_range){
-			$temp = explode(' - ', $date_range);
-			$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
-			$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
+		// if($date_range){
+		// 	$temp = explode(' - ', $date_range);
+		// 	$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
+		// 	$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
 
-			$BuyCourse = new BuyCourse;
-			if($course_id){
-				$result = \DB::table($BuyCourse->getTableName())
-	                    ->whereBetween('created_at', [$start_date, $end_date])
-	                    ->where('id', $course_id)
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'debit')
-						->where('deleted_at', NULL)
-						->get();
-			}else{
-				$result = \DB::table($BuyCourse->getTableName())
-	                    ->whereBetween('created_at', [$start_date, $end_date])
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'debit')
-						->where('deleted_at', NULL)
-						->get();
-			}
+		// 	$BuyCourse = new BuyCourse;
+		// 	if($course_id){
+		// 		$result = \DB::table($BuyCourse->getTableName())
+	 //                    ->whereBetween('created_at', [$start_date, $end_date])
+	 //                    ->where('id', $course_id)
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'debit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}else{
+		// 		$result = \DB::table($BuyCourse->getTableName())
+	 //                    ->whereBetween('created_at', [$start_date, $end_date])
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'debit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}
 			
+		// }else{
+		// 	$BuyCourse = new BuyCourse;
+		// 	if($course_id){
+		// 		$result = \DB::table($BuyCourse->getTableName())
+		// 				->where('id', $course_id)
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'debit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}else{
+		// 		$result = \DB::table($BuyCourse->getTableName())
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'debit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}
+			
+		// }
+
+		/* ดึงรายการทั้งหมดมา ของคนนั้นๆ */
+		$BuyCourse = new BuyCourse;
+		if($course_id){
+			$result = \DB::table($BuyCourse->getTableName())
+					->where('id', $course_id)
+                    ->where('customers_id', $customer_id)
+					->where('type_course', 'debit')
+					->where('deleted_at', NULL)
+					->get();
 		}else{
-			$BuyCourse = new BuyCourse;
-			if($course_id){
-				$result = \DB::table($BuyCourse->getTableName())
-						->where('id', $course_id)
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'debit')
-						->where('deleted_at', NULL)
-						->get();
-			}else{
-				$result = \DB::table($BuyCourse->getTableName())
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'debit')
-						->where('deleted_at', NULL)
-						->get();
-			}
-			
+			$result = \DB::table($BuyCourse->getTableName())
+                    ->where('customers_id', $customer_id)
+					->where('type_course', 'debit')
+					->where('deleted_at', NULL)
+					->get();
 		}
 
 		foreach($result as $key => $val){
@@ -595,7 +612,7 @@ class Report {
 				$name = $v;
 				$mpl = 0;
 				$unit = "ครั้ง";
-				$corse_1 = 0;
+				$corse_1 = "";
 				$corse_2 = 0;
 				$corse_3 = 0;
 				$corse_4 = 0;
@@ -611,12 +628,82 @@ class Report {
 					$temp_1 = unserialize($s_val->item_of_course);
 					foreach($temp_1 as $ctg_1){
 						if($v == $ctg_1['item_name']){
-							$corse_2 = $corse_2 + $ctg_1['amount_total'];
-							$corse_3 = $corse_3 + $ctg_1['total_per_item'];
-							$corse_6 = $corse_6 + $ctg_1['amount_usage'];
-							$corse_7 = $corse_7 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']);
-							$corse_11 = $corse_11 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']);
-							$corse_12 = $corse_12 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']));
+
+							if($date_range){
+								$temp = explode(' - ', $date_range);
+								$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
+								$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
+								$created_course = date("Y-m-d H:i:s", strtotime($s_val->created_at));
+								
+								$UsageCourse = new UsageCourse;
+								$usage = \DB::table($UsageCourse->getTableName())
+											->whereBetween('created_at', [$start_date, $end_date])
+											->where('referent_code', $ctg_1['referent_code'])
+											->where('deleted_at', NULL)
+											->get();
+								foreach($usage as $usage_k => $usage_v){
+									$corse_6 = $corse_6 + $usage_v->amount; //ใช้ไป(จำนวน)
+									$corse_7 = $corse_7 + ($usage_v->total_per_item); //ใช้ไป(ยอดเงิน)
+								}
+
+								if($s_val->status_course == "cancel"){
+									if($created_course >= $start_date && $created_course <= $end_date){
+										$corse_2 = $corse_2 + $ctg_1['amount_usage']; //ยอดซื้อ(จำนวน)
+										$corse_3 = $corse_3 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']); //ยอดซื้อ(ยอดเงิน)
+									}
+								}else if($s_val->status_course == "transfer"){
+									if($created_course >= $start_date && $created_course <= $end_date){
+										$corse_2 = $corse_2 + $ctg_1['amount_usage']; //ยอดซื้อ(จำนวน)
+										$corse_3 = $corse_3 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']); //ยอดซื้อ(ยอดเงิน)
+									}
+								}else{
+									if($created_course >= $start_date && $created_course <= $end_date){
+										$corse_2 = $corse_2 + $ctg_1['amount_total']; //ยอดซื้อ(จำนวน)
+										$corse_3 = $corse_3 + $ctg_1['total_per_item']; //ยอดซื้อ(ยอดเงิน)
+									}
+
+
+									$corse_11 = $corse_11 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']); //คงเหลือ(จำนวน)
+
+									$corse_12 = $corse_12 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit'])); //คงเหลือ(ยอดเงิน)
+								}
+							}else{
+								//------ ไม่มีช่วงเวลามา ------//
+								$UsageCourse = new UsageCourse;
+								$usage = \DB::table($UsageCourse->getTableName())
+											//->whereBetween('created_at', [$start_date, $end_date])
+											->where('referent_code', $ctg_1['referent_code'])
+											->where('deleted_at', NULL)
+											->get();
+								foreach($usage as $usage_k => $usage_v){
+									$corse_6 = $corse_6 + $usage_v->amount; //ใช้ไป(จำนวน)
+									$corse_7 = $corse_7 + ($usage_v->total_per_item); //ใช้ไป(ยอดเงิน)
+								}
+
+								if($s_val->status_course == "cancel"){
+									$corse_2 = $corse_2 + $ctg_1['amount_usage']; //ยอดซื้อ(จำนวน)
+									$corse_3 = $corse_3 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']); //ยอดซื้อ(ยอดเงิน)
+								}else if($s_val->status_course == "transfer"){
+									$corse_2 = $corse_2 + $ctg_1['amount_usage']; //ยอดซื้อ(จำนวน)
+									$corse_3 = $corse_3 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']); //ยอดซื้อ(ยอดเงิน)
+								}else{
+									$corse_2 = $corse_2 + $ctg_1['amount_total']; //ยอดซื้อ(จำนวน)
+									$corse_3 = $corse_3 + $ctg_1['total_per_item']; //ยอดซื้อ(ยอดเงิน)
+
+
+									$corse_11 = $corse_11 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']); //คงเหลือ(จำนวน)
+
+									$corse_12 = $corse_12 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit'])); //คงเหลือ(ยอดเงิน)
+								}
+							}
+
+							$corse_1 = $corse_1 . date("d-m-Y H:i:s", strtotime($s_val->created_at)).", ";
+							//$corse_2 = $corse_2 + $ctg_1['amount_total'];
+							//$corse_3 = $corse_3 + $ctg_1['total_per_item'];
+							//$corse_6 = $corse_6 + $ctg_1['amount_usage'];
+							//$corse_7 = $corse_7 + ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']);
+							//$corse_11 = $corse_11 + ($ctg_1['amount_total'] - $ctg_1['amount_usage']);
+							//$corse_12 = $corse_12 + ($ctg_1['total_per_item'] - ($ctg_1['amount_usage'] * $ctg_1['price_per_unit']));
 
 							if($mpl == 0){
 								$ItemOfCourse = new ItemOfCourse;
@@ -625,6 +712,7 @@ class Report {
 											->get();
 								$mpl = $item_[0]->price;
 							}
+
 						}
 					}
 				}

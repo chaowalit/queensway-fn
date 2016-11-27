@@ -867,6 +867,54 @@ class ReportController extends QwcController{
 	}
 
 	public function gen_report_for_person_all(Request $request){
+		$type_report = $request->get('type_report', 'credit');
+		$customer_id = $request->get('customer_id', null);
+		$date_range = $request->get('date_range', null);
+		$course_id = $request->get('course_id', null);
+		$branch_name = \Auth::user()->branch_name;
+
+		if($type_report == "debit"){
+			$file_name = ($course_id)? "รายงานรายคน (1 คอร์ส) แบบวงเงิน":"รายงานรายคน (ทั้งหมด) แบบรายคอร์ส";
+
+			return \Excel::create($file_name, function($excel)
+							use($branch_name, $course_id, $date_range, $customer_id, $type_report, $request){
+			    $excel->sheet($type_report, function($sheet)
+			    			use($branch_name, $course_id, $date_range, $customer_id, $type_report, $request){
+
+			    	$header_1 = 'รายงานลูกค้ารายตัวแบบรายคอร์ส'.' สาขา'.$branch_name;
+			    	$Customers = new Customers;
+					$customer = $Customers->getDataCustomerById($customer_id);
+					$header_2 = "ชื่อลูกค้า : ".$customer[0]->prefix.$customer[0]->full_name . ' '.' รหัสลูกค้า : '.$customer[0]->customer_number;
+					$header_3 = "เบอร์โทรศัพท์ : ".$customer[0]->tel;
+
+					$show_date_range = ($date_range)? $date_range : "(ทั้งหมด)";
+					if($course_id){
+						$BuyCourse = new BuyCourse;
+						$res_c = $BuyCourse->getDataBuyCourseById($course_id);
+
+						$header_4 = 'ระหว่างวันที่ : '. $show_date_range ."  ".
+									" สถานะคอร์ส : ".$res_c[0]->status_course;
+					}else{
+						$header_4 = 'ระหว่างวันที่ : '. $show_date_range;
+					}
+
+			       	$res = app()->make("App\Services\Report")->get_report_for_person_all_by_debit($customer_id, $date_range, $course_id);
+			    	//dd($res);
+			    	$data = array(
+			    		"header_1" => $header_1,
+			    		"header_2" => $header_2,
+			    		"header_3" => $header_3,
+			    		"header_4" => $header_4,
+			    		"res" => $res,
+		    		);
+			        $sheet->loadView('report.template_person_debit', $data);
+			    })->download('xls');
+			});
+
+		}
+	}
+
+	public function gen_report_for_person_all_tmp(Request $request){
 		//dump($request->all());
 		$type_report = $request->get('type_report', 'credit');
 		$customer_id = $request->get('customer_id', null);

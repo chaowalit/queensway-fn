@@ -16,6 +16,7 @@ class ReportAdminController extends QwcController{
         //$this->middleware('auth');
 		//$password_api = a93490dea95f1bf527827bdc047e8a3f11371081
 		//getPasswordApiV1()
+		ini_set('max_execution_time', 300); //timeout 5 minutes
     }
 
     public function req_report_for_month_by_credit(Request $request){
@@ -23,13 +24,13 @@ class ReportAdminController extends QwcController{
     		$month_report = $request->get('month_report', '05');
 			$year_report = $request->get('year_report', '2016');
 	    	//------------------------------------------- header column --------------------------------------//
-			$data = array(
-			    array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', '', '', '', ''),
-				array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ยอดวงเงิน', 'ใช้ไป', 'วงเงินใช้ไป', 'คงเหลือ', 'วงเงินคงเหลือ')
-			);
+			// $data = array(
+			//     array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', '', '', '', ''),
+			// 	array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ยอดวงเงิน', 'ใช้ไป', 'วงเงินใช้ไป', 'คงเหลือ', 'วงเงินคงเหลือ')
+			// );
 			//-------------------------------------------------------------------------------------------------
 			$res = app()->make("App\Services\Report")->get_report_for_month_by_credit($month_report, $year_report);
-			$data_total = array_merge($data, $res);
+			$data_total = $res; //array_merge($data, $res);
 
 			//dd($data_total);
 			return $this->render_json(200, 'OK', $data_total, count($data_total), count($data_total));
@@ -45,13 +46,13 @@ class ReportAdminController extends QwcController{
     		$month_report = $request->get('month_report', '05');
 			$year_report = $request->get('year_report', '2016');
 	    	//------------------------------------------- header column --------------------------------------//
-			$data = array(
-			    array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', ''),
-				array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ')
-			);
+			// $data = array(
+			//     array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', ''),
+			// 	array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ')
+			// );
 			//-------------------------------------------------------------------------------------------------
 			$res = app()->make("App\Services\Report")->get_report_for_month_by_debit($month_report, $year_report);
-			$data_total = array_merge($data, $res);
+			$data_total = $res; //array_merge($data, $res);
 			//-------------------------------------------------------------------------------------------------
 			
 			//dd($data_total);
@@ -67,13 +68,13 @@ class ReportAdminController extends QwcController{
     	try {
     		$year_report = $request->get('year_report', '2016');
 	    	//------------------------------------------- header column --------------------------------------//
-			$data = array(
-			    array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', '', '', '', ''),
-				array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ยอดวงเงิน', 'ใช้ไป', 'วงเงินใช้ไป', 'คงเหลือ', 'วงเงินคงเหลือ')
-			);
+			// $data = array(
+			//     array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', '', '', '', ''),
+			// 	array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ยอดวงเงิน', 'ใช้ไป', 'วงเงินใช้ไป', 'คงเหลือ', 'วงเงินคงเหลือ')
+			// );
 			//-------------------------------------------------------------------------------------------------
 			$res = app()->make("App\Services\Report")->get_report_for_month_by_credit('', $year_report);
-			$data_total = array_merge($data, $res);
+			$data_total = $res; //array_merge($data, $res);
 
 			//dd($data_total);
 			return $this->render_json(200, 'OK', $data_total, count($data_total), count($data_total));
@@ -87,13 +88,13 @@ class ReportAdminController extends QwcController{
     	try {
     		$year_report = $request->get('year_report', '2016');
 	    	//------------------------------------------- header column --------------------------------------//
-			$data = array(
-			    array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', ''),
-				array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ')
-			);
+			// $data = array(
+			//     array('ลำดับ', 'รายการ', 'ราคา MPL', 'หน่วย', 'จำนวนคอร์ส', '', '', 'ยอดเงิน (บาท)', '', ''),
+			// 	array('', '', '', '', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ', 'ยอดซื้อ', 'ใช้ไป', 'คงเหลือ')
+			// );
 			//-------------------------------------------------------------------------------------------------
 			$res = app()->make("App\Services\Report")->get_report_for_month_by_debit('', $year_report);
-			$data_total = array_merge($data, $res);
+			$data_total = $res; //array_merge($data, $res);
 			//-------------------------------------------------------------------------------------------------
 			
 			//dd($data_total);

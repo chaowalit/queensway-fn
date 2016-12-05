@@ -330,6 +330,7 @@ class Report {
 	}
 
 	public function get_report_for_person_all_by_credit($customer_id, $date_range, $course_id){
+		ini_set('max_execution_time', 300); //timeout 5 minutes
 		$arr_report = array();
 		$arr_category = array();
 		// if($date_range){
@@ -574,6 +575,7 @@ class Report {
 	}
 
 	public function get_report_for_person_all_by_debit($customer_id, $date_range, $course_id){
+		ini_set('max_execution_time', 300); //timeout 5 minutes
 		$arr_report = array();
 		$arr_category = array();
 		// if($date_range){

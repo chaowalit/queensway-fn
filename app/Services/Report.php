@@ -163,6 +163,7 @@ class Report {
 	}
 
 	public function get_report_for_month_by_credit($month_report, $year_report){
+		ini_set('max_execution_time', 300); //timeout 5 minutes
 		if($month_report != ''){
 			$time_start = $year_report.'-'.$month_report.'-01 '.'00:00:00';
 			$a_date = $year_report.'-'.$month_report.'-01';
@@ -171,15 +172,17 @@ class Report {
 			$time_start = $year_report. '-01-01 '.'00:00:00';
 			$time_end = $year_report. '-12-31 '.'23:59:59';
 		}else{
-			exit;
+			return [];
 		}
 
+		$before_datetime = ($year_report - 1) . '-01-01 '.'00:00:00';
+		$after_datetime = $year_report. '-12-31 '.'23:59:59';
 		$arr_report = array();
 		$arr_category = array();
 
 		$BuyCourse = new BuyCourse;
 		$result = \DB::table($BuyCourse->getTableName())
-                    ->whereBetween('created_at', [$time_start, $time_end])
+                    ->whereBetween('created_at', [$before_datetime, $after_datetime])
 					->where('type_course', 'credit')
 					->where('deleted_at', NULL)
 					->get();
@@ -213,15 +216,23 @@ class Report {
 		$balance_credit = 0;
 
 		foreach($result as $key => $val){
-			$total_price = $total_price + $val->total_price;
-			$total_credit = $total_credit + $val->total_credit;
+			if($val->status_course == "cancel"){
+				$total_price = $total_price + ($val->usage_credit / $val->multiplier_price);
+				$total_credit = $total_credit + $val->usage_credit;
+			}else if($val->status_course == "transfer"){
+				$total_price = $total_price + ($val->usage_credit / $val->multiplier_price);
+				$total_credit = $total_credit + $val->usage_credit;
+			}else{
+				$total_price = $total_price + $val->payment_amount_total;
+				$total_credit = $total_credit + $val->limit_credit;
+			}
+
 			if($val->usage_credit > 0){
 				$total_use = $total_use + ($val->usage_credit / $val->multiplier_price);
 			}
 			$usage_credit = $usage_credit + $val->usage_credit;
-			$balance = $balance + ($val->total_price - ($val->usage_credit / $val->multiplier_price));
-			$balance_credit = $balance_credit + ($val->total_credit - $val->usage_credit);
-			
+			$balance = $balance + $total_price; //($val->total_price - ($val->usage_credit / $val->multiplier_price));
+			$balance_credit = $balance_credit + $total_credit; //($val->total_credit - $val->usage_credit);
 		}
 
 		$corse_2_total = 0;
@@ -260,6 +271,7 @@ class Report {
 					$UsageCourse = new UsageCourse;
 					$usage_course = \DB::table($UsageCourse->getTableName())
 									->where('buy_course_id', $val->id)
+									->whereBetween('created_at', [$time_start, $time_end])
 									->where('deleted_at', NULL)
 									->get();
 					foreach($usage_course as $k_use => $v_use){
@@ -320,46 +332,63 @@ class Report {
 	public function get_report_for_person_all_by_credit($customer_id, $date_range, $course_id){
 		$arr_report = array();
 		$arr_category = array();
-		if($date_range){
-			$temp = explode(' - ', $date_range);
-			$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
-			$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
+		// if($date_range){
+		// 	$temp = explode(' - ', $date_range);
+		// 	$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
+		// 	$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
 
-			$BuyCourse = new BuyCourse;
-			if($course_id){
-				$result = \DB::table($BuyCourse->getTableName())
-	                    ->whereBetween('created_at', [$start_date, $end_date])
-	                    ->where('id', $course_id)
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'credit')
-						->where('deleted_at', NULL)
-						->get();
-			}else{
-				$result = \DB::table($BuyCourse->getTableName())
-	                    ->whereBetween('created_at', [$start_date, $end_date])
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'credit')
-						->where('deleted_at', NULL)
-						->get();
-			}
+		// 	$BuyCourse = new BuyCourse;
+		// 	if($course_id){
+		// 		$result = \DB::table($BuyCourse->getTableName())
+	 //                    ->whereBetween('created_at', [$start_date, $end_date])
+	 //                    ->where('id', $course_id)
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'credit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}else{
+		// 		$result = \DB::table($BuyCourse->getTableName())
+	 //                    ->whereBetween('created_at', [$start_date, $end_date])
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'credit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}
 			
+		// }else{
+		// 	$BuyCourse = new BuyCourse;
+		// 	if($course_id){
+		// 		$result = \DB::table($BuyCourse->getTableName())
+		// 				->where('id', $course_id)
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'credit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}else{
+		// 		$result = \DB::table($BuyCourse->getTableName())
+	 //                    ->where('customers_id', $customer_id)
+		// 				->where('type_course', 'credit')
+		// 				->where('deleted_at', NULL)
+		// 				->get();
+		// 	}
+			
+		// }
+
+		/* ดึงรายการทั้งหมดมา ของคนนั้นๆ */
+		$BuyCourse = new BuyCourse;
+		if($course_id){
+			$result = \DB::table($BuyCourse->getTableName())
+					->where('id', $course_id)
+                    ->where('customers_id', $customer_id)
+					->where('type_course', 'credit')
+					->where('deleted_at', NULL)
+					->get();
 		}else{
-			$BuyCourse = new BuyCourse;
-			if($course_id){
-				$result = \DB::table($BuyCourse->getTableName())
-						->where('id', $course_id)
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'credit')
-						->where('deleted_at', NULL)
-						->get();
-			}else{
-				$result = \DB::table($BuyCourse->getTableName())
-	                    ->where('customers_id', $customer_id)
-						->where('type_course', 'credit')
-						->where('deleted_at', NULL)
-						->get();
-			}
-			
+			$result = \DB::table($BuyCourse->getTableName())
+                    ->where('customers_id', $customer_id)
+					->where('type_course', 'credit')
+					->where('deleted_at', NULL)
+					->get();
 		}
 		
 		foreach($result as $key => $val){
@@ -391,15 +420,31 @@ class Report {
 		$balance_credit = 0;
 
 		foreach($result as $key => $val){
-			$total_price = $total_price + $val->total_price;
-			$total_credit = $total_credit + $val->total_credit;
+			// $total_price = $total_price + $val->total_price;
+			// $total_credit = $total_credit + $val->total_credit;
+			// if($val->usage_credit > 0){
+			// 	$total_use = $total_use + ($val->usage_credit / $val->multiplier_price);
+			// }
+			// $usage_credit = $usage_credit + $val->usage_credit;
+			// $balance = $balance + ($val->total_price - ($val->usage_credit / $val->multiplier_price));
+			// $balance_credit = $balance_credit + ($val->total_credit - $val->usage_credit);
+			if($val->status_course == "cancel"){
+				$total_price = $total_price + ($val->usage_credit / $val->multiplier_price);
+				$total_credit = $total_credit + $val->usage_credit;
+			}else if($val->status_course == "transfer"){
+				$total_price = $total_price + ($val->usage_credit / $val->multiplier_price);
+				$total_credit = $total_credit + $val->usage_credit;
+			}else{
+				$total_price = $total_price + $val->payment_amount_total;
+				$total_credit = $total_credit + $val->limit_credit;
+			}
+
 			if($val->usage_credit > 0){
 				$total_use = $total_use + ($val->usage_credit / $val->multiplier_price);
 			}
 			$usage_credit = $usage_credit + $val->usage_credit;
-			$balance = $balance + ($val->total_price - ($val->usage_credit / $val->multiplier_price));
-			$balance_credit = $balance_credit + ($val->total_credit - $val->usage_credit);
-			
+			$balance = $balance + $total_price; //($val->total_price - ($val->usage_credit / $val->multiplier_price));
+			$balance_credit = $balance_credit + $total_credit; //($val->total_credit - $val->usage_credit);
 		}
 
 		$corse_6_total = 0;
@@ -428,7 +473,7 @@ class Report {
 				$name = $v;
 				$mpl = 0;
 				$unit = "ครั้ง";
-				$corse_1 = 0;
+				$corse_1 = '';
 				$corse_2 = 0;
 				$corse_3 = 0;
 				$corse_4 = 0;
@@ -443,11 +488,31 @@ class Report {
 				$corse_13 = 0;
 
 				foreach($result as $key => $val){
-					$UsageCourse = new UsageCourse;
-					$usage_course = \DB::table($UsageCourse->getTableName())
+					if($date_range){
+						$temp = explode(' - ', $date_range);
+						$start_date = date("Y-m-d", strtotime($temp[0]))." 00:00:00";
+						$end_date = date("Y-m-d", strtotime($temp[1]))." 23:59:59";
+						$created_course = date("Y-m-d H:i:s", strtotime($val->created_at));
+
+						$UsageCourse = new UsageCourse;
+						$usage_course = \DB::table($UsageCourse->getTableName())
+									->whereBetween('created_at', [$start_date, $end_date])
 									->where('buy_course_id', $val->id)
 									->where('deleted_at', NULL)
 									->get();
+					}else{
+						$UsageCourse = new UsageCourse;
+						$usage_course = \DB::table($UsageCourse->getTableName())
+									//->whereBetween('created_at', [$start_date, $end_date])
+									->where('buy_course_id', $val->id)
+									->where('deleted_at', NULL)
+									->get();
+					}
+					// $UsageCourse = new UsageCourse;
+					// $usage_course = \DB::table($UsageCourse->getTableName())
+					// 				->where('buy_course_id', $val->id)
+					// 				->where('deleted_at', NULL)
+					// 				->get();
 					foreach($usage_course as $k_use => $v_use){
 						if($v == $v_use->item_name){
 							$corse_6 = $corse_6 + $v_use->amount;
@@ -463,6 +528,7 @@ class Report {
 							}
 						}
 					}
+					$corse_1 = $corse_1 . date("d-m-Y H:i:s", strtotime($val->created_at)).", ";
 				}
 
 				$array_data[] = ++$count;

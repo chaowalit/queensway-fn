@@ -385,7 +385,11 @@
 															</td>
 															<td>{{ number_format($val['payment_amount'], 2) }}</td>
 															<td>{{ date("d-m-Y", strtotime($val['created_at'])) }}</td>
-															<td><a href="#" onclick="delete_history_payment('{{ $val['id'] }}')"><b>[ลบ]</b></a></td>
+															<td>
+																<!-- <a href="#" onclick="delete_history_payment('{{ $val['id'] }}')">
+																	<b>[ลบ]</b>
+																</a> -->
+															</td>
 														</tr>
 													@endforeach
 												</tbody>
@@ -484,7 +488,7 @@
 															<td>{{ $val['total_per_item'] }}</td>
 															<td>{{ date("d-m-Y H:i:s", strtotime($val['created_at'])) }}</td>
 															<td>
-																<a href="#" onclick="delete_usage_course('{{ $val['id'] }}')"><b>[ลบ]</b></a>
+																<!-- <a href="#" onclick="delete_usage_course('{{ $val['id'] }}')"><b>[ลบ]</b></a> -->
 															</td>
 														</tr>
 													@endforeach

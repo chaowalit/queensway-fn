@@ -82,6 +82,23 @@ class ReportController extends QwcController{
 			        $sheet->loadView('report.template_debit', $data);
 			    })->download('xls');
 			});
+		}else if($request->get('type_report', '') == 'credit'){
+			return \Excel::create($file_name, function($excel)
+							use($branch_name, $month_report, $year_report, $type_report, $request){
+			    $excel->sheet($type_report, function($sheet)
+			    			use($branch_name, $month_report, $year_report, $type_report, $request){
+
+			    	$header = "รายงานการตัดคอร์สแบบวงเงิน ประจำเดือน ". $month_report ." ".$year_report;
+			       $res = app()->make("App\Services\Report")
+			       				->get_report_for_month_by_credit($request->get('month_report', ''), $year_report);
+			    	//dd($res);
+			    	$data = array(
+			    		"header" => $header,
+			    		"res" => $res,
+		    		);
+			        $sheet->loadView('report.template_credit', $data);
+			    })->download('xls');
+			});
 		}
 	}
 
@@ -107,6 +124,23 @@ class ReportController extends QwcController{
 			    		"res" => $res,
 		    		);
 			        $sheet->loadView('report.template_debit', $data);
+			    })->download('xls');
+			});
+		}else if($request->get('type_report', '') == 'credit'){
+			return \Excel::create($file_name, function($excel)
+							use($branch_name, $year_report, $type_report, $request){
+			    $excel->sheet($type_report, function($sheet)
+			    			use($branch_name, $year_report, $type_report, $request){
+
+			    	$header = "รายงานการตัดคอร์สแบบวงเงิน ประจำปี " ." ".$year_report;
+			       $res = app()->make("App\Services\Report")
+			       				->get_report_for_month_by_credit($request->get('month_report', ''), $year_report);
+			    	//dd($res);
+			    	$data = array(
+			    		"header" => $header,
+			    		"res" => $res,
+		    		);
+			        $sheet->loadView('report.template_credit', $data);
 			    })->download('xls');
 			});
 		}
@@ -874,7 +908,7 @@ class ReportController extends QwcController{
 		$branch_name = \Auth::user()->branch_name;
 
 		if($type_report == "debit"){
-			$file_name = ($course_id)? "รายงานรายคน (1 คอร์ส) แบบวงเงิน":"รายงานรายคน (ทั้งหมด) แบบรายคอร์ส";
+			$file_name = ($course_id)? "รายงานรายคน (1 คอร์ส) แบบรายคอร์ส":"รายงานรายคน (ทั้งหมด) แบบรายคอร์ส";
 
 			return \Excel::create($file_name, function($excel)
 							use($branch_name, $course_id, $date_range, $customer_id, $type_report, $request){
@@ -911,6 +945,43 @@ class ReportController extends QwcController{
 			    })->download('xls');
 			});
 
+		} else if($type_report == "credit"){
+			$file_name = ($course_id)? "รายงานรายคน (1 คอร์ส) แบบวงเงิน":"รายงานรายคน (ทั้งหมด) แบบวงเงิน";
+
+			return \Excel::create($file_name, function($excel)
+							use($branch_name, $course_id, $date_range, $customer_id, $type_report, $request){
+			    $excel->sheet($type_report, function($sheet)
+			    			use($branch_name, $course_id, $date_range, $customer_id, $type_report, $request){
+
+			    	$header_1 = 'รายงานลูกค้ารายตัวแบบวงเงิน'.' สาขา'.$branch_name;
+			    	$Customers = new Customers;
+					$customer = $Customers->getDataCustomerById($customer_id);
+					$header_2 = "ชื่อลูกค้า : ".$customer[0]->prefix.$customer[0]->full_name . ' '.' รหัสลูกค้า : '.$customer[0]->customer_number;
+					$header_3 = "เบอร์โทรศัพท์ : ".$customer[0]->tel;
+
+					$show_date_range = ($date_range)? $date_range : "(ทั้งหมด)";
+					if($course_id){
+						$BuyCourse = new BuyCourse;
+						$res_c = $BuyCourse->getDataBuyCourseById($course_id);
+
+						$header_4 = 'ระหว่างวันที่ : '. $show_date_range ."  ".
+									" สถานะคอร์ส : ".$res_c[0]->status_course;
+					}else{
+						$header_4 = 'ระหว่างวันที่ : '. $show_date_range;
+					}
+
+			       	$res = app()->make("App\Services\Report")->get_report_for_person_all_by_credit($customer_id, $date_range, $course_id);
+			    	//dd($res);
+			    	$data = array(
+			    		"header_1" => $header_1,
+			    		"header_2" => $header_2,
+			    		"header_3" => $header_3,
+			    		"header_4" => $header_4,
+			    		"res" => $res,
+		    		);
+			        $sheet->loadView('report.template_person_credit', $data);
+			    })->download('xls');
+			});
 		}
 	}
 

@@ -40,6 +40,8 @@ Route::get('api/v1/req_report_for_year_by_debit', 'api\v1\ReportAdminController@
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
+    //------------- overview --------------------//
+    Route::get('/overview', 'OverviewController@index');
 
     // ---------  Customers Controller --------- //
     Route::get('/customers', 'CustomersController@index');

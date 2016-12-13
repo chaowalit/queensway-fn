@@ -73,7 +73,7 @@
 						<label class="col-sm-3 control-label no-padding-right" for="customer_number"> รหัสลูกค้า </label>
 
 						<div class="col-sm-9">
-							<input type="text" name="customer_number" id="customer_number" placeholder="รหัสลูกค้า" class="col-xs-10 col-sm-5" value="{{ old('customer_number') }}">
+							<input type="text" name="customer_number" id="customer_number" placeholder="รหัสลูกค้า" class="col-xs-10 col-sm-5" value="<?php echo $view_data['run_cus_num']; ?>" readonly="true"> <!-- old('customer_number') -->
 						</div>
 					</div>
 

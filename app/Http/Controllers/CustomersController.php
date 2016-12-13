@@ -56,8 +56,25 @@ class CustomersController extends QwcController
     }
 
     public function create_customer(){
+        $Customers = new Customers;
+        $result = \DB::table($Customers->getTableName())->orderBy('id', 'desc')
+                                    ->take(1)
+                                    ->get();
+        //dd($result);
+        $run_cus_num = env('QWC_BRANCE', 'RM');
+        if(empty($result)){
+            $run_cus_num = $run_cus_num."000001";
+        }else{
+            $next = ($result[0]->id + 1);
+            $loop = (6 - strlen($next));
+            $temp = "";
+            for($i = 1 ; $i <= $loop ; $i++){
+                $temp = $temp."0";
+            }
+            $run_cus_num = $run_cus_num.$temp.$next;
+        }
         $data = array(
-
+            "run_cus_num" => $run_cus_num,
         );
         $this->render_view('customers/form_customers', $data, 'customers', 2);
     }

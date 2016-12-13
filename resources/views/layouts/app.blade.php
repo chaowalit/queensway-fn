@@ -123,6 +123,28 @@
                 </div><!-- /.sidebar-shortcuts -->
 
                 <ul class="nav nav-list">
+                    <!-- <li class="<?php echo ($menu_nav == 'overview')? "active open":" "; ?>">
+                        <a href="#" class="dropdown-toggle">
+                            <i class="menu-icon fa fa-tachometer"></i>
+                            <span class="menu-text"> ภาพรวมทั้งหมด </span>
+
+                            <b class="arrow fa fa-angle-down"></b>
+                        </a>
+
+                        <b class="arrow"></b>
+
+                        <ul class="submenu">
+                            <li class="<?php echo ($menu_nav == 'overview' && $menu_level == '1')? "active":" "; ?>">
+                                <a href="{{ url('overview') }}">
+                                    <i class="menu-icon fa fa-caret-right"></i>
+                                    ภาพรวม
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+                        </ul>
+                    </li> -->
+
                     <li class="<?php echo ($menu_nav == 'customers')? "active open":" "; ?>">
                         <a href="#" class="dropdown-toggle">
                             <i class="menu-icon fa fa-users"></i>

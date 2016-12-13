@@ -157,6 +157,14 @@
 															<b class="blue">{{ number_format($view_data['usage_credit'], 2) }} บาท</b>
 														</li>
 														<li>
+															<i class="ace-icon fa fa-caret-right red"></i>วงเงินที่เหลือ:-
+															<b class="red">
+																<?php
+																	echo number_format(($view_data['limit_credit'] - $view_data['usage_credit']));
+																?>
+															 บาท</b>
+														</li>
+														<li>
 															<i class="ace-icon fa fa-caret-right blue"></i>สถานะคอร์ส:-
 															<b class="{{ ($view_data['status_course'] == "active")? "blue":"red" }}">{{ $view_data['status_course'] }}</b>
 														</li>

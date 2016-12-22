@@ -284,9 +284,14 @@ $(document).ready(function() {
 		result_search_customer($("#nav-search-input").val(), $("#column_name").val());
 	}
 	//result_search_customer($("#nav-search-input").val(), $("#column_name").val());
-
-
-
+	//-----------form-sale-debit----------
+	$("table").on("click", "td.center", function(){
+		$("#total_price").val("");
+	});
+	$("table").on("click", "div.action-buttons", function(){
+		$("#total_price").val("");
+	});
+	//-----------end-form-sale-debit------
 });
 
 function result_search_customer(keyword, column_name) {
@@ -367,6 +372,10 @@ $("#multiplier_price").change(function() {
 });
 
 $("#cash").keyup(function() {
+	if($("input[name='type_course']").val() == "debit"){
+		$("#btn_cal_total_price_item").click();
+	}
+
 	if ($.trim($(this).val()) != '' && $.isNumeric($(this).val())) {
 		var credit_debit_card = ($.trim($("#credit_debit_card").val()) != '') ?
 			parseInt($("#credit_debit_card").val()) : 0;
@@ -385,6 +394,10 @@ $("#cash").keyup(function() {
 });
 
 $("#credit_debit_card").keyup(function() {
+	if($("input[name='type_course']").val() == "debit"){
+		$("#btn_cal_total_price_item").click();
+	}
+
 	if ($.trim($(this).val()) != '' && $.isNumeric($(this).val())) {
 		var cash = ($.trim($("#cash").val()) != '') ? parseInt($("#cash").val()) :
 			0;
@@ -545,6 +558,7 @@ $("#form_sale_credit").submit(function(e) {
 
 //------------------------------------------------ Form Sale debit ----------------------------------------------//
 function cal_amount(item_of_course_id) {
+	$("#total_price").val("");
 	if ($.trim($("#amount_" + item_of_course_id).val()) != '' && $.isNumeric($(
 			"#amount_" + item_of_course_id).val())) {
 		var amount = parseInt($("#amount_" + item_of_course_id).val());
@@ -561,6 +575,7 @@ function cal_amount(item_of_course_id) {
 }
 
 function cal_price_per_unit(item_of_course_id) {
+	$("#total_price").val("");
 	if ($.trim($("#price_per_unit_" + item_of_course_id).val()) != '' && $.isNumeric(
 			$("#price_per_unit_" + item_of_course_id).val())) {
 		var amount = parseInt($("#price_per_unit_" + item_of_course_id).val());
@@ -655,8 +670,11 @@ $("#btn_cal_total_price_item").click(function(e) {
 		var total_price = 0;
 		$.each(check_list, function(k, v) {
 			var total_per_item = $.trim($("#total_per_item_" + v).val());
+			var amount = parseInt($.trim($("#amount_"+v).val()));
+			var price_per_unit = parseInt($.trim($("#price_per_unit_"+v).val()));
 			if ($.isNumeric(total_per_item)) {
-				total_price = total_price + parseInt(total_per_item);
+				//total_price = total_price + parseInt(total_per_item);
+				total_price = total_price + (amount * price_per_unit); //parseInt(total_per_item);
 			} else {
 				//alert("ไม่สามารถคำนวณราคาได้ เนื่องจากราคารวมต่อไอเทมบางไอเทม ไม่มีค่า");
 				total_price = 0;

@@ -514,9 +514,10 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
                     html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; ลบคอร์ส",
                     "class" : "btn btn-danger btn-minier",
                     click: function() {
+                        var password_transection = $("#password_transection").val();
                         $.ajax({
                             url:'course/delete_course',
-                            data: {'buy_course_id': buy_course_id, '_token': $( "input[name='_token']" ).val()},
+                            data: {'buy_course_id': buy_course_id, 'password_transection': password_transection, '_token': $( "input[name='_token']" ).val()},
                             dataType: 'html',
 
                             type: 'POST',

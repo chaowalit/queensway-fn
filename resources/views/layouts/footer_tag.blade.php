@@ -571,7 +571,7 @@ window.jQuery || document.write("<script src='assets/js/jquery1x.min.js'>"+"<"+"
     </div>
     <div class="form-group">
         <div class="col-sm-12">
-            <input type="text" name="password_transection" id="password_transection" class="col-xs-12 col-sm-12" placeholder="รหัสยืนยันการทำรายการ">
+            <input type="password" name="password_transection" id="password_transection" class="col-xs-12 col-sm-12" placeholder="รหัสยืนยันการทำรายการ" autocomplete="off">
         </div>
     </div><br><br>
     <div class="space-6"></div>

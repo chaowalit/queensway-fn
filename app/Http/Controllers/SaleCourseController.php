@@ -106,7 +106,7 @@ class SaleCourseController extends QwcController{
         $res = $buy_course->getDataSaleCourseById($buy_course_id);
         //dd($res);
         if(count($res) > 0){
-            $this->render_view('sale_course/invoice', $res, 'mng_course', 2);
+            $this->render_view('sale_course/invoice', $res, 'use_course', 2); //mng_course
         }else{
             return redirect('sale_course/search_customer'); //for case error
         }

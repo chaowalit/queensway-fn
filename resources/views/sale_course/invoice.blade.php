@@ -263,6 +263,7 @@
 														<th>รายการคอร์ส(item)</th>
 														<th class="hidden-xs">จำนวนครั้ง</th>
 														<th class="hidden-xs">จำนวนใช้ไป</th>
+														<th class="hidden-xs">คงเหลือ</th>
 														<th class="hidden-480">ราคาต่อครั้ง(บาท)</th>
 														<th>รวมราคา(บาท)</th>
 													</tr>
@@ -283,6 +284,7 @@
 															{{ $val['amount_total'] }}
 														</td>
 														<td class="hidden-480">{{ $val['amount_usage'] }}</td>
+														<td class="hidden-480">{{ ($val['amount_total'] - $val['amount_usage']) }}</td>
 														<td class="hidden-480">{{ number_format($val['price_per_unit'], 2) }}</td>
 														<td>{{ number_format($val['total_per_item'], 2) }}</td>
 													</tr>

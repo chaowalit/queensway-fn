@@ -277,7 +277,7 @@
 																</td>
 																<td>
 																	<div class="hidden-sm hidden-xs action-buttons">
-																		<input type="number" name="price_per_unit_{{ $val->item_of_course_id }}" id="price_per_unit_{{ $val->item_of_course_id }}" value="" style="width: 80px;" min="0" max="999999" onkeyup="cal_price_per_unit('{{ $val->item_of_course_id }}')">
+																		<input type="number" name="price_per_unit_{{ $val->item_of_course_id }}" id="price_per_unit_{{ $val->item_of_course_id }}" value="{{ ceil($val->price) }}" style="width: 80px;" min="0" max="999999" onkeyup="cal_price_per_unit('{{ $val->item_of_course_id }}')">
 																	</div>
 
 																</td>

@@ -22,6 +22,7 @@ class Customers extends Model
         'email',
         'birthday',
         'intolerance_history',
+        'comment',
     ];
 
     protected $casts = [

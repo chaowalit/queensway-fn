@@ -41,7 +41,7 @@
 							<div class="pull-right tableTools-container"></div>
 						</div>
 						<div class="table-header">
-							แสดงผลรายการคอร์ส (item) ที่มี &nbsp; >>> <a href="{{ url('mng_course/create_item') }}"><b style="color: black;">เพิ่มรายการคอร์ส (item)</b></a>
+							<!-- แสดงผลรายการคอร์ส (item) ที่มี &nbsp; >>> <a href="{{ url('mng_course/create_item') }}"><b style="color: black;">เพิ่มรายการคอร์ส (item)</b></a> -->
 						</div>
 
 						<!-- div.table-responsive -->
@@ -96,9 +96,9 @@
 													<i class="ace-icon fa fa-pencil bigger-130"></i>
 												</a>
 
-												<a class="red" href="#" onclick="del_item_of_course({{ $val->item_of_course_id }})">
+												<!-- <a class="red" href="#" onclick="del_item_of_course({{ $val->item_of_course_id }})">
 													<i class="ace-icon fa fa-trash-o bigger-130"></i>
-												</a>
+												</a> -->
 												<div id="dialog-confirm-{{ $val->item_of_course_id }}" class="hide">
 							                        <div class="alert alert-info bigger-110">
 							                            กรุณาตรวจสอบความถูกต้อง ก่อนลบข้อมูลนี้
